@@ -57,7 +57,7 @@
       display: none;
       width: 100%;
       height: 100%;
-      padding: 4.8% 5.4% 5%;
+      padding: 4.8% 5.4% 7%;
       background:
         linear-gradient(rgba(14, 14, 13, 0.025) 1px, transparent 1px),
         linear-gradient(90deg, rgba(14, 14, 13, 0.018) 1px, transparent 1px),
@@ -84,7 +84,7 @@
     }
 
     .slide::before { top: 5.2%; }
-    .slide::after { bottom: 5.2%; }
+    .slide::after { bottom: 4%; }
 
     .meta {
       position: absolute;
@@ -273,23 +273,23 @@
     .grid-6 { grid-template-columns: repeat(6, 1fr); }
 
     .quote-panel {
-      margin-top: 2.2%;
+      margin-top: 1.6%;
       border: 1.4px solid var(--ink);
       background: var(--ink);
       color: var(--paper);
-      padding: 4.2% 4.5%;
+      padding: 3.2% 4%;
       font-family: var(--serif);
-      font-size: clamp(28px, 3.35vw, 48px);
-      line-height: 1.22;
-      font-weight: 850;
+      font-size: clamp(22px, 2.6vw, 36px);
+      line-height: 1.25;
+      font-weight: 800;
     }
 
     .quote-panel small {
       display: block;
-      margin-top: 1.8%;
+      margin-top: 1.4%;
       color: var(--lichen);
       font-family: var(--sans);
-      font-size: clamp(13px, 1.12vw, 18px);
+      font-size: clamp(12px, 1vw, 16px);
       line-height: 1.5;
       font-weight: 650;
     }
@@ -327,27 +327,29 @@
       grid-template-columns: 1.04fr 1fr;
       gap: 2.4%;
       align-items: stretch;
-      margin-top: 2.2%;
+      margin-top: 1.6%;
+      flex: 1;
+      min-height: 0;
     }
 
     .story-layout.compact {
-      margin-top: 1.7%;
+      margin-top: 1.4%;
     }
 
     .story-layout.compact .story-panel {
-      min-height: 300px;
-      padding: 6.5%;
+      padding: 5.5%;
+      min-height: 0;
     }
 
     .story-panel {
       border: 1.3px solid var(--ink);
       background: var(--ink);
       color: var(--paper);
-      padding: 7%;
-      min-height: 320px;
+      padding: 6%;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      min-height: 0;
     }
 
     .story-panel.moss { background: var(--moss-deep); }
@@ -391,14 +393,16 @@
       display: grid;
       grid-template-columns: 1.12fr repeat(3, 1fr);
       gap: 2%;
-      margin-top: 2.2%;
+      margin-top: 1.8%;
+      flex: 1;
+      min-height: 0;
     }
 
     .boss-card {
-      min-height: 260px;
       border: 1.3px solid var(--ink);
       background: rgba(255,255,255,.86);
-      padding: 7%;
+      padding: 5.5%;
+      min-height: 0;
     }
 
     .boss-card.lead-card {
@@ -426,12 +430,13 @@
     .tight-stack {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 14px;
+      gap: 12px;
+      min-height: 0;
     }
 
     .tight-stack .card {
-      min-height: 128px;
-      padding: 4.6% 5.2%;
+      padding: 3.6% 4.2%;
+      min-height: 0;
     }
 
     .tight-stack .label {
@@ -445,10 +450,10 @@
     }
 
     .ability-card {
-      min-height: 185px;
       border: 1.2px solid var(--ink);
       background: rgba(255,255,255,.84);
-      padding: 14% 12%;
+      padding: 10% 8%;
+      min-height: 0;
     }
 
     .ability-card strong {
@@ -468,10 +473,10 @@
     }
 
     .level-card {
-      min-height: 315px;
       border: 1.3px solid var(--ink);
       background: rgba(255,255,255,.84);
-      padding: 7%;
+      padding: 6%;
+      min-height: 0;
     }
 
     .level-card.dark {
@@ -499,13 +504,13 @@
     }
 
     .workflow-band div {
-      min-height: 92px;
       border: 1px solid var(--ink);
       background: var(--paper);
       padding: 13px 14px;
       font-size: clamp(11px, .9vw, 14px);
       line-height: 1.34;
       font-weight: 680;
+      min-height: 0;
     }
 
     .workflow-band b {
@@ -521,15 +526,17 @@
       grid-template-columns: 1.12fr 1fr 1fr;
       gap: 2.2%;
       margin-top: 1.4%;
+      flex: 1;
+      min-height: 0;
     }
 
     .global-grid .card {
-      min-height: 275px;
-      padding: 6.4% 7%;
+      padding: 5% 5.5%;
+      min-height: 0;
     }
 
     .global-grid h3 {
-      min-height: 58px;
+      min-height: 0;
     }
 
     .tool-layout {
@@ -537,17 +544,19 @@
       grid-template-columns: 1.02fr 1.25fr;
       gap: 2.4%;
       align-items: stretch;
+      flex: 1;
+      min-height: 0;
     }
 
     .tool-hero {
       border: 1.3px solid var(--ink);
       background: var(--ink);
       color: var(--paper);
-      padding: 7%;
-      min-height: 390px;
+      padding: 5.5%;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      min-height: 0;
     }
 
     .tool-hero.bark { background: var(--bark); }
@@ -606,17 +615,19 @@
       grid-template-columns: 0.9fr 1.08fr 1.08fr;
       gap: 2.2%;
       align-items: stretch;
+      flex: 1;
+      min-height: 0;
     }
 
     .demo-input {
       border: 1.3px solid var(--ink);
       background: var(--ink);
       color: var(--paper);
-      padding: 8%;
-      min-height: 330px;
+      padding: 6%;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      min-height: 0;
     }
 
     .demo-input .label { color: var(--lichen); }
@@ -637,8 +648,8 @@
     .demo-card {
       border: 1.3px solid var(--ink);
       background: rgba(255,255,255,.86);
-      padding: 7%;
-      min-height: 330px;
+      padding: 5.5%;
+      min-height: 0;
     }
 
     .demo-card h3 {
@@ -666,16 +677,16 @@
     }
 
     .position-strip .card {
-      min-height: 116px;
-      padding: 5% 5.6%;
+      padding: 4% 4.6%;
+      min-height: 0;
     }
 
     .card {
       background: rgba(255, 255, 255, 0.82);
       border: 1.3px solid var(--ink);
-      min-height: 180px;
-      padding: 7.2% 7.5%;
+      padding: 5.5% 6%;
       position: relative;
+      min-height: 0;
     }
 
     .card::before {
@@ -742,15 +753,17 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 2%;
-      margin-top: 3%;
+      margin-top: 2.4%;
+      flex: 1;
+      min-height: 0;
     }
 
     .step {
-      min-height: 280px;
       border: 1.3px solid var(--ink);
       background: rgba(255,255,255,0.84);
-      padding: 7.5%;
+      padding: 6%;
       position: relative;
+      min-height: 0;
     }
 
     .step.dark {
@@ -816,17 +829,19 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 1.8%;
-      margin-top: 1.8%;
+      margin-top: 1.6%;
+      flex: 1;
+      min-height: 0;
     }
 
     .choice-card {
       border: 1.3px solid var(--ink);
       background: rgba(255,255,255,.86);
-      min-height: 360px;
-      padding: 6.2%;
+      padding: 5%;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
+      min-height: 0;
     }
 
     .choice-card.dark {
@@ -880,14 +895,16 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 2.1%;
-      margin-top: 2.4%;
+      margin-top: 1.8%;
+      flex: 1;
+      min-height: 0;
     }
 
     .path-step {
       border: 1.3px solid var(--ink);
       background: rgba(255,255,255,.86);
-      min-height: 310px;
-      padding: 7%;
+      padding: 5.5%;
+      min-height: 0;
     }
 
     .path-step.dark {
@@ -912,14 +929,15 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 1.7%;
-      margin-top: 1.8%;
+      margin-top: 1.4%;
+      min-height: 0;
     }
 
     .eco-card {
       border: 1.2px solid var(--ink);
       background: rgba(255,255,255,.86);
-      min-height: 154px;
-      padding: 6%;
+      padding: 4.8%;
+      min-height: 0;
     }
 
     .eco-card h3 {
@@ -939,14 +957,16 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 2.2%;
-      margin-top: 2.1%;
+      margin-top: 1.6%;
+      flex: 1;
+      min-height: 0;
     }
 
     .exercise-lane {
       border: 1.3px solid var(--ink);
       background: rgba(255,255,255,.86);
-      min-height: 340px;
-      padding: 6%;
+      padding: 5%;
+      min-height: 0;
     }
 
     .exercise-lane.dark {
@@ -972,18 +992,20 @@
       grid-template-columns: 0.92fr 1.08fr;
       gap: 2.2%;
       align-items: stretch;
-      margin-top: 1.8%;
+      margin-top: 1.4%;
+      flex: 1;
+      min-height: 0;
     }
 
     .gmail-panel {
       border: 1.3px solid var(--ink);
       background: var(--ink);
       color: var(--paper);
-      padding: 6.4%;
-      min-height: 398px;
+      padding: 5.4%;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      min-height: 0;
     }
 
     .gmail-panel .label { color: var(--lichen); }
@@ -1010,11 +1032,11 @@
     .method-card {
       border: 1.3px solid var(--ink);
       background: rgba(255,255,255,.86);
-      min-height: 398px;
-      padding: 6%;
+      padding: 5%;
       display: flex;
       flex-direction: column;
-      gap: 13px;
+      gap: 12px;
+      min-height: 0;
     }
 
     .method-card.moss {
@@ -1055,6 +1077,8 @@
       gap: 2.2%;
       align-items: stretch;
       margin-top: 1.1%;
+      flex: 1;
+      min-height: 0;
     }
 
     .screenshot-layout.reverse {
@@ -1065,11 +1089,11 @@
       border: 1.3px solid var(--ink);
       background: var(--ink);
       padding: 1.2%;
-      min-height: 366px;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
+      min-height: 0;
     }
 
     .screen-frame.light {
@@ -1079,7 +1103,6 @@
     .screen-frame img {
       width: 100%;
       height: 100%;
-      max-height: 348px;
       object-fit: contain;
       display: block;
     }
@@ -1087,15 +1110,16 @@
     .usecase-stack {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 14px;
+      gap: 12px;
+      min-height: 0;
     }
 
     .usecase-card {
       border: 1.3px solid var(--ink);
       background: rgba(255,255,255,.86);
-      min-height: 102px;
-      padding: 4.7% 5.4%;
+      padding: 4.2% 5%;
       position: relative;
+      min-height: 0;
     }
 
     .usecase-card::before {
@@ -1127,23 +1151,24 @@
       gap: 2.2%;
       align-items: stretch;
       margin-top: 1.35%;
+      flex: 1;
+      min-height: 0;
     }
 
     .infographic-frame {
       border: 1.3px solid var(--ink);
       background: var(--paper);
-      min-height: 430px;
       padding: 1.2%;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
+      min-height: 0;
     }
 
     .infographic-frame img {
       width: 100%;
       height: 100%;
-      max-height: 414px;
       object-fit: contain;
       display: block;
     }
@@ -1151,26 +1176,28 @@
     .gem-layout {
       grid-template-columns: 0.76fr 1fr;
       margin-top: 1.15%;
+      flex: 1;
+      min-height: 0;
     }
 
     .gem-frame {
-      min-height: 452px;
       padding: 0.85%;
+      min-height: 0;
     }
 
-    .gem-frame img {
-      max-height: 436px;
+    .gem-notes {
+      min-height: 0;
     }
 
     .gem-notes .note-card {
-      min-height: 214px;
-      padding: 6.5%;
+      padding: 5%;
+      min-height: 0;
     }
 
     .gem-notes .note-card.wide {
       grid-column: 1 / -1;
-      min-height: 126px;
-      padding: 4.6% 5%;
+      padding: 3.8% 4.5%;
+      min-height: 0;
     }
 
     .gem-formula {
@@ -1188,15 +1215,16 @@
     .capability-notes {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 2.4%;
+      gap: 2%;
+      min-height: 0;
     }
 
     .note-card {
       border: 1.3px solid var(--ink);
       background: rgba(255,255,255,.86);
-      min-height: 202px;
-      padding: 7%;
+      padding: 5.5%;
       position: relative;
+      min-height: 0;
     }
 
     .note-card.dark {
@@ -1238,18 +1266,20 @@
       grid-template-columns: 1.02fr 0.98fr;
       gap: 2.2%;
       align-items: stretch;
-      margin-top: 1.7%;
+      margin-top: 1.4%;
+      flex: 1;
+      min-height: 0;
     }
 
     .canvas-hero {
       border: 1.3px solid var(--ink);
       background: var(--ink);
       color: var(--paper);
-      padding: 6.6%;
-      min-height: 390px;
+      padding: 5.5%;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      min-height: 0;
     }
 
     .canvas-hero .label { color: var(--lichen); }
@@ -1276,9 +1306,9 @@
     .canvas-flow-card {
       border: 1.3px solid var(--ink);
       background: rgba(255,255,255,.86);
-      min-height: 188px;
-      padding: 7%;
+      padding: 5%;
       position: relative;
+      min-height: 0;
     }
 
     .canvas-flow-card::before {
@@ -1316,6 +1346,8 @@
       gap: 2.2%;
       align-items: stretch;
       margin-top: 1.1%;
+      flex: 1;
+      min-height: 0;
     }
 
     .canvas-demo.reverse {
@@ -1326,11 +1358,11 @@
       border: 1.3px solid var(--ink);
       background: var(--ink);
       padding: 1.05%;
-      min-height: 372px;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
+      min-height: 0;
     }
 
     .canvas-screen.light {
@@ -1340,33 +1372,8 @@
     .canvas-screen img {
       width: 100%;
       height: 100%;
-      max-height: 354px;
       object-fit: contain;
       display: block;
-    }
-
-    .gem-demo .canvas-screen {
-      min-height: 394px;
-    }
-
-    .gem-demo .canvas-screen img {
-      max-height: 376px;
-    }
-
-    .tall-demo .canvas-screen {
-      min-height: 420px;
-    }
-
-    .tall-demo .canvas-screen img {
-      max-height: 402px;
-    }
-
-    .wide-demo .canvas-screen {
-      min-height: 316px;
-    }
-
-    .wide-demo .canvas-screen img {
-      max-height: 298px;
     }
 
     .notebook-map {
@@ -1375,24 +1382,26 @@
       gap: 2.2%;
       align-items: stretch;
       margin-top: 0.8%;
+      flex: 1;
+      min-height: 0;
     }
 
     .notebook-map .infographic-frame {
-      min-height: 382px;
+      min-height: 0;
     }
 
     .notebook-map .infographic-frame img {
-      max-height: 364px;
+      max-height: 100%;
     }
 
     .notebook-map .gem-notes .note-card {
-      min-height: 166px;
       padding: 5.2%;
+      min-height: 0;
     }
 
     .notebook-map .gem-notes .note-card.wide {
-      min-height: 108px;
       padding: 3.8% 4.5%;
+      min-height: 0;
     }
 
     .notebook-flow {
@@ -1400,13 +1409,15 @@
       grid-template-columns: repeat(6, 1fr);
       gap: 1.15%;
       margin-top: 2.1%;
+      flex: 1;
+      min-height: 0;
     }
 
     .notebook-flow article {
       border: 1.2px solid var(--ink);
       background: rgba(255,255,255,.86);
-      min-height: 178px;
-      padding: 15% 10%;
+      padding: 12% 8%;
+      min-height: 0;
     }
 
     .notebook-flow .label {
@@ -1433,14 +1444,8 @@
       gap: 2.2%;
       align-items: stretch;
       margin-top: 1.1%;
-    }
-
-    .output-grid .canvas-screen {
-      min-height: 424px;
-    }
-
-    .output-grid .canvas-screen img {
-      max-height: 406px;
+      flex: 1;
+      min-height: 0;
     }
 
     .output-grid.portrait {
@@ -1448,12 +1453,7 @@
     }
 
     .output-grid.portrait .canvas-screen {
-      min-height: 448px;
       background: var(--paper);
-    }
-
-    .output-grid.portrait .canvas-screen img {
-      max-height: 430px;
     }
 
     .advantage-grid {
@@ -1461,11 +1461,13 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 1.7%;
       margin-top: 1.6%;
+      flex: 1;
+      min-height: 0;
     }
 
     .advantage-grid .card {
-      min-height: 188px;
-      padding: 5.8% 6.2%;
+      padding: 4.6% 5%;
+      min-height: 0;
     }
 
     .advantage-grid h3 {
@@ -1478,6 +1480,8 @@
       gap: 2.2%;
       align-items: stretch;
       margin-top: 1.3%;
+      flex: 1;
+      min-height: 0;
     }
 
     .image-placeholder {
@@ -1487,7 +1491,6 @@
         linear-gradient(90deg, rgba(14,14,13,.035) 1px, transparent 1px),
         rgba(255,255,255,.62);
       background-size: 22px 22px;
-      min-height: 390px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1498,6 +1501,7 @@
       line-height: 1.25;
       font-weight: 850;
       color: var(--ink-soft);
+      min-height: 0;
     }
 
     .comic-case-layout {
@@ -1506,6 +1510,8 @@
       gap: 2.2%;
       align-items: stretch;
       margin-top: 1.2%;
+      flex: 1;
+      min-height: 0;
     }
 
     .comic-prompt-frame,
@@ -1517,16 +1523,16 @@
     }
 
     .comic-prompt-frame {
-      min-height: 408px;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 14px;
+      min-height: 0;
     }
 
     .comic-prompt-frame img {
       width: 100%;
-      max-height: 388px;
+      height: 100%;
       object-fit: contain;
       border-radius: 7px;
     }
@@ -1534,13 +1540,14 @@
     .comic-note-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
+      gap: 12px;
       height: 100%;
+      min-height: 0;
     }
 
     .comic-note-grid .card {
-      min-height: 186px;
-      padding: 7%;
+      padding: 5.4%;
+      min-height: 0;
     }
 
     .comic-duo {
@@ -1548,14 +1555,16 @@
       grid-template-columns: repeat(2, 1fr);
       gap: 2.2%;
       margin-top: 1.3%;
+      flex: 1;
+      min-height: 0;
     }
 
     .comic-panel {
-      height: 390px;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 10px;
+      min-height: 0;
     }
 
     .comic-panel img {
@@ -1569,11 +1578,13 @@
       grid-template-columns: repeat(5, 1fr);
       gap: 1.4%;
       margin-top: 2%;
+      flex: 1;
+      min-height: 0;
     }
 
     .creator-meaning .card {
-      min-height: 218px;
-      padding: 8%;
+      padding: 5.5%;
+      min-height: 0;
     }
 
     .creator-meaning h3 {
@@ -1586,6 +1597,8 @@
       gap: 1.7%;
       align-items: stretch;
       margin-top: 1.1%;
+      flex: 1;
+      min-height: 0;
     }
 
     .realism-layout.reverse {
@@ -1595,37 +1608,35 @@
     .live-frame {
       border: 1.3px solid var(--ink);
       background: var(--paper);
-      min-height: 374px;
       padding: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
       box-shadow: 0 16px 34px rgba(14,14,13,.07);
+      min-height: 0;
     }
 
     .live-frame img {
       width: 100%;
       height: 100%;
-      max-height: 354px;
       object-fit: contain;
     }
 
     .prompt-shot {
       border: 1.3px solid var(--ink);
       background: var(--ink);
-      min-height: 374px;
       padding: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
+      min-height: 0;
     }
 
     .prompt-shot img {
       width: 100%;
       height: 100%;
-      max-height: 350px;
       object-fit: cover;
       border-radius: 8px;
     }
@@ -1672,11 +1683,12 @@
       display: grid;
       grid-template-columns: 1fr;
       gap: 12px;
+      min-height: 0;
     }
 
     .realism-notes .card {
-      min-height: 96px;
-      padding: 4.8%;
+      padding: 4.2%;
+      min-height: 0;
     }
 
     .realism-notes p {
@@ -2056,20 +2068,21 @@
       gap: 2%;
       align-items: stretch;
       margin-top: 1.15%;
+      flex: 1;
+      min-height: 0;
     }
 
     .roster-frame {
-      min-height: 344px;
       padding: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
+      min-height: 0;
     }
 
     .roster-frame img {
       width: 100%;
       height: 100%;
-      max-height: 326px;
       object-fit: contain;
     }
 
@@ -2079,17 +2092,19 @@
       gap: 2.2%;
       align-items: stretch;
       margin-top: 1.25%;
+      flex: 1;
+      min-height: 0;
     }
 
     .gift-panel {
       border: 1.3px solid var(--ink);
       background: var(--ink);
       color: var(--bone);
-      padding: 8%;
-      min-height: 360px;
+      padding: 6%;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      min-height: 0;
     }
 
     .gift-panel .url {
@@ -2117,12 +2132,13 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 1.5%;
-      margin-top: 2%;
+      margin-top: 1.6%;
+      min-height: 0;
     }
 
     .closing-lines .card {
-      min-height: 150px;
-      padding: 6%;
+      padding: 5%;
+      min-height: 0;
     }
 
     .prompt-strip {
@@ -2130,16 +2146,17 @@
       grid-template-columns: repeat(4, 1fr);
       gap: 1.4%;
       margin-top: 1.6%;
+      min-height: 0;
     }
 
     .prompt-strip div {
       border: 1.2px solid var(--ink);
       background: var(--paper);
-      min-height: 106px;
-      padding: 16px;
+      padding: 14px;
       font-size: clamp(11px, .92vw, 14px);
       line-height: 1.42;
       font-weight: 680;
+      min-height: 0;
     }
 
     .prompt-strip b {
@@ -2159,14 +2176,20 @@
     }
 
     .tip-grid .card {
-      min-height: 318px;
-      padding: 6%;
+      padding: 5%;
+      min-height: 0;
     }
 
     .canvas-demo-note {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 14px;
+      gap: 12px;
+      min-height: 0;
+    }
+
+    .canvas-demo-note .usecase-card {
+      min-height: 0;
+      padding: 4.4% 5%;
     }
 
     .practice-row {
@@ -2398,7 +2421,7 @@
         <h2>心法 × 工具 × 生圖 × 工作流，一堂課打通。</h2>
         <div class="tag-row">
           <span class="tag green">Mindset</span>
-          <span class="tag clay">Gemini · GPT · Claude</span>
+          <span class="tag">Gemini · GPT · Claude</span>
           <span class="tag">Image · Workflow</span>
         </div>
       </div>
