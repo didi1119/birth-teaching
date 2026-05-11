@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI 實戰課前導</title>
+  <title>AI 實戰課：從工具到工作流</title>
   <style>
     :root {
       --ink: #0e0e0d;
@@ -1754,6 +1754,251 @@
       max-height: 152px;
     }
 
+    /* ── 章節標題頁 (chapter divider) ── */
+    .slide.chapter-slide {
+      background: var(--moss-deep);
+      color: var(--bone);
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 8% 9%;
+      gap: 0;
+    }
+
+    .slide.chapter-slide.active {
+      display: flex;
+    }
+
+    .slide.chapter-slide .chapter-num {
+      font: 800 clamp(11px, 1vw, 14px) var(--mono);
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--lichen);
+      margin-bottom: 2.5%;
+    }
+
+    .slide.chapter-slide h2 {
+      font-family: var(--serif);
+      font-size: clamp(28px, 3.6vw, 56px);
+      font-weight: 700;
+      line-height: 1.28;
+      color: var(--bone);
+      margin: 0 0 3% 0;
+      max-width: 80%;
+    }
+
+    .slide.chapter-slide .chapter-sub {
+      font-size: clamp(13px, 1.1vw, 17px);
+      line-height: 1.7;
+      color: var(--lichen);
+      max-width: 60%;
+    }
+
+    .slide.chapter-slide .chapter-bar {
+      width: 64px;
+      height: 3px;
+      background: var(--accent);
+      margin-bottom: 3%;
+      border-radius: 2px;
+    }
+
+    .slide.chapter-slide .brand {
+      filter: brightness(10);
+      opacity: .25;
+    }
+
+    .slide.chapter-slide .footer {
+      color: rgba(255,255,255,.3);
+      border-top-color: rgba(255,255,255,.12);
+    }
+
+    /* ── Canva 案例 ── */
+    .canva-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2%;
+      margin-top: 1%;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .canva-frame {
+      border: 1.3px solid var(--ink);
+      background: var(--paper);
+      box-shadow: 0 16px 34px rgba(14,14,13,.07);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+    }
+
+    .canva-frame img {
+      width: 100%;
+      height: 100%;
+      max-height: 340px;
+      object-fit: contain;
+    }
+
+    .canva-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 1%;
+    }
+
+    .canva-cards .card {
+      padding: 4.5% 5%;
+    }
+
+    .canva-cards p {
+      font-size: clamp(10px, .82vw, 12px);
+      line-height: 1.42;
+    }
+
+    /* ── 多圖提示案例 (multi-ref) ── */
+    .multiref-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2%;
+      margin-top: 1%;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .multiref-left {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .multiref-prompt-frame {
+      border: 1.3px solid var(--ink);
+      background: var(--ink);
+      flex: 1;
+      min-height: 220px;
+      padding: 12px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .multiref-prompt-frame img {
+      width: 100%;
+      max-height: 280px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .multiref-result-frame {
+      border: 1.3px solid var(--ink);
+      background: var(--paper);
+      box-shadow: 0 16px 34px rgba(14,14,13,.07);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+    }
+
+    .multiref-result-frame img {
+      width: 100%;
+      height: 100%;
+      max-height: 440px;
+      object-fit: contain;
+    }
+
+    .multiref-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .multiref-cards .card {
+      padding: 4% 5%;
+    }
+
+    .multiref-cards p {
+      font-size: clamp(10px, .82vw, 12px);
+      line-height: 1.42;
+    }
+
+    /* ── 局部修改案例 (inpaint edit) ── */
+    .edit-layout {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      flex: 1;
+      min-height: 0;
+      margin-top: 1%;
+    }
+
+    .edit-before-after {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 2%;
+      align-items: center;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .edit-step {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      height: 100%;
+    }
+
+    .edit-label {
+      font-size: clamp(10px, .78vw, 11px);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--text-muted, #888);
+      font-weight: 600;
+    }
+
+    .edit-frame {
+      border: 1.3px solid var(--ink);
+      background: var(--paper);
+      box-shadow: 0 16px 34px rgba(14,14,13,.07);
+      overflow: hidden;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+    }
+
+    .edit-frame img {
+      width: 100%;
+      height: 100%;
+      max-height: 300px;
+      object-fit: contain;
+    }
+
+    .edit-arrow {
+      font-size: 2rem;
+      color: var(--accent);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .edit-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .edit-cards .card {
+      padding: 4.5% 5%;
+    }
+
+    .edit-cards p {
+      font-size: clamp(10px, .82vw, 12px);
+      line-height: 1.42;
+    }
+
     .roster-layout {
       display: grid;
       grid-template-columns: .9fr 1.1fr;
@@ -2094,18 +2339,27 @@
     <section class="slide title-slide active">
       <div class="title-left">
         <div class="kicker">MR CHILL / AI WORKSHOP DECK</div>
-        <h1>AI 實戰課<br>課前導引</h1>
-        <p>大家都知道 AI 很強，問題是打開來之後，到底要叫誰做什麼，還有怎麼講它才聽得懂。</p>
+        <h1>AI 實戰課<br>從工具到工作流</h1>
+        <p>不只學會用 AI，而是讓 AI 進入你的工作方式——從思維、工具、生圖到自動化，一次建立可以長久使用的底層能力。</p>
       </div>
       <div class="title-right">
         <img class="logo-large" src="logo-mr-chill-circle.png" alt="竹山chill先生 logo">
-        <h2>先建立能長久使用的底層能力，再來決定要使用哪一種工具。</h2>
+        <h2>心法 × 工具 × 生圖 × 工作流，一堂課打通。</h2>
         <div class="tag-row">
           <span class="tag green">Mindset</span>
-          <span class="tag clay">Judgment</span>
-          <span class="tag">Tool Map</span>
+          <span class="tag clay">Gemini · GPT · Claude</span>
+          <span class="tag">Image · Workflow</span>
         </div>
       </div>
+    </section>
+
+    <section class="slide chapter-slide">
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <div class="chapter-num">Chapter 01</div>
+      <div class="chapter-bar"></div>
+      <h2>心法：先當老闆，再學工具</h2>
+      <p class="chapter-sub">AI 工具會一直換，但「怎麼把事情想清楚、說清楚、判斷好」這件事不會過時。先建立指揮能力，再來挑工具。</p>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -2137,7 +2391,7 @@
           </article>
         </div>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -2164,7 +2418,7 @@
         </article>
       </div>
       <div class="statement">先學會怎麼想、怎麼拆、怎麼判斷，再來學怎麼操作工具。</div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -2193,7 +2447,7 @@
           <p>缺少背景、素材與限制，輸出就容易變得普通或不準。</p>
         </article>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -2224,7 +2478,7 @@
           <p>負責長文件、長任務、程式開發、語氣穩定與複雜內容重構。</p>
         </article>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -2256,7 +2510,7 @@
           </article>
         </div>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -2283,7 +2537,7 @@
         </article>
       </div>
       <div class="map-line">清楚目標、足夠背景、明確限制、輸出格式、評估標準，都可以被收進這三個欄位裡。</div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -2309,7 +2563,7 @@
         </article>
       </div>
       <div class="map-line">先會交代一個任務，再把多個任務串成流程；這堂課不是只教你問 AI，而是教你把 AI 放進工作流。</div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -2335,7 +2589,16 @@
         </article>
       </div>
       <div class="map-line">工具會換，但定義任務、指揮協作、判斷品質，會一直留下來。</div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
+    </section>
+
+    <section class="slide chapter-slide">
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <div class="chapter-num">Chapter 02</div>
+      <div class="chapter-bar"></div>
+      <h2>工具選擇：三個工具，三種角色</h2>
+      <p class="chapter-sub">ChatGPT 是總工作台、Gemini 是 Google 生態助手、Claude 是深度夥伴。不用全精通，先從場景挑對的。</p>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -2370,7 +2633,7 @@
         </article>
       </div>
       <div class="map-line">核心原則：ChatGPT 負責統籌與推進，Gemini 負責 Google 生態與多模態資料，Claude 負責長文與深度重構。</div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -2398,7 +2661,7 @@
           </tbody>
         </table>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide backup">
@@ -2434,7 +2697,7 @@
         </article>
       </div>
       <div class="map-line">ChatGPT 的價值不是只回答，而是協助你把工作拆開、推進、檢查，再整合成可交付成果。</div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -2462,7 +2725,7 @@
         </table>
       </div>
       <div class="map-line">最適合處理：YouTube 影片分析、Gmail 整理、Google Docs / Sheets 資料、Drive 搜尋、圖片與網路資料整合。</div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -2490,7 +2753,7 @@
         </table>
       </div>
       <div class="map-line">最適合處理：已有大量素材但很亂，需要整理、重構、抓矛盾、改語氣、優化架構的任務。</div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -2531,7 +2794,7 @@
           </ul>
         </article>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -2557,7 +2820,16 @@
           <p>把常做的事情整理成模板、SOP、資料表、知識庫與固定檢查流程，讓 AI 變成穩定工作方法。</p>
         </article>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
+    </section>
+
+    <section class="slide chapter-slide">
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <div class="chapter-num">Chapter 03</div>
+      <div class="chapter-bar"></div>
+      <h2>Gemini 生態系實戰</h2>
+      <p class="chapter-sub">Gmail 信件處理、Canvas 快速建工具、AI Studio Build 做小程式、Gem 專屬助理——全都在你已經熟悉的 Google 環境裡。</p>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -2574,7 +2846,7 @@
         <article class="eco-card"><span class="label">NotebookLM</span><h3>知識庫與研究整理</h3><p>把文件、筆記、研究素材放在一起，做問答、摘要與脈絡整理。</p></article>
         <article class="eco-card"><span class="label">AI Studio</span><h3>Prompt 與原型測試</h3><p>用來測試指令、比較輸出、設計可重複使用的小型 AI 流程。</p></article>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -2612,7 +2884,7 @@
           </article>
         </div>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -2648,7 +2920,7 @@
           </article>
         </div>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -2679,7 +2951,7 @@
           </article>
         </div>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -2710,7 +2982,7 @@
           </article>
         </div>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -2748,7 +3020,7 @@
           </article>
         </div>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -2779,7 +3051,7 @@
           </article>
         </div>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -2810,7 +3082,7 @@
           <img src="gemini-canvas-share-link.png" alt="Gemini Canvas 產生公開分享連結">
         </div>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -2841,7 +3113,7 @@
           </article>
         </div>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -2879,7 +3151,7 @@
           </article>
         </div>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -2910,7 +3182,7 @@
           </article>
         </div>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -2941,7 +3213,7 @@
           <img src="ai-studio-build-preview.png" alt="AI Studio Build 產生 BrandPulse App 預覽畫面">
         </div>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -2972,7 +3244,7 @@
           </article>
         </div>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -3008,7 +3280,7 @@
           </article>
         </div>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -3044,7 +3316,7 @@
           </article>
         </div>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -3080,7 +3352,7 @@
           </article>
         </div>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -3116,7 +3388,7 @@
           </article>
         </div>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -3147,7 +3419,7 @@
           </article>
         </div>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -3178,7 +3450,7 @@
           <img src="gem-demo-response.png" alt="使用 birth 接待人員 Gem 回答怎麼預約的示範畫面">
         </div>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -3209,7 +3481,7 @@
           </article>
         </div>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -3240,7 +3512,7 @@
           <img src="gem-copywriting-output.png" alt="chill 先生文案 Gem 依照固定口吻產出 IG 文案">
         </div>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -3271,7 +3543,7 @@
           </article>
         </div>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -3302,7 +3574,7 @@
           </article>
         </div>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -3333,7 +3605,7 @@
           <img src="gem-sheet-prompt-result.png" alt="Gemini 產生萬用表格整理大師 Gem 指令">
         </div>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -3364,7 +3636,7 @@
           </article>
         </div>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -3395,7 +3667,7 @@
           <img src="gem-sheet-exported.png" alt="匯出後的乾淨 Google Sheet 表格">
         </div>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -3427,7 +3699,16 @@
         </article>
       </div>
       <div class="map-line">好 Gem 不是比較會講話，而是每次都能用同一套標準，把同一類工作處理得更穩。</div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
+    </section>
+
+    <section class="slide chapter-slide">
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <div class="chapter-num">Chapter 04</div>
+      <div class="chapter-bar"></div>
+      <h2>NotebookLM：資料變知識</h2>
+      <p class="chapter-sub">把 PDF、影片、網頁丟進去，它只從你給的資料回答。還能自動拆成學習指南、問答集、摘要、播客腳本——同一份資料，四種用途。</p>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -3456,7 +3737,7 @@
         </div>
       </div>
       <div class="statement">NotebookLM 的重點不是「它知道多少」，而是「它能不能把你的資料整理到你看得懂」。</div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -3487,7 +3768,7 @@
           </article>
         </div>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -3505,7 +3786,7 @@
         <article><span class="label">06</span><h3>回來源確認</h3><p>重要資訊回到原始資料核對，不直接盲信。</p></article>
       </div>
       <div class="map-line">NotebookLM 的回答依賴你的來源；來源品質，會直接決定輸出品質。</div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -3521,7 +3802,7 @@
         <article class="level-card"><span class="label">Exam</span><h3>考試與複習</h3><p>把教材變成學習指南、測驗題、概念圖與複習路線。</p></article>
       </div>
       <div class="map-line">你丟進去的是資料，拿出來的是學習路線、交付材料和下一步問題。</div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -3553,7 +3834,7 @@
         </article>
       </div>
       <div class="map-line">NotebookLM 是強大的 AI 助理，但你才是最後的判斷者。</div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -3584,7 +3865,7 @@
           </article>
         </div>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -3615,7 +3896,7 @@
           <img src="notebooklm-in-gemini.png" alt="Gemini 介面中直接看到 NotebookLM 筆記本">
         </div>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -3646,7 +3927,7 @@
           </article>
         </div>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -3677,7 +3958,16 @@
           </article>
         </div>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
+    </section>
+
+    <section class="slide chapter-slide">
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <div class="chapter-num">Chapter 05</div>
+      <div class="chapter-bar"></div>
+      <h2>GPT 生圖實戰</h2>
+      <p class="chapter-sub">用 GPT Images 2.0 示範：角色 IP 漫畫、直播截圖、品牌素材包、多圖合成、局部修改，再到 Canva 精修——從生圖到可用素材的完整流程。</p>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -3706,7 +3996,7 @@
         </div>
       </div>
       <div class="statement">會生圖的人，不是形容詞比較多，而是知道畫面要解決什麼問題。</div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -3742,7 +4032,7 @@
           </article>
         </div>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -3755,7 +4045,7 @@
         <figure class="comic-panel"><img src="gpt-comic-01.png" alt="Chill先生森林生活漫畫 01"></figure>
         <figure class="comic-panel"><img src="gpt-comic-02.png" alt="Chill先生森林生活漫畫 02"></figure>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -3768,7 +4058,7 @@
         <figure class="comic-panel"><img src="gpt-comic-03.png" alt="Chill先生森林生活漫畫 03"></figure>
         <figure class="comic-panel"><img src="gpt-comic-04.png" alt="Chill先生森林生活漫畫 04"></figure>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -3781,7 +4071,7 @@
         <figure class="comic-panel"><img src="gpt-comic-05.png" alt="Chill先生森林生活漫畫 05"></figure>
         <figure class="comic-panel"><img src="gpt-comic-06.png" alt="Chill先生森林生活漫畫 06"></figure>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -3794,7 +4084,7 @@
         <figure class="comic-panel"><img src="gpt-comic-07.png" alt="Chill先生森林生活漫畫 07"></figure>
         <figure class="comic-panel"><img src="gpt-comic-08.png" alt="Chill先生森林生活漫畫 08"></figure>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -3807,7 +4097,7 @@
         <figure class="comic-panel"><img src="gpt-comic-09.png" alt="Chill先生森林生活漫畫 09"></figure>
         <figure class="comic-panel"><img src="gpt-comic-10.png" alt="Chill先生森林生活漫畫 10"></figure>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -3824,7 +4114,7 @@
         <article class="card ink"><span class="label">Brand</span><h3>把品牌做成世界觀</h3><p>自媒體最難的是持續有內容；AI 生圖能把角色、場景、故事變成可反覆生產的素材系統。</p></article>
       </div>
       <div class="statement">自媒體不是只缺圖，而是缺能一直長出內容的角色與世界觀。</div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -3842,7 +4132,7 @@
           <article class="card bark"><span class="label">Thinking</span><h3>模型會補你沒想到的細節</h3><p>例如排名、禮物動畫、粉絲頭像、直播間任務、輸入框，都是它自己補出的情境邏輯。</p></article>
         </div>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -3859,7 +4149,27 @@
         <figure class="live-frame"><img src="gpt-live-output-simple.png" alt="GPT Images short prompt live stream output"></figure>
         <figure class="prompt-shot"><img src="gpt-live-prompt-simple.png" alt="GPT Images short live stream prompt"></figure>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">GPT IMAGE CASE 02+ / MULTI-REF · 小編必學</div>
+      <div class="num">必學</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>多圖當提示，人物不失真 — 小編必學</h2>
+      <p class="lead">同時上傳三張參考圖（品牌 Logo、商品實拍、真人照），GPT Images 直接合成一張日式雜誌廣告——三個來源整合進同一張圖，人臉沒有變形，也不需要 Photoshop。</p>
+      <div class="multiref-layout">
+        <div class="multiref-left">
+          <figure class="multiref-prompt-frame"><img src="gpt-multi-ref-prompt.png" alt="多張參考圖 + 提示詞輸入截圖"></figure>
+          <div class="multiref-cards">
+            <article class="card"><span class="label">Multi-Ref 技巧</span><h3>三張圖一起丟，它都讀到了</h3><p>Logo、商品、真人分別說明用途，模型整合多個視覺來源，不只套用其中一張。</p></article>
+            <article class="card accent"><span class="label">Face Safe</span><h3>人物臉部不失真</h3><p>用真實人臉當參考，輸出仍保持比例與神韻。不再像早期會把人臉打糊或扭曲。</p></article>
+            <article class="card bark"><span class="label">小編必學</span><h3>品牌合作快速打樣</h3><p>商品 + Logo + KOL 真人照，三張進去，一張廣告出來。先測版面方向，再交設計師精修。</p></article>
+          </div>
+        </div>
+        <figure class="multiref-result-frame"><img src="gpt-multi-ref-result.png" alt="Birth x 台灣啤酒日式雜誌廣告生成結果"></figure>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -3877,7 +4187,7 @@
           <article class="card ink"><span class="label">Teaching Point</span><h3>生圖也可以做品牌策略原型</h3><p>不是只生一張漂亮圖，而是先看品牌能不能被系統化、被延展、被反覆使用。</p></article>
         </div>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -3890,7 +4200,7 @@
         <figure class="brandcase-frame"><img src="gpt-brand-01.png" alt="Best Forest House brand moodboard"></figure>
         <figure class="brandcase-frame"><img src="gpt-brand-02.png" alt="Best Forest House hero ad"></figure>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -3903,7 +4213,7 @@
         <figure class="brandcase-frame"><img src="gpt-brand-03.png" alt="Best Forest House gathering ad"></figure>
         <figure class="brandcase-frame"><img src="gpt-brand-04.png" alt="Best Forest House morning yoga ad"></figure>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -3916,7 +4226,7 @@
         <figure class="brandcase-frame wide"><img src="gpt-brand-05.png" alt="Best Forest House wide banner"></figure>
         <figure class="brandcase-frame"><img src="gpt-brand-06.png" alt="Best Forest House square social ad"></figure>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -3929,7 +4239,7 @@
         <figure class="brandcase-frame"><img src="gpt-brand-07.png" alt="Best Forest House social collage"></figure>
         <figure class="brandcase-frame"><img src="gpt-brand-08.png" alt="Best Forest House vertical story"></figure>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -3946,7 +4256,52 @@
         </div>
       </div>
       <div class="statement compact">品牌生圖不是「做漂亮圖」，而是把抽象風格變成可以被討論、被測試、被延伸的素材系統。</div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">GPT IMAGE CASE 03+ / INPAINT EDIT</div>
+      <div class="num">進階修</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>案例 3 延伸：圈起來局部修改，慢慢調到你要的</h2>
+      <p class="lead">很多人說「AI 生的圖還不能直接用」——但現在不需要重新生，可以直接在畫布上圈選你不滿意的區塊，針對那個地方下指令修改，其他部分維持不動。</p>
+      <div class="edit-layout">
+        <div class="edit-before-after">
+          <div class="edit-step">
+            <span class="edit-label">Before — 在 GPT 畫布圈選要修改的區域</span>
+            <figure class="edit-frame"><img src="gpt-brand-edit-canvas.png" alt="GPT Canvas 圈選局部修改截圖"></figure>
+          </div>
+          <div class="edit-arrow">→</div>
+          <div class="edit-step">
+            <span class="edit-label">After — 局部修改完成的品牌情緒板</span>
+            <figure class="edit-frame"><img src="gpt-brand-edit-final.png" alt="修改後的靜謐森林屋品牌情緒板"></figure>
+          </div>
+        </div>
+        <div class="edit-cards">
+          <article class="card"><span class="label">方法</span><h3>不要重抽，圈選局部修改</h3><p>選取你覺得不對的區塊，告訴它要改什麼。其他地方維持不動，效率比重跑整張圖高很多。</p></article>
+          <article class="card accent"><span class="label">節奏</span><h3>先選方向，再一層層細調</h3><p>第一版確認大方向，第二版調色調字，第三版修細節——這才是 AI 生圖的正確使用節奏。</p></article>
+          <article class="card bark"><span class="label">結論</span><h3>AI 生圖是多輪迭代，不是一次輸出</h3><p>跟設計師合作也是這樣：先給方向，再修改，再確認。能圈選修改，才是真正省時的工作流。</p></article>
+        </div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">GPT IMAGE CASE 03++ / CANVA MAGIC LAYERS</div>
+      <div class="num">大招</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>開大招：導入 Canva，圖文都能直接編輯</h2>
+      <p class="lead">如果圈選修改還不夠細，直接把 AI 生成的圖導入 Canva，啟動「Magic Layers / 圖像轉設計」——它會自動把圖拆成文字層、圖片層、背景層，每一個都能單獨編輯。</p>
+      <div class="canva-layout">
+        <figure class="canva-frame"><img src="canva-magic-layers-intro.png" alt="Canva Magic Layers 圖像轉設計功能介紹"></figure>
+        <figure class="canva-frame"><img src="canva-magic-layers-edit.png" alt="Canva 編輯器拆解品牌情緒板為可編輯圖層"></figure>
+      </div>
+      <div class="canva-cards">
+        <article class="card"><span class="label">Magic Layers</span><h3>一鍵把圖拆成可編輯圖層</h3><p>Canva 會自動辨識文字、圖片、背景，拆成獨立物件。不用 Photoshop 也能精修每個元素。</p></article>
+        <article class="card accent"><span class="label">文字可改</span><h3>AI 生的文字不再是死圖</h3><p>標題、副標、品牌名稱全部變成可編輯文字框。字體、顏色、大小隨你調。</p></article>
+        <article class="card bark"><span class="label">工作流</span><h3>AI 生圖 → GPT 修改 → Canva 精修</h3><p>三步走完，從概念到可用素材。這才是 AI 生圖在實際工作中該有的流程。</p></article>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -3963,7 +4318,7 @@
         <article class="card accent"><span class="label">05</span><h3>一致性更強</h3><p>人物、品牌風格、視覺語氣更適合多張圖連續使用。</p></article>
         <article class="card ink"><span class="label">06</span><h3>進階改圖能力</h3><p>不是重抽一張，而是針對局部、風格、構圖做修改。</p></article>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -3979,7 +4334,7 @@
         <div><b>Style</b>要真實、插畫、棚拍、復古、森林感、乾淨商務感。</div>
         <div><b>Constraint</b>比例、文字、不要出現什麼、要保留什麼。</div>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -4008,7 +4363,7 @@
         </div>
         <div class="image-placeholder">案例圖待補<br>文字生成 / 真實感 / 商品情境</div>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -4040,7 +4395,7 @@
         </article>
       </div>
       <div class="map-line">進階改圖的核心：保留對的，修掉不對的。這比一直重抽更像真的工作流程。</div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -4061,7 +4416,16 @@
         <article class="card accent"><span class="label">Practice 02</span><h3>社群圖卡</h3><p>同一主題產出 IG 尺寸與限動尺寸，測試文字排版與品牌語氣。</p></article>
         <article class="card bark"><span class="label">Practice 03</span><h3>商品情境</h3><p>用同一個角色或風格生成多張情境圖，測試一致性。</p></article>
       </div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
+    </section>
+
+    <section class="slide chapter-slide">
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <div class="chapter-num">Chapter 06</div>
+      <div class="chapter-bar"></div>
+      <h2>收尾與下一步</h2>
+      <p class="chapter-sub">班表小工具實作、辦公室與自媒體練習、風險判斷原則，以及預告下一階段的 AI 工作站。</p>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -4075,7 +4439,7 @@
         <figure class="roster-frame"><img src="roster-web-after.png" alt="調整後的網頁版班表"></figure>
       </div>
       <div class="statement compact">這不是大型系統，但它把一個每天會卡的小問題，變成一個可以立刻使用的小工具。</div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
@@ -4100,7 +4464,7 @@
         </div>
       </div>
       <div class="statement compact">我是 chill 先生，大家下次見。</div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide backup">
@@ -4131,7 +4495,7 @@
         </article>
       </div>
       <div class="map-line">先讓 AI 幫你處理單點任務，再把這些任務串起來，工作流才會真的長出來。</div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide backup">
@@ -4148,7 +4512,7 @@
         <div><b>05</b>檢查邏輯與講稿</div>
       </div>
       <div class="map-line">例：做簡報時，先請 AI 釐清目的與聽眾，再整理核心訊息、設計頁面架構、產出每頁文案，最後檢查邏輯並改成口語講稿。</div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide backup">
@@ -4174,7 +4538,7 @@
         </article>
       </div>
       <div class="map-line">任務越重要，AI 越不能只給答案；它應該成為你的討論對象。</div>
-      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
   </main>
 
