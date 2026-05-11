@@ -1917,13 +1917,13 @@
     }
 
     .canva-cards .card {
-      padding: 3.6% 4%;
+      padding: 1.8% 3%;
       min-height: 0;
     }
 
-    .canva-cards p {
-      font-size: clamp(10px, .82vw, 12px);
-      line-height: 1.42;
+    .canva-cards .card h3 {
+      margin-top: 4px;
+      font-size: clamp(13px, 1.05vw, 17px);
     }
 
     /* ── 多圖提示案例 (multi-ref) ── */
@@ -1981,13 +1981,13 @@
     }
 
     .multiref-cards .card {
-      padding: 3.4% 4%;
+      padding: 1.8% 3%;
       min-height: 0;
     }
 
-    .multiref-cards p {
-      font-size: clamp(10px, .82vw, 12px);
-      line-height: 1.42;
+    .multiref-cards .card h3 {
+      margin-top: 4px;
+      font-size: clamp(13px, 1.05vw, 17px);
     }
 
     /* ── 局部修改案例 (inpaint edit) ── */
@@ -1998,13 +1998,14 @@
       flex: 1;
       min-height: 0;
       margin-top: 0.6%;
+      padding-bottom: 1.6%;
     }
 
     .edit-before-after {
       display: grid;
       grid-template-columns: 1fr auto 1fr;
       gap: 2%;
-      align-items: center;
+      align-items: stretch;
       flex: 1;
       min-height: 0;
     }
@@ -2392,10 +2393,10 @@
         aspect-ratio: auto;
         box-shadow: none;
       }
-      .slide,
-      .title-slide {
+      .slide {
         position: relative;
-        display: block !important;
+        display: flex !important;
+        flex-direction: column;
         width: 100vw;
         height: 56.25vw;
         page-break-after: always;
@@ -2403,6 +2404,9 @@
       }
       .title-slide {
         display: grid !important;
+      }
+      .slide.chapter-slide {
+        display: flex !important;
       }
       .slide.backup {
         display: none !important;
@@ -4152,9 +4156,9 @@
         <figure class="multiref-result-frame"><img src="gpt-multi-ref-result.png" alt="Birth x 台灣啤酒日式雜誌廣告生成結果"></figure>
       </div>
       <div class="multiref-cards">
-        <article class="card"><span class="label">Multi-Ref 技巧</span><h3>三張圖一起丟，它都讀到了</h3><p>Logo、商品、真人分別說明用途，模型整合多個視覺來源，不只套用其中一張。</p></article>
-        <article class="card accent"><span class="label">Face Safe</span><h3>人物臉部不失真</h3><p>用真實人臉當參考，輸出仍保持比例與神韻。不再像早期會把人臉打糊或扭曲。</p></article>
-        <article class="card bark"><span class="label">小編必學</span><h3>品牌合作快速打樣</h3><p>商品 + Logo + KOL 真人照，三張進去，一張廣告出來。先測版面方向，再交設計師精修。</p></article>
+        <article class="card"><span class="label">Multi-Ref</span><h3>三張圖一起丟</h3></article>
+        <article class="card accent"><span class="label">Face Safe</span><h3>人臉不失真</h3></article>
+        <article class="card bark"><span class="label">小編必學</span><h3>品牌打樣超快</h3></article>
       </div>
       <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
@@ -4253,9 +4257,9 @@
         <figure class="canva-frame"><img src="canva-magic-layers-edit.png" alt="Canva 編輯器拆解品牌情緒板為可編輯圖層"></figure>
       </div>
       <div class="canva-cards">
-        <article class="card"><span class="label">Magic Layers</span><h3>一鍵把圖拆成可編輯圖層</h3><p>Canva 會自動辨識文字、圖片、背景，拆成獨立物件。不用 Photoshop 也能精修每個元素。</p></article>
-        <article class="card accent"><span class="label">文字可改</span><h3>AI 生的文字不再是死圖</h3><p>標題、副標、品牌名稱全部變成可編輯文字框。字體、顏色、大小隨你調。</p></article>
-        <article class="card bark"><span class="label">工作流</span><h3>AI 生圖 → GPT 修改 → Canva 精修</h3><p>三步走完，從概念到可用素材。這才是 AI 生圖在實際工作中該有的流程。</p></article>
+        <article class="card"><span class="label">Magic Layers</span><h3>一鍵拆成可編輯圖層</h3></article>
+        <article class="card accent"><span class="label">文字可改</span><h3>標題、字體都能換</h3></article>
+        <article class="card bark"><span class="label">工作流</span><h3>GPT 生圖 → Canva 精修</h3></article>
       </div>
       <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
