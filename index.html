@@ -377,6 +377,13 @@
       text-align: center;
     }
 
+    .statement.compact {
+      margin-top: .85%;
+      padding: .85% 0;
+      font-size: clamp(16px, 1.42vw, 22px);
+      line-height: 1.18;
+    }
+
     .boss-grid {
       display: grid;
       grid-template-columns: 1.12fr repeat(3, 1fr);
@@ -1636,6 +1643,192 @@
       line-height: 1.42;
     }
 
+    .brandcase-layout {
+      display: grid;
+      grid-template-columns: .78fr 1fr;
+      gap: 2.2%;
+      align-items: stretch;
+      margin-top: 1.15%;
+    }
+
+    .brandcase-prompt,
+    .brandcase-frame,
+    .roster-frame {
+      border: 1.3px solid var(--ink);
+      background: var(--paper);
+      box-shadow: 0 16px 34px rgba(14,14,13,.07);
+      overflow: hidden;
+    }
+
+    .brandcase-prompt {
+      min-height: 410px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px;
+    }
+
+    .brandcase-prompt img {
+      width: 100%;
+      max-height: 386px;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .brandcase-notes {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .brandcase-notes .card {
+      min-height: 186px;
+      padding: 7%;
+    }
+
+    .brandcase-duo {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2%;
+      margin-top: 1.15%;
+    }
+
+    .brandcase-duo.focus-left {
+      grid-template-columns: .9fr 1.1fr;
+    }
+
+    .brandcase-duo.focus-right {
+      grid-template-columns: 1.1fr .9fr;
+    }
+
+    .brandcase-frame {
+      min-height: 410px;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .brandcase-frame img {
+      width: 100%;
+      height: 100%;
+      max-height: 392px;
+      object-fit: contain;
+    }
+
+    .brandcase-frame.wide {
+      min-height: 360px;
+    }
+
+    .brandcase-frame.wide img {
+      max-height: 342px;
+    }
+
+    .brandcase-mixed {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 2%;
+      margin-top: 1.15%;
+      align-items: stretch;
+    }
+
+    .brandcase-mixed .brandcase-frame {
+      min-height: 330px;
+    }
+
+    .brandcase-mixed > .brandcase-frame img {
+      max-height: 308px;
+    }
+
+    .brandcase-stack {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .brandcase-stack .brandcase-frame {
+      min-height: 170px;
+    }
+
+    .brandcase-stack .brandcase-frame img {
+      max-height: 152px;
+    }
+
+    .roster-layout {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 2%;
+      align-items: stretch;
+      margin-top: 1.15%;
+    }
+
+    .roster-frame {
+      min-height: 344px;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .roster-frame img {
+      width: 100%;
+      height: 100%;
+      max-height: 326px;
+      object-fit: contain;
+    }
+
+    .gift-layout {
+      display: grid;
+      grid-template-columns: .74fr 1.06fr;
+      gap: 2.2%;
+      align-items: stretch;
+      margin-top: 1.25%;
+    }
+
+    .gift-panel {
+      border: 1.3px solid var(--ink);
+      background: var(--ink);
+      color: var(--bone);
+      padding: 8%;
+      min-height: 360px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .gift-panel .url {
+      font-family: var(--mono);
+      font-size: clamp(13px, 1.05vw, 17px);
+      color: var(--lichen);
+      word-break: break-all;
+      margin-top: 22px;
+    }
+
+    .gift-panel h3 {
+      color: var(--bone);
+      font-size: clamp(26px, 2.4vw, 40px);
+      line-height: 1.18;
+    }
+
+    .gift-panel p {
+      color: rgba(245,241,232,.86);
+      font-size: clamp(13px, 1.02vw, 16px);
+      line-height: 1.55;
+      font-weight: 650;
+    }
+
+    .closing-lines {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5%;
+      margin-top: 2%;
+    }
+
+    .closing-lines .card {
+      min-height: 150px;
+      padding: 6%;
+    }
+
     .prompt-strip {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -1834,6 +2027,15 @@
       .creator-meaning,
       .realism-layout,
       .realism-layout.reverse,
+      .brandcase-layout,
+      .brandcase-notes,
+      .brandcase-duo,
+      .brandcase-duo.focus-left,
+      .brandcase-duo.focus-right,
+      .brandcase-mixed,
+      .roster-layout,
+      .gift-layout,
+      .closing-lines,
       .process {
         grid-template-columns: 1fr;
       }
@@ -1842,7 +2044,11 @@
       .comic-panel { height: auto; min-height: 360px; }
       .comic-prompt-frame { min-height: 280px; }
       .live-frame,
-      .prompt-shot { min-height: 320px; }
+      .prompt-shot,
+      .brandcase-prompt,
+      .brandcase-frame,
+      .roster-frame,
+      .gift-panel { min-height: 320px; }
       .matrix { font-size: 12px; }
       .matrix th,
       .matrix td { padding: 10px; }
@@ -3649,11 +3855,97 @@
         <div class="realism-notes">
           <article class="card"><span class="label">Prompt</span><h3>不用把每個細節都寫死</h3><p>當任務類型夠清楚，模型會知道「直播截圖」應該包含哪些介面元素。</p></article>
           <article class="card accent"><span class="label">Inference</span><h3>它會主動補場景語法</h3><p>例如關注按鈕、排行榜、禮物數字、聊天室、底部輸入列，這些都是直播畫面的常識。</p></article>
-          <article class="card ink"><span class="label">Lesson</span><h3>先短提示測方向，再逐步修</h3><p>不要一開始就寫成超長 prompt。先看模型怎麼理解，再針對不對的地方補充。</p></article>
         </div>
         <figure class="live-frame"><img src="gpt-live-output-simple.png" alt="GPT Images short prompt live stream output"></figure>
         <figure class="prompt-shot"><img src="gpt-live-prompt-simple.png" alt="GPT Images short live stream prompt"></figure>
       </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">GPT IMAGE CASE 03 / BRAND SYSTEM</div>
+      <div class="num">63</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>案例 3：把民宿品牌變成一組社群素材包</h2>
+      <p class="lead">這次不是從零想風格，而是先請 GPT 讀網站與品牌訊息，抓出主視覺、色彩、字體、Logo 語感、產品賣點和客群，再延伸成可投放的素材。</p>
+      <div class="brandcase-layout">
+        <figure class="brandcase-prompt"><img src="gpt-brand-prompt.png" alt="GPT Images brand package prompt"></figure>
+        <div class="brandcase-notes">
+          <article class="card"><span class="label">Input</span><h3>先讓它理解品牌，而不是直接叫它做圖</h3><p>網址、品牌元素、賣點、目標客群與素材用途，是這次 prompt 的主體。</p></article>
+          <article class="card accent"><span class="label">Output</span><h3>一次生成一整組可用素材</h3><p>情緒板、廣告圖、EDM 首圖、社群貼文、包裝概念和產品展示風格。</p></article>
+          <article class="card bark"><span class="label">Brand Read</span><h3>它抓到「野奢森林」的氛圍</h3><p>深綠、霧氣、木屋、暖光、營火、露天電影、早餐與瑜伽，都被整理成可視覺化的語言。</p></article>
+          <article class="card ink"><span class="label">Teaching Point</span><h3>生圖也可以做品牌策略原型</h3><p>不是只生一張漂亮圖，而是先看品牌能不能被系統化、被延展、被反覆使用。</p></article>
+        </div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">BRAND OUTPUT 01 / MOODBOARD + HERO</div>
+      <div class="num">64</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>先看品牌情緒板：AI 把風格拆成可操作的元素</h2>
+      <p class="lead">情緒板不是好看而已，它把品牌色、字體、Logo 概念、關鍵字與素材場景整理出來，後面每張圖才有依據。</p>
+      <div class="brandcase-duo focus-left">
+        <figure class="brandcase-frame"><img src="gpt-brand-01.png" alt="Best Forest House brand moodboard"></figure>
+        <figure class="brandcase-frame"><img src="gpt-brand-02.png" alt="Best Forest House hero ad"></figure>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">BRAND OUTPUT 02 / AD VARIANTS</div>
+      <div class="num">65</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>同一個品牌，可以快速長出不同投放角度</h2>
+      <p class="lead">同樣是森林民宿，它可以切成包棟秘境、好友聚會、把自己還給森林。這對廣告測試很有用，因為你可以先測方向，再投入正式設計。</p>
+      <div class="brandcase-duo">
+        <figure class="brandcase-frame"><img src="gpt-brand-03.png" alt="Best Forest House gathering ad"></figure>
+        <figure class="brandcase-frame"><img src="gpt-brand-04.png" alt="Best Forest House morning yoga ad"></figure>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">BRAND OUTPUT 03 / SOCIAL SIZES</div>
+      <div class="num">66</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>素材不只一種尺寸：社群、橫幅、方圖都能先打樣</h2>
+      <p class="lead">同一套視覺可以改成不同平台使用：橫幅適合網站或廣告，方圖適合 IG，版面要保留品牌一致但不能只是裁切。</p>
+      <div class="brandcase-duo focus-right">
+        <figure class="brandcase-frame wide"><img src="gpt-brand-05.png" alt="Best Forest House wide banner"></figure>
+        <figure class="brandcase-frame"><img src="gpt-brand-06.png" alt="Best Forest House square social ad"></figure>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">BRAND OUTPUT 04 / STORY + COLLAGE</div>
+      <div class="num">67</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>限動與圖文排版：把氛圍做成可發布的格式</h2>
+      <p class="lead">這種圖最適合拿來做活動預告、限時動態、Pinterest 或貼文封面。它把住宿特色、氣氛與 CTA 放在同一張圖裡。</p>
+      <div class="brandcase-duo">
+        <figure class="brandcase-frame"><img src="gpt-brand-07.png" alt="Best Forest House social collage"></figure>
+        <figure class="brandcase-frame"><img src="gpt-brand-08.png" alt="Best Forest House vertical story"></figure>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">BRAND OUTPUT 05 / PACKAGE SYSTEM</div>
+      <div class="num">68</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>品牌素材包的重點：讓視覺可以延伸到更多接觸點</h2>
+      <p class="lead">最後這張把民宿延伸到迎賓卡、香氛、咖啡、備品、提袋與明信片。即使還不是正式設計稿，也足夠拿來討論品牌方向。</p>
+      <div class="brandcase-mixed">
+        <figure class="brandcase-frame"><img src="gpt-brand-09.png" alt="Best Forest House packaging and hospitality materials"></figure>
+        <div class="brandcase-stack">
+          <article class="card"><span class="label">Meaning</span><h3>AI 可以先把品牌變成「看得到的樣子」</h3><p>對小品牌來說，最難的不是沒有想法，而是不知道怎麼把想法變成可以討論的視覺語言。</p></article>
+          <article class="card accent"><span class="label">Workflow</span><h3>先做原型，再交給人精修</h3><p>這些圖可以拿來做方向確認、廣告測試、設計 brief、社群排程，不代表直接跳過人的審美與修稿。</p></article>
+        </div>
+      </div>
+      <div class="statement compact">品牌生圖不是「做漂亮圖」，而是把抽象風格變成可以被討論、被測試、被延伸的素材系統。</div>
       <div class="footer">竹山chill先生｜AI 實戰課前導</div>
     </section>
 
@@ -3773,8 +4065,47 @@
     </section>
 
     <section class="slide">
-      <div class="meta">FINAL PRACTICE</div>
+      <div class="meta">FINAL GIFT / FROM EXCEL TO TOOL</div>
       <div class="num">59</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>最後的小禮物：把看錯班表，變成可以查的網頁</h2>
+      <p class="lead">很多人不是不想看班表，是原本 Excel 太容易看錯。這次我用 GPT / Codex 做了一個小工具，讓大家直接選月份、選員工，看自己的班與下次上班日。</p>
+      <div class="roster-layout">
+        <figure class="roster-frame"><img src="roster-excel-before.png" alt="原本的 Excel 排班表"></figure>
+        <figure class="roster-frame"><img src="roster-web-after.png" alt="調整後的網頁版班表"></figure>
+      </div>
+      <div class="statement compact">這不是大型系統，但它把一個每天會卡的小問題，變成一個可以立刻使用的小工具。</div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">AI WORKSTATION / NEXT STEP</div>
+      <div class="num">60</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>下一階段：從線上服務，走進 AI 工作站</h2>
+      <p class="lead">前面我們用 Gemini、NotebookLM、GPT Images 做了很多單點任務。再往下走，AI 不只是幫你回答，而是能讀資料、改程式、部署網頁，真的把工作流程做出來。</p>
+      <div class="gift-layout">
+        <article class="gift-panel">
+          <div>
+            <span class="label">Class Gift</span>
+            <h3>班表查詢小工具</h3>
+            <p>用原本的排班資料整理成網頁版：可以篩選員工、查看個人班表、提醒下一次上班時間。</p>
+          </div>
+          <div class="url">birth-gules.vercel.app</div>
+        </article>
+        <div class="closing-lines">
+          <article class="card"><span class="label">現在</span><h3>線上服務</h3><p>ChatGPT、Gemini、NotebookLM 很適合快速整理資料、產出內容、做視覺草案。</p></article>
+          <article class="card accent"><span class="label">下一步</span><h3>AI 工作站</h3><p>Codex / Claude Code 可以進一步讀檔、改程式、做網頁、串接流程與部署。</p></article>
+          <article class="card bark"><span class="label">之後會教</span><h3>複雜工作流</h3><p>不是只問 AI，而是讓 AI 幫你把工具做出來，完成更多原本很麻煩的任務。</p></article>
+        </div>
+      </div>
+      <div class="statement compact">我是 chill 先生，大家下次見。</div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide backup">
+      <div class="meta">BACKUP / FINAL PRACTICE</div>
+      <div class="num">B0</div>
       <img class="brand" src="logo-mr-chill-circle.png" alt="">
       <h2>最後練習：辦公室與自媒體都能用</h2>
       <div class="exercise-lanes">
@@ -3849,7 +4180,7 @@
 
   <nav class="controls" aria-label="投影片控制">
     <button type="button" id="prev" aria-label="上一頁">‹</button>
-    <span id="counter">1 / 67</span>
+    <span id="counter">1 / 74</span>
     <button type="button" id="next" aria-label="下一頁">›</button>
   </nav>
 
