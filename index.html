@@ -27,6 +27,8 @@
 
     * { box-sizing: border-box; }
 
+    figure { margin: 0; }
+
     html,
     body {
       margin: 0;
@@ -1926,6 +1928,22 @@
       font-size: clamp(13px, 1.05vw, 17px);
     }
 
+    .visual-priority h2 {
+      margin-bottom: 1.5%;
+    }
+
+    .visual-priority .lead {
+      max-width: 76%;
+      font-size: clamp(14px, 1.12vw, 17px);
+      line-height: 1.42;
+    }
+
+    .visual-priority .multiref-layout,
+    .visual-priority .canva-layout {
+      margin-top: 0.45%;
+      flex: 1 1 auto;
+    }
+
     /* ── 多圖提示案例 (multi-ref) ── */
     .multiref-layout {
       display: grid;
@@ -2043,11 +2061,99 @@
       object-fit: contain;
     }
 
+    .edit-priority .lead {
+      max-width: 72%;
+      font-size: clamp(14px, 1.12vw, 17px);
+      line-height: 1.42;
+    }
+
+    .edit-priority .edit-layout {
+      flex: none;
+      height: 76%;
+      margin-top: 0.45%;
+      padding-bottom: 0;
+    }
+
+    .edit-priority .edit-before-after {
+      grid-template-columns: 1fr 34px 1fr;
+      gap: 1.6%;
+    }
+
+    .edit-priority .edit-frame {
+      padding: 8px;
+      min-height: 0;
+    }
+
+    .edit-priority .edit-step {
+      min-height: 0;
+    }
+
+    .edit-priority .edit-label {
+      color: rgba(92, 92, 87, 0.72);
+    }
+
+    .canva-priority .canva-layout {
+      margin-top: 0.65%;
+    }
+
     .edit-arrow {
-      font-size: 2rem;
+      display: grid;
+      place-items: center;
+      align-self: stretch;
+      font-size: clamp(26px, 2.2vw, 34px);
       color: var(--accent);
       font-weight: 700;
       flex-shrink: 0;
+    }
+
+    .finale-slide {
+      background:
+        linear-gradient(rgba(245, 241, 232, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245, 241, 232, 0.028) 1px, transparent 1px),
+        var(--ink);
+      background-size: 28px 28px;
+      color: var(--bone);
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 6% 8%;
+    }
+
+    .finale-slide::before,
+    .finale-slide::after {
+      background: var(--bone);
+      opacity: 0.34;
+    }
+
+    .finale-slide .brand {
+      position: static;
+      width: clamp(78px, 8vw, 118px);
+      margin-bottom: 4%;
+      border-radius: 50%;
+      background: var(--paper);
+      padding: 4px;
+      filter: none;
+    }
+
+    .finale-slide .finale-kicker {
+      font-family: var(--mono);
+      font-size: clamp(10px, 0.86vw, 13px);
+      font-weight: 800;
+      color: rgba(245, 241, 232, 0.56);
+      text-transform: uppercase;
+      margin-bottom: 2%;
+    }
+
+    .finale-slide h2 {
+      max-width: 100%;
+      margin: 0;
+      font-size: clamp(38px, 5vw, 78px);
+      line-height: 1.14;
+      color: var(--bone);
+    }
+
+    .finale-slide .footer {
+      color: rgba(245, 241, 232, 0.36);
     }
 
     .edit-cards {
@@ -4145,7 +4251,7 @@
       <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
-    <section class="slide">
+    <section class="slide visual-priority multiref-priority">
       <div class="meta">GPT IMAGE CASE 02+ / MULTI-REF · 小編必學</div>
       <div class="num">必學</div>
       <img class="brand" src="logo-mr-chill-circle.png" alt="">
@@ -4154,11 +4260,6 @@
       <div class="multiref-layout">
         <figure class="multiref-prompt-frame"><img src="gpt-multi-ref-prompt.png" alt="多張參考圖 + 提示詞輸入截圖"></figure>
         <figure class="multiref-result-frame"><img src="gpt-multi-ref-result.png" alt="Birth x 台灣啤酒日式雜誌廣告生成結果"></figure>
-      </div>
-      <div class="multiref-cards">
-        <article class="card"><span class="label">Multi-Ref</span><h3>三張圖一起丟</h3></article>
-        <article class="card accent"><span class="label">Face Safe</span><h3>人臉不失真</h3></article>
-        <article class="card bark"><span class="label">小編必學</span><h3>品牌打樣超快</h3></article>
       </div>
       <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
@@ -4224,7 +4325,7 @@
       <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
-    <section class="slide">
+    <section class="slide edit-priority">
       <div class="meta">GPT IMAGE CASE 03+ / INPAINT EDIT</div>
       <div class="num">進階修</div>
       <img class="brand" src="logo-mr-chill-circle.png" alt="">
@@ -4233,12 +4334,10 @@
       <div class="edit-layout">
         <div class="edit-before-after">
           <div class="edit-step">
-            <span class="edit-label">Before — 在 GPT 畫布圈選要修改的區域</span>
-            <figure class="edit-frame"><img src="gpt-brand-edit-canvas.png" alt="GPT Canvas 圈選局部修改截圖"></figure>
+            <figure class="edit-frame"><img src="gpt-brand-edit-canvas-focused.png" alt="GPT Canvas 圈選局部修改截圖"></figure>
           </div>
           <div class="edit-arrow">→</div>
           <div class="edit-step">
-            <span class="edit-label">After — 局部修改完成的品牌情緒板</span>
             <figure class="edit-frame"><img src="gpt-brand-edit-final.png" alt="修改後的靜謐森林屋品牌情緒板"></figure>
           </div>
         </div>
@@ -4246,7 +4345,7 @@
       <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
-    <section class="slide">
+    <section class="slide visual-priority canva-priority">
       <div class="meta">GPT IMAGE CASE 03++ / CANVA MAGIC LAYERS</div>
       <div class="num">大招</div>
       <img class="brand" src="logo-mr-chill-circle.png" alt="">
@@ -4256,20 +4355,6 @@
         <figure class="canva-frame"><img src="canva-magic-layers-intro.png" alt="Canva Magic Layers 圖像轉設計功能介紹"></figure>
         <figure class="canva-frame"><img src="canva-magic-layers-edit.png" alt="Canva 編輯器拆解品牌情緒板為可編輯圖層"></figure>
       </div>
-      <div class="canva-cards">
-        <article class="card"><span class="label">Magic Layers</span><h3>一鍵拆成可編輯圖層</h3></article>
-        <article class="card accent"><span class="label">文字可改</span><h3>標題、字體都能換</h3></article>
-        <article class="card bark"><span class="label">工作流</span><h3>GPT 生圖 → Canva 精修</h3></article>
-      </div>
-      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
-    </section>
-
-    <section class="slide chapter-slide">
-      <img class="brand" src="logo-mr-chill-circle.png" alt="">
-      <div class="chapter-num">Chapter 06</div>
-      <div class="chapter-bar"></div>
-      <h2>收尾與下一步</h2>
-      <p class="chapter-sub">班表小工具實作，以及預告下一階段的 AI 工作站。</p>
       <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
@@ -4308,7 +4393,13 @@
           <article class="card bark"><span class="label">之後會教</span><h3>複雜工作流</h3><p>不是只問 AI，而是讓 AI 幫你把工具做出來，完成更多原本很麻煩的任務。</p></article>
         </div>
       </div>
-      <div class="statement compact">我是 chill 先生，大家下次見。</div>
+      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
+    </section>
+
+    <section class="slide finale-slide">
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <div class="finale-kicker">Thank You</div>
+      <h2>我是 chill 先生，大家下次見。</h2>
       <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
