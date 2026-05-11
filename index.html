@@ -65,7 +65,10 @@
       background-size: 28px 28px;
     }
 
-    .slide.active { display: block; }
+    .slide.active {
+      display: flex;
+      flex-direction: column;
+    }
 
     .slide.backup { display: none !important; }
 
@@ -1687,6 +1690,8 @@
       gap: 2.2%;
       align-items: stretch;
       margin-top: 1.15%;
+      flex: 1;
+      min-height: 0;
     }
 
     .brandcase-prompt,
@@ -1699,16 +1704,16 @@
     }
 
     .brandcase-prompt {
-      min-height: 410px;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 14px;
+      min-height: 0;
     }
 
     .brandcase-prompt img {
       width: 100%;
-      max-height: 386px;
+      height: 100%;
       object-fit: contain;
       border-radius: 8px;
     }
@@ -1716,12 +1721,13 @@
     .brandcase-notes {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
+      gap: 12px;
+      min-height: 0;
     }
 
     .brandcase-notes .card {
-      min-height: 186px;
-      padding: 7%;
+      padding: 5.5%;
+      min-height: 0;
     }
 
     .brandcase-duo {
@@ -1729,6 +1735,8 @@
       grid-template-columns: repeat(2, 1fr);
       gap: 2%;
       margin-top: 1.15%;
+      flex: 1;
+      min-height: 0;
     }
 
     .brandcase-duo.focus-left {
@@ -1740,26 +1748,17 @@
     }
 
     .brandcase-frame {
-      min-height: 410px;
       padding: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
+      min-height: 0;
     }
 
     .brandcase-frame img {
       width: 100%;
       height: 100%;
-      max-height: 392px;
       object-fit: contain;
-    }
-
-    .brandcase-frame.wide {
-      min-height: 360px;
-    }
-
-    .brandcase-frame.wide img {
-      max-height: 342px;
     }
 
     .brandcase-mixed {
@@ -1768,28 +1767,15 @@
       gap: 2%;
       margin-top: 1.15%;
       align-items: stretch;
-    }
-
-    .brandcase-mixed .brandcase-frame {
-      min-height: 330px;
-    }
-
-    .brandcase-mixed > .brandcase-frame img {
-      max-height: 308px;
+      flex: 1;
+      min-height: 0;
     }
 
     .brandcase-stack {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 14px;
-    }
-
-    .brandcase-stack .brandcase-frame {
-      min-height: 170px;
-    }
-
-    .brandcase-stack .brandcase-frame img {
-      max-height: 152px;
+      gap: 12px;
+      min-height: 0;
     }
 
     .brandcase-quad {
@@ -1797,15 +1783,12 @@
       grid-template-columns: repeat(4, 1fr);
       gap: 1.5%;
       margin-top: 1.15%;
+      flex: 1;
+      min-height: 0;
     }
 
     .brandcase-quad .brandcase-frame {
-      min-height: 320px;
       padding: 6px;
-    }
-
-    .brandcase-quad .brandcase-frame img {
-      max-height: 310px;
     }
 
     .brandcase-trio {
@@ -1813,15 +1796,12 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 1.8%;
       margin-top: 1.15%;
+      flex: 1;
+      min-height: 0;
     }
 
     .brandcase-trio .brandcase-frame {
-      min-height: 360px;
       padding: 8px;
-    }
-
-    .brandcase-trio .brandcase-frame img {
-      max-height: 346px;
     }
 
     /* ── 章節標題頁 (chapter divider) ── */
@@ -1909,19 +1889,20 @@
     .canva-frame img {
       width: 100%;
       height: 100%;
-      max-height: 340px;
       object-fit: contain;
     }
 
     .canva-cards {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
+      gap: 12px;
       margin-top: 1%;
+      min-height: 0;
     }
 
     .canva-cards .card {
-      padding: 4.5% 5%;
+      padding: 3.6% 4%;
+      min-height: 0;
     }
 
     .canva-cards p {
@@ -1932,35 +1913,28 @@
     /* ── 多圖提示案例 (multi-ref) ── */
     .multiref-layout {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: .85fr 1fr;
       gap: 2%;
       margin-top: 1%;
       flex: 1;
       min-height: 0;
     }
 
-    .multiref-left {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
     .multiref-prompt-frame {
       border: 1.3px solid var(--ink);
       background: var(--ink);
-      flex: 1;
-      min-height: 220px;
       padding: 12px;
       overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
+      min-height: 0;
     }
 
     .multiref-prompt-frame img {
       width: 100%;
-      max-height: 280px;
-      object-fit: cover;
+      height: 100%;
+      object-fit: contain;
       border-radius: 8px;
     }
 
@@ -1973,23 +1947,26 @@
       align-items: center;
       justify-content: center;
       padding: 10px;
+      min-height: 0;
     }
 
     .multiref-result-frame img {
       width: 100%;
       height: 100%;
-      max-height: 440px;
       object-fit: contain;
     }
 
     .multiref-cards {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 1%;
+      min-height: 0;
     }
 
     .multiref-cards .card {
-      padding: 4% 5%;
+      padding: 3.4% 4%;
+      min-height: 0;
     }
 
     .multiref-cards p {
@@ -2001,10 +1978,10 @@
     .edit-layout {
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 10px;
       flex: 1;
       min-height: 0;
-      margin-top: 1%;
+      margin-top: 0.6%;
     }
 
     .edit-before-after {
@@ -2046,7 +2023,6 @@
     .edit-frame img {
       width: 100%;
       height: 100%;
-      max-height: 300px;
       object-fit: contain;
     }
 
@@ -2060,11 +2036,13 @@
     .edit-cards {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
+      gap: 10px;
+      min-height: 0;
     }
 
     .edit-cards .card {
-      padding: 4.5% 5%;
+      padding: 2.8% 3.4%;
+      min-height: 0;
     }
 
     .edit-cards p {
@@ -2448,17 +2426,17 @@
         </article>
         <div class="tight-stack">
           <article class="card">
-            <span class="label">😵‍💫</span>
+            <span class="label">工具焦慮</span>
             <h3>工具太多了</h3>
-            <p>ChatGPT、Gemini、Claude、Canva⋯⋯每個都說很厲害，選擇困難直接放棄。</p>
+            <p>ChatGPT、Gemini、Claude、Canva——每個都說很厲害，選擇困難直接放棄。</p>
           </article>
           <article class="card accent">
-            <span class="label">✨</span>
+            <span class="label">案例迷思</span>
             <h3>案例看起來都超神</h3>
-            <p>但那都是別人調了好幾輪之後的成果，中間過程通常不會告訴你。</p>
+            <p>那都是別人調了好幾輪之後的成果，中間過程通常不會告訴你。</p>
           </article>
           <article class="card bark">
-            <span class="label">😐</span>
+            <span class="label">套不上自己</span>
             <h3>自己用就很普通</h3>
             <p>不是 AI 變弱了，是我們還不太會「交代任務」給它。</p>
           </article>
@@ -2479,17 +2457,17 @@
       </div>
       <div class="grid-3" style="margin-top: 2.2%;">
         <article class="card">
-          <span class="label">❌ 常見的用法</span>
+          <span class="label">常見作法</span>
           <h3>「幫我做一份簡報」</h3>
           <p>AI 只能亂猜你要什麼主題、什麼風格、給誰看、要幾頁。結果通常很泛。</p>
         </article>
         <article class="card accent">
-          <span class="label">✅ 老闆的用法</span>
-          <h3>「幫我做 AI 課的簡報大綱⋯」</h3>
+          <span class="label">老闆作法</span>
+          <h3>「幫我做 AI 課的簡報大綱」</h3>
           <p>受眾是中小企業主、重點放在實際操作、風格輕鬆但專業、控制在 20 頁內。</p>
         </article>
         <article class="card bark">
-          <span class="label">💡 差別在哪</span>
+          <span class="label">關鍵差異</span>
           <h3>你有沒有說清楚三件事</h3>
           <p>我要什麼（目標）、根據什麼（素材）、怎樣算好（標準）。講清楚，AI 就強。</p>
         </article>
@@ -2536,19 +2514,19 @@
       <p class="lead">不用背什麼 prompt 技巧，記住這三件事就好。每次跟 AI 對話前花 10 秒想一下，結果會差很多。</p>
       <div class="grid-3" style="margin-top: 2.4%;">
         <article class="card">
-          <span class="label">① 目標</span>
+          <span class="label">Step 01 / 目標</span>
           <h3>你要它做什麼？</h3>
-          <p>整理成表格、改成更口語、提出三個方案、幫我寫一封回覆信⋯⋯動作要明確。</p>
+          <p>整理成表格、改成更口語、提出三個方案、幫我寫一封回覆信——動作要明確。</p>
         </article>
         <article class="card accent">
-          <span class="label">② 素材</span>
+          <span class="label">Step 02 / 素材</span>
           <h3>它能根據什麼？</h3>
-          <p>貼上文章、客戶訊息、會議紀錄、資料表、截圖⋯⋯給越多背景，結果越準。</p>
+          <p>貼上文章、客戶訊息、會議紀錄、資料表、截圖——給越多背景，結果越準。</p>
         </article>
         <article class="card bark">
-          <span class="label">③ 標準</span>
+          <span class="label">Step 03 / 標準</span>
           <h3>怎樣算做得好？</h3>
-          <p>語氣要輕鬆、字數 300 以內、表格要有日期欄⋯⋯限制越明確，它越不會亂跑。</p>
+          <p>語氣要輕鬆、字數 300 以內、表格要有日期欄——限制越明確，它越不會亂跑。</p>
         </article>
       </div>
       <div class="statement">記住這個公式，今天的每個練習都會用到。</div>
@@ -4143,15 +4121,13 @@
       <h2>多圖當提示，人物不失真 — 小編必學</h2>
       <p class="lead">同時上傳三張參考圖（品牌 Logo、商品實拍、真人照），GPT Images 直接合成一張日式雜誌廣告——三個來源整合進同一張圖，人臉沒有變形，也不需要 Photoshop。</p>
       <div class="multiref-layout">
-        <div class="multiref-left">
-          <figure class="multiref-prompt-frame"><img src="gpt-multi-ref-prompt.png" alt="多張參考圖 + 提示詞輸入截圖"></figure>
-          <div class="multiref-cards">
-            <article class="card"><span class="label">Multi-Ref 技巧</span><h3>三張圖一起丟，它都讀到了</h3><p>Logo、商品、真人分別說明用途，模型整合多個視覺來源，不只套用其中一張。</p></article>
-            <article class="card accent"><span class="label">Face Safe</span><h3>人物臉部不失真</h3><p>用真實人臉當參考，輸出仍保持比例與神韻。不再像早期會把人臉打糊或扭曲。</p></article>
-            <article class="card bark"><span class="label">小編必學</span><h3>品牌合作快速打樣</h3><p>商品 + Logo + KOL 真人照，三張進去，一張廣告出來。先測版面方向，再交設計師精修。</p></article>
-          </div>
-        </div>
+        <figure class="multiref-prompt-frame"><img src="gpt-multi-ref-prompt.png" alt="多張參考圖 + 提示詞輸入截圖"></figure>
         <figure class="multiref-result-frame"><img src="gpt-multi-ref-result.png" alt="Birth x 台灣啤酒日式雜誌廣告生成結果"></figure>
+      </div>
+      <div class="multiref-cards">
+        <article class="card"><span class="label">Multi-Ref 技巧</span><h3>三張圖一起丟，它都讀到了</h3><p>Logo、商品、真人分別說明用途，模型整合多個視覺來源，不只套用其中一張。</p></article>
+        <article class="card accent"><span class="label">Face Safe</span><h3>人物臉部不失真</h3><p>用真實人臉當參考，輸出仍保持比例與神韻。不再像早期會把人臉打糊或扭曲。</p></article>
+        <article class="card bark"><span class="label">小編必學</span><h3>品牌合作快速打樣</h3><p>商品 + Logo + KOL 真人照，三張進去，一張廣告出來。先測版面方向，再交設計師精修。</p></article>
       </div>
       <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
@@ -4222,7 +4198,7 @@
       <div class="num">進階修</div>
       <img class="brand" src="logo-mr-chill-circle.png" alt="">
       <h2>案例 3 延伸：圈起來局部修改，慢慢調到你要的</h2>
-      <p class="lead">很多人說「AI 生的圖還不能直接用」——但現在不需要重新生，可以直接在畫布上圈選你不滿意的區塊，針對那個地方下指令修改，其他部分維持不動。</p>
+      <p class="lead">不用重生整張圖，直接在畫布上圈選不滿意的地方，針對那塊修改，其他維持不動。</p>
       <div class="edit-layout">
         <div class="edit-before-after">
           <div class="edit-step">
