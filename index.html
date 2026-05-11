@@ -1,0 +1,3894 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI 實戰課前導</title>
+  <style>
+    :root {
+      --ink: #0e0e0d;
+      --ink-soft: #2a2a28;
+      --ink-mute: #5c5c57;
+      --bone: #f5f1e8;
+      --paper: #ffffff;
+      --mist: #e4e2da;
+      --moss: #3f5b3a;
+      --moss-deep: #2c4128;
+      --fern: #7a8e6b;
+      --lichen: #c9cfb6;
+      --bark: #5c4a3a;
+      --accent: #c26a4a;
+      --gold: #b89968;
+      --line: #cfc7bb;
+      --mono: "JetBrains Mono", "SFMono-Regular", Consolas, ui-monospace, monospace;
+      --sans: "Inter Tight", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
+      --serif: "Noto Serif TC", "Songti TC", "PMingLiU", Georgia, serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      background: #171512;
+      color: var(--ink);
+      font-family: var(--sans);
+    }
+
+    body {
+      display: grid;
+      place-items: center;
+      padding: 18px;
+    }
+
+    .deck {
+      width: min(100vw - 36px, 1440px);
+      aspect-ratio: 16 / 9;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.36);
+      background: var(--bone);
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: none;
+      width: 100%;
+      height: 100%;
+      padding: 4.8% 5.4% 5%;
+      background:
+        linear-gradient(rgba(14, 14, 13, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(14, 14, 13, 0.018) 1px, transparent 1px),
+        var(--bone);
+      background-size: 28px 28px;
+    }
+
+    .slide.active { display: block; }
+
+    .slide.backup { display: none !important; }
+
+    .slide::before,
+    .slide::after {
+      content: "";
+      position: absolute;
+      left: 4.8%;
+      right: 4.8%;
+      height: 1px;
+      background: var(--ink);
+      opacity: 0.76;
+    }
+
+    .slide::before { top: 5.2%; }
+    .slide::after { bottom: 5.2%; }
+
+    .meta {
+      position: absolute;
+      top: 2.35%;
+      left: 5%;
+      font-family: var(--mono);
+      font-size: clamp(8px, 0.74vw, 11px);
+      color: var(--ink-mute);
+      text-transform: uppercase;
+    }
+
+    .num {
+      position: absolute;
+      top: 2.35%;
+      right: 5%;
+      font-family: var(--mono);
+      font-size: clamp(8px, 0.74vw, 11px);
+      color: var(--ink-mute);
+    }
+
+    .brand {
+      position: absolute;
+      right: 5.1%;
+      top: 8.1%;
+      width: 7.4%;
+      aspect-ratio: 1;
+      object-fit: contain;
+      filter: drop-shadow(0 1px 0 rgba(14, 14, 13, 0.24));
+    }
+
+    h1,
+    h2,
+    h3,
+    p { margin: 0; }
+
+    h1,
+    h2,
+    h3 {
+      font-family: var(--serif);
+      letter-spacing: 0;
+    }
+
+    h1 {
+      font-size: clamp(42px, 6.2vw, 84px);
+      line-height: 1.05;
+      font-weight: 800;
+    }
+
+    h2 {
+      max-width: 78%;
+      font-size: clamp(25px, 3vw, 42px);
+      line-height: 1.18;
+      font-weight: 800;
+      margin-top: 3.1%;
+      margin-bottom: 2.7%;
+    }
+
+    h3 {
+      font-size: clamp(17px, 1.6vw, 24px);
+      line-height: 1.2;
+      font-weight: 800;
+    }
+
+    .lead {
+      font-size: clamp(16px, 1.45vw, 22px);
+      line-height: 1.55;
+      color: var(--ink-soft);
+      max-width: 62%;
+      font-weight: 600;
+    }
+
+    .small {
+      font-size: clamp(11px, 0.95vw, 14px);
+      line-height: 1.48;
+      color: var(--ink-mute);
+    }
+
+    .title-slide {
+      display: none;
+      grid-template-columns: 58% 42%;
+      padding: 0;
+      background: var(--bone);
+    }
+
+    .title-slide.active { display: grid; }
+
+    .title-left {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 8.5% 9% 7.5%;
+      border: 1px solid var(--paper);
+      border-right: 0;
+      margin: 4.2% 0 4.2% 4.2%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 8%;
+    }
+
+    .title-left .kicker {
+      font-family: var(--mono);
+      font-size: clamp(9px, 0.9vw, 13px);
+      color: var(--lichen);
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .title-left p {
+      max-width: 84%;
+      font-size: clamp(16px, 1.55vw, 22px);
+      line-height: 1.55;
+      color: var(--bone);
+      font-weight: 600;
+    }
+
+    .title-right {
+      margin: 4.2% 4.2% 4.2% 0;
+      padding: 8% 8%;
+      border: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 7%;
+    }
+
+    .title-right .logo-large {
+      width: 38%;
+      max-width: 220px;
+      aspect-ratio: 1;
+      object-fit: contain;
+      align-self: center;
+    }
+
+    .title-right h2 {
+      max-width: 100%;
+      margin: 0;
+      font-size: clamp(24px, 2.4vw, 38px);
+    }
+
+    .tag-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      padding: 8px 16px;
+      border: 1px solid var(--ink);
+      background: var(--paper);
+      font-family: var(--mono);
+      font-size: clamp(9px, 0.85vw, 12px);
+      font-weight: 800;
+      color: var(--ink);
+      text-transform: uppercase;
+    }
+
+    .tag.green {
+      background: var(--moss);
+      border-color: var(--moss);
+      color: var(--paper);
+    }
+
+    .tag.clay {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--paper);
+    }
+
+    .grid-3,
+    .grid-4,
+    .grid-2,
+    .grid-5,
+    .grid-6 {
+      display: grid;
+      gap: 2.2%;
+    }
+
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-4 { grid-template-columns: repeat(4, 1fr); }
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .grid-5 { grid-template-columns: repeat(5, 1fr); }
+    .grid-6 { grid-template-columns: repeat(6, 1fr); }
+
+    .quote-panel {
+      margin-top: 2.2%;
+      border: 1.4px solid var(--ink);
+      background: var(--ink);
+      color: var(--paper);
+      padding: 4.2% 4.5%;
+      font-family: var(--serif);
+      font-size: clamp(28px, 3.35vw, 48px);
+      line-height: 1.22;
+      font-weight: 850;
+    }
+
+    .quote-panel small {
+      display: block;
+      margin-top: 1.8%;
+      color: var(--lichen);
+      font-family: var(--sans);
+      font-size: clamp(13px, 1.12vw, 18px);
+      line-height: 1.5;
+      font-weight: 650;
+    }
+
+    .formula {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1.3%;
+      margin-top: 2.1%;
+      align-items: stretch;
+    }
+
+    .formula .part {
+      border: 1.2px solid var(--ink);
+      background: var(--paper);
+      padding: 12% 10%;
+      text-align: center;
+      font-family: var(--serif);
+      font-size: clamp(15px, 1.25vw, 20px);
+      font-weight: 850;
+      line-height: 1.32;
+    }
+
+    .formula-title {
+      margin-top: 1.4%;
+      font-family: var(--serif);
+      font-size: clamp(15px, 1.35vw, 21px);
+      line-height: 1.35;
+      font-weight: 850;
+      color: var(--ink);
+    }
+
+    .story-layout {
+      display: grid;
+      grid-template-columns: 1.04fr 1fr;
+      gap: 2.4%;
+      align-items: stretch;
+      margin-top: 2.2%;
+    }
+
+    .story-layout.compact {
+      margin-top: 1.7%;
+    }
+
+    .story-layout.compact .story-panel {
+      min-height: 300px;
+      padding: 6.5%;
+    }
+
+    .story-panel {
+      border: 1.3px solid var(--ink);
+      background: var(--ink);
+      color: var(--paper);
+      padding: 7%;
+      min-height: 320px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .story-panel.moss { background: var(--moss-deep); }
+    .story-panel.bark { background: var(--bark); }
+
+    .story-panel .label { color: var(--lichen); }
+
+    .story-panel h3 {
+      color: var(--paper);
+      font-size: clamp(27px, 2.6vw, 40px);
+      line-height: 1.18;
+    }
+
+    .story-panel p {
+      color: var(--bone);
+      font-size: clamp(14px, 1.15vw, 18px);
+      line-height: 1.62;
+      font-weight: 650;
+    }
+
+    .statement {
+      margin-top: 2.4%;
+      border-top: 2px solid var(--ink);
+      border-bottom: 2px solid var(--ink);
+      padding: 2.4% 0;
+      font-family: var(--serif);
+      font-size: clamp(22px, 2.2vw, 34px);
+      line-height: 1.28;
+      font-weight: 850;
+      text-align: center;
+    }
+
+    .boss-grid {
+      display: grid;
+      grid-template-columns: 1.12fr repeat(3, 1fr);
+      gap: 2%;
+      margin-top: 2.2%;
+    }
+
+    .boss-card {
+      min-height: 260px;
+      border: 1.3px solid var(--ink);
+      background: rgba(255,255,255,.86);
+      padding: 7%;
+    }
+
+    .boss-card.lead-card {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .boss-card.lead-card .label { color: var(--lichen); }
+    .boss-card.lead-card h3,
+    .boss-card.lead-card p { color: var(--paper); }
+
+    .boss-card h3 {
+      margin-top: 20px;
+      font-size: clamp(20px, 1.75vw, 28px);
+    }
+
+    .boss-card p {
+      margin-top: 14px;
+      font-size: clamp(12px, 1vw, 16px);
+      line-height: 1.55;
+      font-weight: 650;
+      color: inherit;
+    }
+
+    .tight-stack {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .tight-stack .card {
+      min-height: 128px;
+      padding: 4.6% 5.2%;
+    }
+
+    .tight-stack .label {
+      margin-bottom: 8px;
+    }
+
+    .tight-stack .card p {
+      margin-top: 6px;
+      font-size: clamp(11px, .9vw, 14px);
+      line-height: 1.42;
+    }
+
+    .ability-card {
+      min-height: 185px;
+      border: 1.2px solid var(--ink);
+      background: rgba(255,255,255,.84);
+      padding: 14% 12%;
+    }
+
+    .ability-card strong {
+      display: block;
+      font-family: var(--serif);
+      font-size: clamp(26px, 2.4vw, 38px);
+      line-height: 1;
+      margin-bottom: 18px;
+    }
+
+    .ability-card span {
+      display: block;
+      font-size: clamp(11px, .95vw, 15px);
+      line-height: 1.45;
+      color: var(--ink-soft);
+      font-weight: 650;
+    }
+
+    .level-card {
+      min-height: 315px;
+      border: 1.3px solid var(--ink);
+      background: rgba(255,255,255,.84);
+      padding: 7%;
+    }
+
+    .level-card.dark {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .level-card h3 {
+      margin-top: 22px;
+    }
+
+    .level-card p {
+      margin-top: 18px;
+      font-size: clamp(12px, 1vw, 16px);
+      line-height: 1.55;
+      font-weight: 600;
+      color: inherit;
+    }
+
+    .workflow-band {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1.2%;
+      margin-top: 2.2%;
+    }
+
+    .workflow-band div {
+      min-height: 92px;
+      border: 1px solid var(--ink);
+      background: var(--paper);
+      padding: 13px 14px;
+      font-size: clamp(11px, .9vw, 14px);
+      line-height: 1.34;
+      font-weight: 680;
+    }
+
+    .workflow-band b {
+      display: block;
+      font-family: var(--mono);
+      font-size: clamp(8px, .72vw, 11px);
+      color: var(--moss);
+      margin-bottom: 9px;
+    }
+
+    .global-grid {
+      display: grid;
+      grid-template-columns: 1.12fr 1fr 1fr;
+      gap: 2.2%;
+      margin-top: 1.4%;
+    }
+
+    .global-grid .card {
+      min-height: 275px;
+      padding: 6.4% 7%;
+    }
+
+    .global-grid h3 {
+      min-height: 58px;
+    }
+
+    .tool-layout {
+      display: grid;
+      grid-template-columns: 1.02fr 1.25fr;
+      gap: 2.4%;
+      align-items: stretch;
+    }
+
+    .tool-hero {
+      border: 1.3px solid var(--ink);
+      background: var(--ink);
+      color: var(--paper);
+      padding: 7%;
+      min-height: 390px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .tool-hero.bark { background: var(--bark); }
+    .tool-hero.moss { background: var(--moss-deep); }
+
+    .tool-hero .label { color: var(--lichen); }
+
+    .tool-hero h3 {
+      color: var(--paper);
+      font-size: clamp(24px, 2.25vw, 34px);
+      line-height: 1.18;
+    }
+
+    .tool-hero p {
+      color: var(--bone);
+      font-size: clamp(14px, 1.1vw, 18px);
+      line-height: 1.62;
+      font-weight: 650;
+    }
+
+    .feature-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      background: rgba(255,255,255,.86);
+      border: 1.3px solid var(--ink);
+      font-size: clamp(11px, .94vw, 15px);
+    }
+
+    .feature-table th,
+    .feature-table td {
+      border: 1px solid rgba(14,14,13,.42);
+      padding: 10px 12px;
+      line-height: 1.34;
+      vertical-align: middle;
+    }
+
+    .feature-table th {
+      background: var(--ink);
+      color: var(--paper);
+      font-family: var(--mono);
+      font-size: clamp(8px, .72vw, 11px);
+      text-transform: uppercase;
+      text-align: left;
+    }
+
+    .feature-table td:first-child {
+      width: 30%;
+      background: var(--lichen);
+      font-weight: 850;
+      font-family: var(--serif);
+    }
+
+    .demo-layout {
+      display: grid;
+      grid-template-columns: 0.9fr 1.08fr 1.08fr;
+      gap: 2.2%;
+      align-items: stretch;
+    }
+
+    .demo-input {
+      border: 1.3px solid var(--ink);
+      background: var(--ink);
+      color: var(--paper);
+      padding: 8%;
+      min-height: 330px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .demo-input .label { color: var(--lichen); }
+
+    .demo-input h3 {
+      color: var(--paper);
+      font-size: clamp(24px, 2.15vw, 33px);
+      line-height: 1.24;
+    }
+
+    .demo-input p {
+      color: var(--bone);
+      font-size: clamp(13px, 1.05vw, 17px);
+      line-height: 1.62;
+      font-weight: 650;
+    }
+
+    .demo-card {
+      border: 1.3px solid var(--ink);
+      background: rgba(255,255,255,.86);
+      padding: 7%;
+      min-height: 330px;
+    }
+
+    .demo-card h3 {
+      margin-bottom: 14px;
+    }
+
+    .demo-card ol {
+      margin: 0;
+      padding-left: 1.2em;
+    }
+
+    .demo-card li {
+      margin: 10px 0;
+      font-size: clamp(12px, 1vw, 16px);
+      line-height: 1.45;
+      font-weight: 650;
+      color: var(--ink-soft);
+    }
+
+    .position-strip {
+      margin-top: 2.1%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.2%;
+    }
+
+    .position-strip .card {
+      min-height: 116px;
+      padding: 5% 5.6%;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.82);
+      border: 1.3px solid var(--ink);
+      min-height: 180px;
+      padding: 7.2% 7.5%;
+      position: relative;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 7px;
+      background: var(--moss);
+    }
+
+    .card.accent::before { background: var(--accent); }
+    .card.bark::before { background: var(--bark); }
+    .card.ink::before { background: var(--ink); }
+    .card.lichen { background: var(--lichen); }
+    .card.ink {
+      background: var(--ink);
+      color: var(--paper);
+    }
+    .card.ink .label { color: var(--lichen); }
+    .card.ink p { color: var(--bone); }
+
+    .label {
+      display: block;
+      margin-bottom: 16px;
+      font-family: var(--mono);
+      font-size: clamp(8px, 0.72vw, 11px);
+      font-weight: 800;
+      color: var(--ink-mute);
+      text-transform: uppercase;
+    }
+
+    .card p,
+    .card li {
+      margin-top: 12px;
+      font-size: clamp(13px, 1.05vw, 17px);
+      line-height: 1.55;
+      color: var(--ink-soft);
+      font-weight: 560;
+    }
+
+    ul.clean {
+      list-style: none;
+      margin: 14px 0 0;
+      padding: 0;
+    }
+
+    ul.clean li {
+      padding: 8px 0;
+      border-top: 1px solid rgba(14, 14, 13, 0.14);
+    }
+
+    .map-line {
+      position: relative;
+      margin-top: 3%;
+      padding-top: 3%;
+      border-top: 2px solid var(--ink);
+      text-align: center;
+      font-family: var(--serif);
+      font-size: clamp(17px, 1.55vw, 23px);
+      font-weight: 800;
+    }
+
+    .process {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2%;
+      margin-top: 3%;
+    }
+
+    .step {
+      min-height: 280px;
+      border: 1.3px solid var(--ink);
+      background: rgba(255,255,255,0.84);
+      padding: 7.5%;
+      position: relative;
+    }
+
+    .step.dark {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .step .idx {
+      font-family: var(--mono);
+      color: var(--moss);
+      font-weight: 900;
+      font-size: clamp(13px, 1vw, 16px);
+    }
+
+    .step.dark .idx { color: var(--lichen); }
+
+    .step h3 {
+      margin-top: 26%;
+      font-size: clamp(18px, 1.55vw, 24px);
+    }
+
+    .step p {
+      margin-top: 18px;
+      font-size: clamp(12px, 1vw, 16px);
+      line-height: 1.5;
+      color: inherit;
+    }
+
+    .matrix {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      margin-top: 2.2%;
+      background: var(--paper);
+      border: 1.3px solid var(--ink);
+      font-size: clamp(11px, 0.93vw, 15px);
+    }
+
+    .matrix th,
+    .matrix td {
+      border: 1px solid rgba(14, 14, 13, 0.55);
+      padding: 13px 13px;
+      text-align: left;
+      vertical-align: middle;
+      line-height: 1.38;
+    }
+
+    .matrix th {
+      background: var(--ink);
+      color: var(--paper);
+      font-family: var(--mono);
+      font-size: clamp(9px, 0.76vw, 12px);
+      text-transform: uppercase;
+    }
+
+    .matrix td:first-child {
+      background: var(--lichen);
+      font-weight: 800;
+      font-family: var(--serif);
+    }
+
+    .choice-board {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.8%;
+      margin-top: 1.8%;
+    }
+
+    .choice-card {
+      border: 1.3px solid var(--ink);
+      background: rgba(255,255,255,.86);
+      min-height: 360px;
+      padding: 6.2%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .choice-card.dark {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .choice-card.moss {
+      background: var(--moss-deep);
+      color: var(--paper);
+    }
+
+    .choice-card h3 {
+      font-size: clamp(22px, 2vw, 31px);
+    }
+
+    .choice-card p,
+    .choice-card li {
+      font-size: clamp(11px, .9vw, 14px);
+      line-height: 1.46;
+      font-weight: 640;
+      color: inherit;
+    }
+
+    .choice-card ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .choice-card li {
+      padding: 8px 0;
+      border-top: 1px solid rgba(14,14,13,.18);
+    }
+
+    .choice-card.dark li,
+    .choice-card.moss li {
+      border-top-color: rgba(255,255,255,.18);
+    }
+
+    .choice-card .label {
+      margin-bottom: 2px;
+    }
+
+    .choice-card.dark .label,
+    .choice-card.moss .label {
+      color: var(--lichen);
+    }
+
+    .path-ladder {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.1%;
+      margin-top: 2.4%;
+    }
+
+    .path-step {
+      border: 1.3px solid var(--ink);
+      background: rgba(255,255,255,.86);
+      min-height: 310px;
+      padding: 7%;
+    }
+
+    .path-step.dark {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .path-step h3 {
+      margin-top: 20px;
+    }
+
+    .path-step p,
+    .path-step li {
+      margin-top: 12px;
+      font-size: clamp(12px, .98vw, 16px);
+      line-height: 1.52;
+      font-weight: 640;
+      color: inherit;
+    }
+
+    .ecosystem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.7%;
+      margin-top: 1.8%;
+    }
+
+    .eco-card {
+      border: 1.2px solid var(--ink);
+      background: rgba(255,255,255,.86);
+      min-height: 154px;
+      padding: 6%;
+    }
+
+    .eco-card h3 {
+      font-size: clamp(18px, 1.55vw, 24px);
+      margin-top: 10px;
+    }
+
+    .eco-card p {
+      margin-top: 8px;
+      font-size: clamp(11px, .9vw, 14px);
+      line-height: 1.42;
+      font-weight: 640;
+      color: var(--ink-soft);
+    }
+
+    .exercise-lanes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.2%;
+      margin-top: 2.1%;
+    }
+
+    .exercise-lane {
+      border: 1.3px solid var(--ink);
+      background: rgba(255,255,255,.86);
+      min-height: 340px;
+      padding: 6%;
+    }
+
+    .exercise-lane.dark {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .exercise-lane ol {
+      margin: 14px 0 0;
+      padding-left: 1.2em;
+    }
+
+    .exercise-lane li {
+      margin: 11px 0;
+      font-size: clamp(12px, .98vw, 16px);
+      line-height: 1.48;
+      font-weight: 640;
+      color: inherit;
+    }
+
+    .gmail-split {
+      display: grid;
+      grid-template-columns: 0.92fr 1.08fr;
+      gap: 2.2%;
+      align-items: stretch;
+      margin-top: 1.8%;
+    }
+
+    .gmail-panel {
+      border: 1.3px solid var(--ink);
+      background: var(--ink);
+      color: var(--paper);
+      padding: 6.4%;
+      min-height: 398px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .gmail-panel .label { color: var(--lichen); }
+
+    .gmail-panel h3 {
+      color: var(--paper);
+      font-size: clamp(25px, 2.28vw, 36px);
+      line-height: 1.18;
+    }
+
+    .gmail-panel p {
+      color: var(--bone);
+      font-size: clamp(13px, 1.05vw, 17px);
+      line-height: 1.58;
+      font-weight: 650;
+    }
+
+    .method-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2%;
+    }
+
+    .method-card {
+      border: 1.3px solid var(--ink);
+      background: rgba(255,255,255,.86);
+      min-height: 398px;
+      padding: 6%;
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+    }
+
+    .method-card.moss {
+      background: var(--moss-deep);
+      color: var(--paper);
+    }
+
+    .method-card h3 {
+      font-size: clamp(20px, 1.72vw, 27px);
+    }
+
+    .method-card p,
+    .method-card li {
+      font-size: clamp(11px, .92vw, 14px);
+      line-height: 1.48;
+      font-weight: 640;
+      color: inherit;
+    }
+
+    .method-card ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .method-card li {
+      padding: 8px 0;
+      border-top: 1px solid rgba(14,14,13,.16);
+    }
+
+    .method-card.moss li {
+      border-top-color: rgba(255,255,255,.18);
+    }
+
+    .screenshot-layout {
+      display: grid;
+      grid-template-columns: 1.05fr 0.86fr;
+      gap: 2.2%;
+      align-items: stretch;
+      margin-top: 1.1%;
+    }
+
+    .screenshot-layout.reverse {
+      grid-template-columns: 0.84fr 1.04fr;
+    }
+
+    .screen-frame {
+      border: 1.3px solid var(--ink);
+      background: var(--ink);
+      padding: 1.2%;
+      min-height: 366px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .screen-frame.light {
+      background: var(--paper);
+    }
+
+    .screen-frame img {
+      width: 100%;
+      height: 100%;
+      max-height: 348px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .usecase-stack {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .usecase-card {
+      border: 1.3px solid var(--ink);
+      background: rgba(255,255,255,.86);
+      min-height: 102px;
+      padding: 4.7% 5.4%;
+      position: relative;
+    }
+
+    .usecase-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 7px;
+      background: var(--moss);
+    }
+
+    .usecase-card.accent::before { background: var(--accent); }
+    .usecase-card.bark::before { background: var(--bark); }
+
+    .usecase-card h3 {
+      font-size: clamp(17px, 1.45vw, 23px);
+    }
+
+    .usecase-card p {
+      margin-top: 8px;
+      font-size: clamp(11px, .92vw, 14px);
+      line-height: 1.45;
+      font-weight: 640;
+      color: var(--ink-soft);
+    }
+
+    .infographic-layout {
+      display: grid;
+      grid-template-columns: 0.82fr 1fr;
+      gap: 2.2%;
+      align-items: stretch;
+      margin-top: 1.35%;
+    }
+
+    .infographic-frame {
+      border: 1.3px solid var(--ink);
+      background: var(--paper);
+      min-height: 430px;
+      padding: 1.2%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .infographic-frame img {
+      width: 100%;
+      height: 100%;
+      max-height: 414px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .gem-layout {
+      grid-template-columns: 0.76fr 1fr;
+      margin-top: 1.15%;
+    }
+
+    .gem-frame {
+      min-height: 452px;
+      padding: 0.85%;
+    }
+
+    .gem-frame img {
+      max-height: 436px;
+    }
+
+    .gem-notes .note-card {
+      min-height: 214px;
+      padding: 6.5%;
+    }
+
+    .gem-notes .note-card.wide {
+      grid-column: 1 / -1;
+      min-height: 126px;
+      padding: 4.6% 5%;
+    }
+
+    .gem-formula {
+      margin-top: 12px;
+      border: 1.3px solid var(--ink);
+      background: var(--ink);
+      color: var(--bone);
+      padding: 5.8%;
+      font-family: var(--mono);
+      font-size: clamp(10px, .86vw, 13px);
+      line-height: 1.58;
+      white-space: pre-wrap;
+    }
+
+    .capability-notes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.4%;
+    }
+
+    .note-card {
+      border: 1.3px solid var(--ink);
+      background: rgba(255,255,255,.86);
+      min-height: 202px;
+      padding: 7%;
+      position: relative;
+    }
+
+    .note-card.dark {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .note-card.moss {
+      background: var(--moss-deep);
+      color: var(--paper);
+    }
+
+    .note-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 7px;
+      background: var(--moss);
+    }
+
+    .note-card.accent::before { background: var(--accent); }
+    .note-card.bark::before { background: var(--bark); }
+    .note-card.dark::before { background: var(--lichen); }
+
+    .note-card h3 {
+      font-size: clamp(17px, 1.48vw, 23px);
+    }
+
+    .note-card p {
+      margin-top: 10px;
+      font-size: clamp(11px, .92vw, 14px);
+      line-height: 1.45;
+      font-weight: 640;
+      color: inherit;
+    }
+
+    .canvas-layout {
+      display: grid;
+      grid-template-columns: 1.02fr 0.98fr;
+      gap: 2.2%;
+      align-items: stretch;
+      margin-top: 1.7%;
+    }
+
+    .canvas-hero {
+      border: 1.3px solid var(--ink);
+      background: var(--ink);
+      color: var(--paper);
+      padding: 6.6%;
+      min-height: 390px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .canvas-hero .label { color: var(--lichen); }
+
+    .canvas-hero h3 {
+      color: var(--paper);
+      font-size: clamp(26px, 2.38vw, 38px);
+      line-height: 1.16;
+    }
+
+    .canvas-hero p {
+      color: var(--bone);
+      font-size: clamp(13px, 1.05vw, 17px);
+      line-height: 1.58;
+      font-weight: 650;
+    }
+
+    .canvas-flow {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.2%;
+    }
+
+    .canvas-flow-card {
+      border: 1.3px solid var(--ink);
+      background: rgba(255,255,255,.86);
+      min-height: 188px;
+      padding: 7%;
+      position: relative;
+    }
+
+    .canvas-flow-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 7px;
+      background: var(--moss);
+    }
+
+    .canvas-flow-card.accent::before { background: var(--accent); }
+    .canvas-flow-card.bark::before { background: var(--bark); }
+    .canvas-flow-card.dark {
+      background: var(--moss-deep);
+      color: var(--paper);
+    }
+
+    .canvas-flow-card.dark::before { background: var(--lichen); }
+
+    .canvas-flow-card h3 {
+      font-size: clamp(17px, 1.44vw, 23px);
+    }
+
+    .canvas-flow-card p {
+      margin-top: 10px;
+      font-size: clamp(11px, .92vw, 14px);
+      line-height: 1.45;
+      font-weight: 640;
+      color: inherit;
+    }
+
+    .canvas-demo {
+      display: grid;
+      grid-template-columns: 1.14fr 0.76fr;
+      gap: 2.2%;
+      align-items: stretch;
+      margin-top: 1.1%;
+    }
+
+    .canvas-demo.reverse {
+      grid-template-columns: 0.78fr 1.12fr;
+    }
+
+    .canvas-screen {
+      border: 1.3px solid var(--ink);
+      background: var(--ink);
+      padding: 1.05%;
+      min-height: 372px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .canvas-screen.light {
+      background: var(--paper);
+    }
+
+    .canvas-screen img {
+      width: 100%;
+      height: 100%;
+      max-height: 354px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .gem-demo .canvas-screen {
+      min-height: 394px;
+    }
+
+    .gem-demo .canvas-screen img {
+      max-height: 376px;
+    }
+
+    .tall-demo .canvas-screen {
+      min-height: 420px;
+    }
+
+    .tall-demo .canvas-screen img {
+      max-height: 402px;
+    }
+
+    .wide-demo .canvas-screen {
+      min-height: 316px;
+    }
+
+    .wide-demo .canvas-screen img {
+      max-height: 298px;
+    }
+
+    .notebook-map {
+      display: grid;
+      grid-template-columns: 1.18fr 0.82fr;
+      gap: 2.2%;
+      align-items: stretch;
+      margin-top: 0.8%;
+    }
+
+    .notebook-map .infographic-frame {
+      min-height: 382px;
+    }
+
+    .notebook-map .infographic-frame img {
+      max-height: 364px;
+    }
+
+    .notebook-map .gem-notes .note-card {
+      min-height: 166px;
+      padding: 5.2%;
+    }
+
+    .notebook-map .gem-notes .note-card.wide {
+      min-height: 108px;
+      padding: 3.8% 4.5%;
+    }
+
+    .notebook-flow {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 1.15%;
+      margin-top: 2.1%;
+    }
+
+    .notebook-flow article {
+      border: 1.2px solid var(--ink);
+      background: rgba(255,255,255,.86);
+      min-height: 178px;
+      padding: 15% 10%;
+    }
+
+    .notebook-flow .label {
+      margin-bottom: 10px;
+      color: var(--moss);
+    }
+
+    .notebook-flow h3 {
+      font-size: clamp(15px, 1.22vw, 19px);
+      line-height: 1.25;
+    }
+
+    .notebook-flow p {
+      margin-top: 10px;
+      font-size: clamp(10px, .84vw, 13px);
+      line-height: 1.42;
+      font-weight: 640;
+      color: var(--ink-soft);
+    }
+
+    .output-grid {
+      display: grid;
+      grid-template-columns: 0.72fr 1.08fr;
+      gap: 2.2%;
+      align-items: stretch;
+      margin-top: 1.1%;
+    }
+
+    .output-grid .canvas-screen {
+      min-height: 424px;
+    }
+
+    .output-grid .canvas-screen img {
+      max-height: 406px;
+    }
+
+    .output-grid.portrait {
+      grid-template-columns: 0.68fr 0.92fr;
+    }
+
+    .output-grid.portrait .canvas-screen {
+      min-height: 448px;
+      background: var(--paper);
+    }
+
+    .output-grid.portrait .canvas-screen img {
+      max-height: 430px;
+    }
+
+    .advantage-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.7%;
+      margin-top: 1.6%;
+    }
+
+    .advantage-grid .card {
+      min-height: 188px;
+      padding: 5.8% 6.2%;
+    }
+
+    .advantage-grid h3 {
+      font-size: clamp(16px, 1.36vw, 22px);
+    }
+
+    .image-lab {
+      display: grid;
+      grid-template-columns: 0.78fr 1.06fr;
+      gap: 2.2%;
+      align-items: stretch;
+      margin-top: 1.3%;
+    }
+
+    .image-placeholder {
+      border: 1.3px dashed var(--ink);
+      background:
+        linear-gradient(rgba(14,14,13,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(14,14,13,.035) 1px, transparent 1px),
+        rgba(255,255,255,.62);
+      background-size: 22px 22px;
+      min-height: 390px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 7%;
+      font-family: var(--serif);
+      font-size: clamp(24px, 2.2vw, 36px);
+      line-height: 1.25;
+      font-weight: 850;
+      color: var(--ink-soft);
+    }
+
+    .comic-case-layout {
+      display: grid;
+      grid-template-columns: .86fr 1.14fr;
+      gap: 2.2%;
+      align-items: stretch;
+      margin-top: 1.2%;
+    }
+
+    .comic-prompt-frame,
+    .comic-panel {
+      border: 1.3px solid var(--ink);
+      background: var(--paper);
+      box-shadow: 0 16px 34px rgba(14,14,13,.07);
+      overflow: hidden;
+    }
+
+    .comic-prompt-frame {
+      min-height: 408px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px;
+    }
+
+    .comic-prompt-frame img {
+      width: 100%;
+      max-height: 388px;
+      object-fit: contain;
+      border-radius: 7px;
+    }
+
+    .comic-note-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      height: 100%;
+    }
+
+    .comic-note-grid .card {
+      min-height: 186px;
+      padding: 7%;
+    }
+
+    .comic-duo {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2.2%;
+      margin-top: 1.3%;
+    }
+
+    .comic-panel {
+      height: 390px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+    }
+
+    .comic-panel img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .creator-meaning {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1.4%;
+      margin-top: 2%;
+    }
+
+    .creator-meaning .card {
+      min-height: 218px;
+      padding: 8%;
+    }
+
+    .creator-meaning h3 {
+      font-size: clamp(15px, 1.25vw, 20px);
+    }
+
+    .realism-layout {
+      display: grid;
+      grid-template-columns: .72fr .9fr .64fr;
+      gap: 1.7%;
+      align-items: stretch;
+      margin-top: 1.1%;
+    }
+
+    .realism-layout.reverse {
+      grid-template-columns: .64fr .9fr .72fr;
+    }
+
+    .live-frame {
+      border: 1.3px solid var(--ink);
+      background: var(--paper);
+      min-height: 374px;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow: 0 16px 34px rgba(14,14,13,.07);
+    }
+
+    .live-frame img {
+      width: 100%;
+      height: 100%;
+      max-height: 354px;
+      object-fit: contain;
+    }
+
+    .prompt-shot {
+      border: 1.3px solid var(--ink);
+      background: var(--ink);
+      min-height: 374px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .prompt-shot img {
+      width: 100%;
+      height: 100%;
+      max-height: 350px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .realism-notes {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .realism-notes .card {
+      min-height: 96px;
+      padding: 4.8%;
+    }
+
+    .realism-notes p {
+      font-size: clamp(10px, .86vw, 13px);
+      line-height: 1.42;
+    }
+
+    .prompt-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.4%;
+      margin-top: 1.6%;
+    }
+
+    .prompt-strip div {
+      border: 1.2px solid var(--ink);
+      background: var(--paper);
+      min-height: 106px;
+      padding: 16px;
+      font-size: clamp(11px, .92vw, 14px);
+      line-height: 1.42;
+      font-weight: 680;
+    }
+
+    .prompt-strip b {
+      display: block;
+      margin-bottom: 9px;
+      font-family: var(--mono);
+      font-size: clamp(8px, .72vw, 11px);
+      color: var(--moss);
+      text-transform: uppercase;
+    }
+
+    .tip-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.7%;
+      margin-top: 2.4%;
+    }
+
+    .tip-grid .card {
+      min-height: 318px;
+      padding: 6%;
+    }
+
+    .canvas-demo-note {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .practice-row {
+      display: grid;
+      grid-template-columns: 12% 24% 1fr;
+      align-items: stretch;
+      margin-bottom: 1.5%;
+      border: 1.2px solid var(--ink);
+      background: var(--paper);
+      min-height: 78px;
+    }
+
+    .time {
+      display: grid;
+      place-items: center;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: var(--mono);
+      font-weight: 900;
+      font-size: clamp(10px, 0.8vw, 13px);
+    }
+
+    .practice-row:nth-child(even) .time {
+      background: var(--lichen);
+      color: var(--ink);
+    }
+
+    .practice-title {
+      display: flex;
+      align-items: center;
+      padding: 0 18px;
+      font-family: var(--serif);
+      font-size: clamp(15px, 1.25vw, 20px);
+      font-weight: 800;
+      border-right: 1px solid rgba(14, 14, 13, 0.4);
+    }
+
+    .practice-copy {
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      font-size: clamp(12px, 1vw, 16px);
+      line-height: 1.45;
+      color: var(--ink-soft);
+      font-weight: 560;
+    }
+
+    .prompt {
+      background: var(--ink);
+      color: var(--bone);
+      border: 1.3px solid var(--ink);
+      padding: 2.8%;
+      margin-top: 2.2%;
+      font-family: var(--mono);
+      font-size: clamp(12px, 0.98vw, 16px);
+      line-height: 1.55;
+      white-space: pre-wrap;
+    }
+
+    .footer {
+      position: absolute;
+      left: 5%;
+      bottom: 2.25%;
+      font-family: var(--mono);
+      font-size: clamp(8px, 0.68vw, 10px);
+      color: var(--ink-mute);
+    }
+
+    .controls {
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      background: rgba(14,14,13,0.78);
+      border: 1px solid rgba(255,255,255,0.16);
+      padding: 8px 10px;
+    }
+
+    .controls button {
+      appearance: none;
+      border: 1px solid rgba(255,255,255,0.26);
+      background: transparent;
+      color: var(--bone);
+      min-width: 38px;
+      height: 30px;
+      font: 800 14px var(--mono);
+      cursor: pointer;
+    }
+
+    .controls span {
+      color: var(--bone);
+      font: 800 12px var(--mono);
+      min-width: 56px;
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      body { padding: 0; }
+      .deck {
+        width: 100vw;
+        height: 100vh;
+        aspect-ratio: auto;
+      }
+      .slide {
+        overflow: auto;
+        padding: 70px 28px 64px;
+      }
+      .title-slide.active {
+        display: block;
+        overflow: auto;
+      }
+      .title-left,
+      .title-right {
+        margin: 0;
+        border: 0;
+        min-height: 50vh;
+      }
+      .brand { width: 54px; top: 58px; }
+      h2 { max-width: calc(100% - 78px); }
+      .grid-3,
+      .grid-4,
+      .grid-2,
+      .grid-5,
+      .grid-6,
+      .global-grid,
+      .tool-layout,
+      .position-strip,
+      .formula,
+      .workflow-band,
+      .demo-layout,
+      .story-layout,
+      .boss-grid,
+      .choice-board,
+      .path-ladder,
+      .ecosystem-grid,
+      .exercise-lanes,
+      .gmail-split,
+      .method-grid,
+      .screenshot-layout,
+      .screenshot-layout.reverse,
+      .infographic-layout,
+      .gem-layout,
+      .capability-notes,
+      .canvas-layout,
+      .canvas-flow,
+      .canvas-demo,
+      .canvas-demo.reverse,
+      .comic-case-layout,
+      .comic-note-grid,
+      .comic-duo,
+      .creator-meaning,
+      .realism-layout,
+      .realism-layout.reverse,
+      .process {
+        grid-template-columns: 1fr;
+      }
+      .card,
+      .step { min-height: auto; }
+      .comic-panel { height: auto; min-height: 360px; }
+      .comic-prompt-frame { min-height: 280px; }
+      .live-frame,
+      .prompt-shot { min-height: 320px; }
+      .matrix { font-size: 12px; }
+      .matrix th,
+      .matrix td { padding: 10px; }
+      .practice-row { grid-template-columns: 78px 1fr; }
+      .practice-copy { grid-column: 1 / -1; padding: 14px 16px; border-top: 1px solid rgba(14,14,13,.25); }
+      .controls { bottom: 8px; }
+    }
+
+    @media print {
+      body {
+        display: block;
+        padding: 0;
+        background: white;
+      }
+      .deck {
+        width: 100vw;
+        height: auto;
+        aspect-ratio: auto;
+        box-shadow: none;
+      }
+      .slide,
+      .title-slide {
+        position: relative;
+        display: block !important;
+        width: 100vw;
+        height: 56.25vw;
+        page-break-after: always;
+        overflow: hidden;
+      }
+      .title-slide {
+        display: grid !important;
+      }
+      .slide.backup {
+        display: none !important;
+      }
+      .controls { display: none; }
+      @page { size: 16in 9in; margin: 0; }
+    }
+  </style>
+</head>
+<body>
+  <main class="deck" id="deck">
+    <section class="slide title-slide active">
+      <div class="title-left">
+        <div class="kicker">MR CHILL / AI WORKSHOP DECK</div>
+        <h1>AI 實戰課<br>課前導引</h1>
+        <p>大家都知道 AI 很強，問題是打開來之後，到底要叫誰做什麼，還有怎麼講它才聽得懂。</p>
+      </div>
+      <div class="title-right">
+        <img class="logo-large" src="logo-mr-chill-circle.png" alt="竹山chill先生 logo">
+        <h2>先建立能長久使用的底層能力，再來決定要使用哪一種工具。</h2>
+        <div class="tag-row">
+          <span class="tag green">Mindset</span>
+          <span class="tag clay">Judgment</span>
+          <span class="tag">Tool Map</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">REALITY CHECK</div>
+      <div class="num">02</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>AI 很多、很強，但我到底要怎麼用？</h2>
+      <div class="story-layout compact">
+        <article class="story-panel">
+          <span class="label">Opening Scene</span>
+          <h3>聽起來都很厲害，自己打開卻有點卡。</h3>
+          <p>看別人用 AI 做簡報、寫程式、做圖、整理資料，好像每個人都突然多了一個外掛。輪到自己時，第一個問題通常不是技術，而是：我現在到底該用哪個？要怎麼問？</p>
+        </article>
+        <div class="tight-stack">
+          <article class="card">
+            <span class="label">01</span>
+            <h3>工具百百種</h3>
+            <p>ChatGPT、Claude、Gemini、Canva、Figma、自動化工具，每個都說自己很強。</p>
+          </article>
+          <article class="card accent">
+            <span class="label">02</span>
+            <h3>案例都很神</h3>
+            <p>你看到的通常是別人已經調過很多輪、整理過脈絡後的結果。</p>
+          </article>
+          <article class="card bark">
+            <span class="label">03</span>
+            <h3>自己用很普通</h3>
+            <p>不是工具突然變弱，而是任務還沒說清楚、標準還沒建立。</p>
+          </article>
+        </div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">LONG GAME</div>
+      <div class="num">03</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>工具會一直變，真正要學的是底層能力</h2>
+      <p class="lead">這個時代追工具很容易累。今天某個模型最強，明天介面又換一版；但有些能力不太會過時。</p>
+      <div class="grid-3" style="margin-top: 2.2%;">
+        <article class="card">
+          <span class="label">Keep Changing</span>
+          <h3>會變的是工具</h3>
+          <p>模型名稱、功能入口、訂閱方案、熱門平台都會變，甚至變得很快。</p>
+        </article>
+        <article class="card accent">
+          <span class="label">Stay Useful</span>
+          <h3>不變的是能力</h3>
+          <p>定義問題、拆解任務、給背景、設定標準、判斷輸出，會一直有用。</p>
+        </article>
+        <article class="card bark">
+          <span class="label">Course Focus</span>
+          <h3>先學可遷移的東西</h3>
+          <p>工具比較會放進來，但不是為了追流行，而是看懂不同 AI 在工作裡的位置。</p>
+        </article>
+      </div>
+      <div class="statement">先學會怎麼想、怎麼拆、怎麼判斷，再來學怎麼操作工具。</div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">MINDSET</div>
+      <div class="num">04</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>不是你不會 AI，是你還沒習慣當指揮的人</h2>
+      <div class="quote-panel">
+        AI 不會自動讓事情變清楚。它會放大你的清晰度、判斷力與執行方式。
+        <small>任務不清楚、標準不清楚、素材不完整，AI 只會產出看似完整但難以使用的內容。</small>
+      </div>
+      <div class="grid-3" style="margin-top: 2.2%;">
+        <article class="card">
+          <span class="label">Problem 01</span>
+          <h3>任務不清楚</h3>
+          <p>只說「幫我做」時，AI 只能猜測你的真正目的。</p>
+        </article>
+        <article class="card accent">
+          <span class="label">Problem 02</span>
+          <h3>標準不清楚</h3>
+          <p>如果你說不出什麼叫好，AI 也不知道要往哪裡修。</p>
+        </article>
+        <article class="card bark">
+          <span class="label">Problem 03</span>
+          <h3>資料不完整</h3>
+          <p>缺少背景、素材與限制，輸出就容易變得普通或不準。</p>
+        </article>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">BOSS MODE</div>
+      <div class="num">05</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>你不是在用工具，你是在管理一群天才員工</h2>
+      <p class="lead">AI 工具越來越像不同部門的高手。問題不是誰最強，而是你要知道誰該接哪一種任務。</p>
+      <div class="boss-grid">
+        <article class="boss-card lead-card">
+          <span class="label">Your Role</span>
+          <h3>你變成一間公司的老闆</h3>
+          <p>老闆不一定每件事都自己做，但要負責方向、優先順序、品質標準和最後決策。</p>
+        </article>
+        <article class="boss-card">
+          <span class="label">ChatGPT</span>
+          <h3>總工作台</h3>
+          <p>負責統籌、策略拆解、內容系統、商業分析與多輪協作。</p>
+        </article>
+        <article class="boss-card">
+          <span class="label">Gemini</span>
+          <h3>資料整合員</h3>
+          <p>負責 Google 生態、搜尋、YouTube、文件、圖片與多模態資料。</p>
+        </article>
+        <article class="boss-card">
+          <span class="label">Claude</span>
+          <h3>深度整理師</h3>
+          <p>負責長文件、長任務、程式開發、語氣穩定與複雜內容重構。</p>
+        </article>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">TASTE AND JUDGMENT</div>
+      <div class="num">06</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>老闆的高度，決定這群天才員工的高度</h2>
+      <div class="story-layout compact">
+        <article class="story-panel moss">
+          <span class="label">Core Idea</span>
+          <h3>AI 可以很會做，但你要知道什麼叫做好。</h3>
+          <p>你給它方向，它會跑；你給它標準，它會修；你有品味和判斷，它才比較有機會接近你真正想要的結果。</p>
+        </article>
+        <div class="tight-stack">
+          <article class="card">
+            <span class="label">Direction</span>
+            <h3>方向</h3>
+            <p>我要解決什麼問題？這份內容要讓誰採取什麼行動？</p>
+          </article>
+          <article class="card accent">
+            <span class="label">Taste</span>
+            <h3>品味</h3>
+            <p>什麼語氣適合？什麼版本太普通？什麼地方一看就不像我？</p>
+          </article>
+          <article class="card bark">
+            <span class="label">Decision</span>
+            <h3>決策</h3>
+            <p>哪些建議能用？哪些要查證？最後要選哪個方向往前走？</p>
+          </article>
+        </div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">PROMPT INPUT</div>
+      <div class="num">07</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>先把任務交代清楚，再談 Prompt 技巧</h2>
+      <p class="lead">如果你是老闆，Prompt 就不是許願，而是交代任務。每次先問自己三件事：我要它做什麼？它要根據什麼？什麼叫做做得好？</p>
+      <div class="grid-3" style="margin-top: 2.4%;">
+        <article class="card">
+          <span class="label">01 / Instruction</span>
+          <h3>指令：目標與動作</h3>
+          <p>先說清楚要完成什麼，例如整理成表格、改成更口語、提出三個方案、列出優缺點。</p>
+        </article>
+        <article class="card accent">
+          <span class="label">02 / Material</span>
+          <h3>素材：背景與依據</h3>
+          <p>再給它可以依據的東西，例如文章、客戶訊息、會議紀錄、目前想法、資料表、截圖。</p>
+        </article>
+        <article class="card bark">
+          <span class="label">03 / Standard</span>
+          <h3>標準：限制與品質</h3>
+          <p>最後定義怎樣才算好，例如受眾、語氣、字數、格式、比較維度、限制條件。</p>
+        </article>
+      </div>
+      <div class="map-line">清楚目標、足夠背景、明確限制、輸出格式、評估標準，都可以被收進這三個欄位裡。</div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">AI LEVELS</div>
+      <div class="num">08</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>會交代單一任務後，再把 AI 放進工作層級</h2>
+      <div class="grid-3">
+        <article class="level-card">
+          <span class="label">Level 1</span>
+          <h3>問答工具</h3>
+          <p>處理單點問題，例如解釋概念、整理文章、翻譯句子。這是入門，但容易停在「問一句、拿一個答案」。</p>
+        </article>
+        <article class="level-card accent">
+          <span class="label">Level 2</span>
+          <h3>工作助理</h3>
+          <p>處理一個明確任務，例如寫信、整理會議紀錄、做簡報大綱、分析資料。這是大部分人最先需要練熟的階段。</p>
+        </article>
+        <article class="level-card dark">
+          <span class="label">Level 3</span>
+          <h3>工作系統</h3>
+          <p>把多個任務串成流程，例如每週內容生產、客服 SOP、AI 輔助決策。這才是生產力真正拉開差距的地方。</p>
+        </article>
+      </div>
+      <div class="map-line">先會交代一個任務，再把多個任務串成流程；這堂課不是只教你問 AI，而是教你把 AI 放進工作流。</div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">REAL CAPABILITY</div>
+      <div class="num">09</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>所以真正要練的，是三種長久能力</h2>
+      <div class="grid-3">
+        <article class="level-card">
+          <span class="label">Define</span>
+          <h3>定義任務</h3>
+          <p>把問題、目標、受眾、限制與判斷標準先說清楚，讓 AI 知道要往哪裡走。</p>
+        </article>
+        <article class="level-card">
+          <span class="label">Direct</span>
+          <h3>指揮協作</h3>
+          <p>選對工具、給對素材、拆成步驟、要求輸出，並透過多輪修改把結果推近。</p>
+        </article>
+        <article class="level-card dark">
+          <span class="label">Judge</span>
+          <h3>判斷品質</h3>
+          <p>查證事實、評估風險、選擇版本、決定是否能對外使用。最後負責的人還是你。</p>
+        </article>
+      </div>
+      <div class="map-line">工具會換，但定義任務、指揮協作、判斷品質，會一直留下來。</div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">TOOL MAP</div>
+      <div class="num">10</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>從工作場景出發，建立 AI 工具分工</h2>
+      <div class="global-grid">
+        <article class="card">
+          <span class="label">01 / Operating Hub</span>
+          <h3>一人公司的總工作台</h3>
+          <p>適合策略拆解、商業分析、產品思考、內容系統、多輪合作與工具整合。它不是只做日常溝通，而是多數工作可以先交給它統籌。</p>
+          <ul class="clean">
+            <li>建議工具：ChatGPT</li>
+          </ul>
+        </article>
+        <article class="card accent">
+          <span class="label">02 / Google System</span>
+          <h3>Google 生態與多模態資料助手</h3>
+          <p>適合搜尋、YouTube、圖片、文件、Gmail、Docs、Sheets 與 Drive 相關任務。核心價值是把 Google 世界裡的資訊轉成可用結果。</p>
+          <ul class="clean">
+            <li>建議工具：Gemini</li>
+          </ul>
+        </article>
+        <article class="card bark">
+          <span class="label">03 / Deep Structure</span>
+          <h3>長任務與深度重構夥伴</h3>
+          <p>適合長文件、長上下文、程式開發、語氣穩定與大型素材整理。它的優勢是在複雜內容裡維持脈絡並重新組織品質。</p>
+          <ul class="clean">
+            <li>建議工具：Claude</li>
+          </ul>
+        </article>
+      </div>
+      <div class="map-line">核心原則：ChatGPT 負責統籌與推進，Gemini 負責 Google 生態與多模態資料，Claude 負責長文與深度重構。</div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">TOOL CARD</div>
+      <div class="num">11</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>ChatGPT：最適合當「一人公司的總工作台」</h2>
+      <div class="tool-layout">
+        <article class="tool-hero">
+          <span class="label">Position</span>
+          <h3>CEO 副手、策略顧問、內容總編、產品經理、營運分析師</h3>
+          <p>ChatGPT 的優勢不只是模型本身，而是整個產品體驗。以 GPT-5.5 Thinking 的定位來看，它更擅長複雜工作，尤其在 coding、研究、資訊整合、分析與文件密集型任務中，搭配工具使用時更像一個總工作台。</p>
+        </article>
+        <table class="feature-table">
+          <thead>
+            <tr><th>面向</th><th>表現</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>綜合能力</td><td>最平均，沒有明顯短板</td></tr>
+            <tr><td>商業分析</td><td>很強，適合拆市場、用戶、產品與營運問題</td></tr>
+            <tr><td>策略拆解</td><td>很強，適合把混亂目標變成路線與決策選項</td></tr>
+            <tr><td>中文表達</td><td>自然，適合內容、簡報、品牌與教學文字</td></tr>
+            <tr><td>多輪合作</td><td>適合長時間共創、修稿、推進與追問</td></tr>
+            <tr><td>工具整合</td><td>支援搜尋、資料分析、圖像分析、檔案、Canvas、圖片生成、記憶等工具</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide backup">
+      <div class="meta">CHATGPT DEMO</div>
+      <div class="num">B3</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>實際展示：把模糊需求變成可執行任務</h2>
+      <div class="demo-layout">
+        <article class="demo-input">
+          <span class="label">Original Request</span>
+          <h3>「幫我做一份 AI 實戰課簡報。」</h3>
+          <p>這句話可以開始，但還不夠交付。ChatGPT 適合先把它拆成目標、受眾、限制、架構與驗收標準。</p>
+        </article>
+        <article class="demo-card">
+          <span class="label">ChatGPT 接手拆解</span>
+          <h3>先把任務變清楚</h3>
+          <ol>
+            <li>確認聽眾：一般上班族、老闆、創作者或內部員工？</li>
+            <li>確認目的：入門觀念、工具選型、實作演練或工作流改造？</li>
+            <li>確認限制：時間、頁數、語氣、案例、不能出現的內容。</li>
+            <li>建立輸出：章節架構、每頁標題、講稿與練習任務。</li>
+          </ol>
+        </article>
+        <article class="demo-card">
+          <span class="label">可得到的結果</span>
+          <h3>從一句話變成工作包</h3>
+          <ol>
+            <li>一份 10 頁課程簡報架構。</li>
+            <li>每頁的主標、重點句與口語講稿。</li>
+            <li>一組可複用 prompt 與現場練習流程。</li>
+            <li>最後用檢查表確認內容能不能真的上台講。</li>
+          </ol>
+        </article>
+      </div>
+      <div class="map-line">ChatGPT 的價值不是只回答，而是協助你把工作拆開、推進、檢查，再整合成可交付成果。</div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">TOOL CARD</div>
+      <div class="num">12</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>Gemini：最適合當「Google 生態 + 多模態 + 即時資料整合助手」</h2>
+      <div class="tool-layout">
+        <article class="tool-hero moss">
+          <span class="label">Position</span>
+          <h3>Google 助理、資料搜尋員、多媒體分析師、日常工作流助手</h3>
+          <p>Gemini 的核心優勢不是單純文字，而是 Google 生態整合、多模態理解、搜尋、YouTube、Gmail、Docs、Sheets、Drive 等場景。Gemini 3.1 Pro preview 走向複雜多模態理解、長上下文、agentic workflows、自主 coding 與進階推理。</p>
+        </article>
+        <table class="feature-table">
+          <thead>
+            <tr><th>面向</th><th>表現</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Google 生態整合</td><td>最強，適合 Gmail、Docs、Sheets、Drive 與日常工作流</td></tr>
+            <tr><td>YouTube / 圖片 / 文件理解</td><td>很強，適合影音、圖片、長文件與多媒體資料整理</td></tr>
+            <tr><td>搜尋與即時資料</td><td>很方便，適合需要網路脈絡與最新資訊的工作</td></tr>
+            <tr><td>多模態任務</td><td>很強，適合把文字、圖片、影片、文件一起處理</td></tr>
+            <tr><td>Workspace 工作流</td><td>最有潛力，適合把 Google 世界裡的資訊變成可用結果</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="map-line">最適合處理：YouTube 影片分析、Gmail 整理、Google Docs / Sheets 資料、Drive 搜尋、圖片與網路資料整合。</div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">TOOL CARD</div>
+      <div class="num">13</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>Claude：最適合當「深度寫作 + 長任務 + 程式開發夥伴」</h2>
+      <div class="tool-layout">
+        <article class="tool-hero bark">
+          <span class="label">Position</span>
+          <h3>資深編輯、軟體架構師、長文顧問、文件整理師</h3>
+          <p>Claude 特別適合處理一整包很大、很長、很複雜的素材。Claude Opus 4.7 的定位偏向複雜推理與 agentic coding，搭配長上下文、長輸出與 adaptive thinking，適合深度整理、重構與開發任務。</p>
+        </article>
+        <table class="feature-table">
+          <thead>
+            <tr><th>面向</th><th>表現</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>長文件處理</td><td>非常強，適合品牌手冊、課程架構、PRD、商業計畫書</td></tr>
+            <tr><td>長上下文維持</td><td>非常強，適合從大量素材中維持一致脈絡</td></tr>
+            <tr><td>程式碼重構</td><td>很強，適合大型程式碼、架構討論與開發協作</td></tr>
+            <tr><td>長篇寫作</td><td>很強，適合文章、文件、訪談與教學內容重整</td></tr>
+            <tr><td>語氣穩定</td><td>很強，通常在人味、細膩度與文字質感上表現穩定</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="map-line">最適合處理：已有大量素材但很亂，需要整理、重構、抓矛盾、改語氣、優化架構的任務。</div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">DECISION MATRIX</div>
+      <div class="num">14</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>選用矩陣：先從 ChatGPT 或 Gemini 開始</h2>
+      <p class="lead">新手不需要一次把所有工具學完。先選一個全能入口，練會基礎任務，再慢慢把它放進工作流。</p>
+      <div class="choice-board">
+        <article class="choice-card dark">
+          <span class="label">ChatGPT</span>
+          <h3>任務很模糊時，先找它當總工作台</h3>
+          <ul>
+            <li>最適合：策略拆解、商業分析、內容系統、產品思考、簡報架構。</li>
+            <li>起手式：把想法丟進去，請它反問、拆任務、列選項。</li>
+            <li>第一個練習：把「我要做一份課程」變成章節、頁面、講稿與檢查表。</li>
+            <li>注意：如果資料都在 Google 生態裡，Gemini 可能更順手。</li>
+          </ul>
+        </article>
+        <article class="choice-card moss">
+          <span class="label">Gemini</span>
+          <h3>資料在 Google 裡時，先用它接工作流</h3>
+          <ul>
+            <li>最適合：Gmail、Docs、Sheets、Drive、YouTube、圖片與搜尋資料。</li>
+            <li>起手式：從一封信、一份文件、一張表、一段影片開始整理。</li>
+            <li>第一個練習：把 Gmail 訊息整理成待辦，再放進 Sheets 追蹤。</li>
+            <li>注意：深度品牌語氣與長篇重構，通常要再人工修或交給 Claude 補強。</li>
+          </ul>
+        </article>
+        <article class="choice-card">
+          <span class="label">Claude</span>
+          <h3>素材很多很長時，讓它做深度整理</h3>
+          <ul>
+            <li>最適合：長文件、長上下文、coding、訪談整理、文件重構、語氣細膩。</li>
+            <li>起手式：丟一整包素材，請它抓結構、矛盾、缺口與改寫方向。</li>
+            <li>第一個練習：把一份混亂長文變成乾淨、有邏輯、有質感的版本。</li>
+            <li>注意：即時搜尋、Google 生態整合、圖片生成不是它的主場。</li>
+          </ul>
+        </article>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">PRACTICE ROADMAP</div>
+      <div class="num">15</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>接下來的實戰：先從全能工具練基本功</h2>
+      <p class="lead">我會比較建議從 Gemini 或 ChatGPT 開始。兩個都夠全能，容易從日常任務得到成果，再慢慢走進工作流，最後變成一套系統。</p>
+      <div class="path-ladder">
+        <article class="path-step">
+          <span class="label">Step 01</span>
+          <h3>先練基礎功能</h3>
+          <p>摘要、改寫、分類、翻譯、整理成表格、產出第一版。先讓學員知道 AI 能幫忙處理什麼。</p>
+        </article>
+        <article class="path-step">
+          <span class="label">Step 02</span>
+          <h3>再練工作流</h3>
+          <p>從辦公室或自媒體任務出發，把信件、文件、表格、素材、影片整理串成一個流程。</p>
+        </article>
+        <article class="path-step dark">
+          <span class="label">Step 03</span>
+          <h3>最後搭系統</h3>
+          <p>把常做的事情整理成模板、SOP、資料表、知識庫與固定檢查流程，讓 AI 變成穩定工作方法。</p>
+        </article>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">GEMINI ECOSYSTEM</div>
+      <div class="num">16</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>第一站：Gemini 生態系，從常見工作任務開始</h2>
+      <p class="lead">先從大家比較熟悉的 Google 工作環境切入：信件、文件、表格、資料夾、影片、研究素材，都是很好的練習入口。</p>
+      <div class="ecosystem-grid">
+        <article class="eco-card"><span class="label">Gmail</span><h3>信件與客戶回覆</h3><p>摘要信件、抓待辦、整理回覆重點、把往來內容變成下一步。</p></article>
+        <article class="eco-card"><span class="label">Google Docs</span><h3>文件與文案初稿</h3><p>整理會議紀錄、寫企劃、改語氣、把草稿變成可讀版本。</p></article>
+        <article class="eco-card"><span class="label">Google Sheets</span><h3>表格與追蹤清單</h3><p>整理名單、分類資料、建立內容排程、追蹤任務狀態。</p></article>
+        <article class="eco-card"><span class="label">Drive</span><h3>素材與檔案整理</h3><p>從雲端硬碟找資料，協助歸類、摘要、建立資料使用脈絡。</p></article>
+        <article class="eco-card"><span class="label">NotebookLM</span><h3>知識庫與研究整理</h3><p>把文件、筆記、研究素材放在一起，做問答、摘要與脈絡整理。</p></article>
+        <article class="eco-card"><span class="label">AI Studio</span><h3>Prompt 與原型測試</h3><p>用來測試指令、比較輸出、設計可重複使用的小型 AI 流程。</p></article>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">GMAIL PRACTICE</div>
+      <div class="num">17</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>第一個練習：用 Gemini 處理 Gmail</h2>
+      <p class="lead">Gemini in Gmail 的核心價值，不是幫你自動處理所有信，而是讓你更快理解信、找到信、寫好信、回覆信。</p>
+      <div class="gmail-split">
+        <article class="gmail-panel">
+          <span class="label">Core Value</span>
+          <h3>把 Gmail 從收信工具，變成可以對話的工作資料庫。</h3>
+          <p>信箱裡其實藏著很多工作脈絡：客戶需求、待辦事項、合作紀錄、附件資料、過去承諾。Gemini 的第一個練習，就是讓學員感覺到「我可以跟信箱對話」。</p>
+        </article>
+        <div class="method-grid">
+          <article class="method-card">
+            <span class="label">Method 01</span>
+            <h3>在 Gemini 平台使用 @Gmail</h3>
+            <p>適合跨信件搜尋、整理一批信、找特定主題、做安全信或服務通知摘要。</p>
+            <ul>
+              <li>問：最近有哪些重要信件？</li>
+              <li>問：幫我找跟某個客戶相關的郵件。</li>
+              <li>問：最近有沒有帳戶安全或付款相關通知？</li>
+            </ul>
+          </article>
+          <article class="method-card moss">
+            <span class="label">Method 02</span>
+            <h3>在 Gmail 右側欄呼叫 Gemini</h3>
+            <p>適合邊看信邊問、摘要當前信件、擬回覆、潤稿，或找和這封信相關的 Drive 文件。</p>
+            <ul>
+              <li>請它摘要這封信的重點。</li>
+              <li>請它幫你擬一封回覆草稿。</li>
+              <li>請它找相關附件或雲端文件。</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">GMAIL PRACTICE</div>
+      <div class="num">18</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>Gemini 在 Gmail 可以做什麼？先看總表</h2>
+      <p class="lead">這張圖先幫學員建立全局：Gmail 不是只拿來收信，它可以被拿來理解、搜尋、撰寫與整理工作脈絡。</p>
+      <div class="infographic-layout">
+        <div class="infographic-frame">
+          <img src="gemini-gmail-capabilities-map.png" alt="Gemini 在 Gmail 可以做的七個功能總整理">
+        </div>
+        <div class="capability-notes">
+          <article class="note-card">
+            <span class="label">Core Practice</span>
+            <h3>這段先練前六件事</h3>
+            <p>寫信、潤飾語氣、快速回信、摘要長信、找信、整合 Drive / Calendar。先讓信箱變得可讀、可找、可回覆。</p>
+          </article>
+          <article class="note-card accent">
+            <span class="label">Priority</span>
+            <h3>優先順序也能問</h3>
+            <p>不是每封信都值得馬上處理。可以請 Gemini 幫你看重要信、未回信、今日重點，先抓出該動手的地方。</p>
+          </article>
+          <article class="note-card bark">
+            <span class="label">Taiwan Note</span>
+            <h3>直接發信先不當主軸</h3>
+            <p>台灣目前課堂先以擬稿、潤稿、整理與人工確認為主。寄出這件事，仍然由人最後按下去。</p>
+          </article>
+          <article class="note-card dark">
+            <span class="label">Next Layer</span>
+            <h3>Codex 之後可以做更多</h3>
+            <p>後面會再談 Codex：它可以串 Gmail、Calendar、文件與自動化流程，但重要動作仍會設計人工核准。</p>
+          </article>
+        </div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">GMAIL PRACTICE</div>
+      <div class="num">19</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>做法一：在 Gemini 平台用 @Gmail 問信箱</h2>
+      <p class="lead">這種做法像是站在信箱外面，請 Gemini 幫你跨信件搜尋、整理、分類與摘要。</p>
+      <div class="screenshot-layout reverse">
+        <div class="screen-frame">
+          <img src="gemini-app-at-gmail.png" alt="在 Gemini 平台使用 @Gmail 查詢 Gmail 信件">
+        </div>
+        <div class="usecase-stack">
+          <article class="usecase-card">
+            <span class="label">Search</span>
+            <h3>找信</h3>
+            <p>例如：@Gmail 最近有什麼安全信相關的信嗎？把時間、寄件者、重點整理出來。</p>
+          </article>
+          <article class="usecase-card accent">
+            <span class="label">Summarize</span>
+            <h3>整理</h3>
+            <p>把一批信件整理成摘要、待辦、風險、需要回覆的清單，先讓信箱變得可讀。</p>
+          </article>
+          <article class="usecase-card bark">
+            <span class="label">Draft</span>
+            <h3>產出</h3>
+            <p>可以請它先擬回覆、改語氣、整理成正式文字，再由人確認是否貼回 Gmail 使用。</p>
+          </article>
+        </div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">GMAIL PRACTICE</div>
+      <div class="num">20</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>做法二：在 Gmail 右側欄邊看信邊請 Gemini 協助</h2>
+      <p class="lead">這種做法像是在信件旁邊放一個助理。你不用離開 Gmail，就可以請它理解這封信、擬稿、潤稿，或找相關資料。</p>
+      <div class="screenshot-layout">
+        <div class="screen-frame light">
+          <img src="gmail-gemini-sidebar-draft.png" alt="在 Gmail 右側欄使用 Gemini 擬回覆">
+        </div>
+        <div class="usecase-stack">
+          <article class="usecase-card">
+            <span class="label">Understand</span>
+            <h3>更快理解信</h3>
+            <p>先問這封信在說什麼、對方真正要什麼、有哪些下一步，避免只看表面文字。</p>
+          </article>
+          <article class="usecase-card accent">
+            <span class="label">Write</span>
+            <h3>更快寫好信</h3>
+            <p>請它幫你擬稿、改成專業但不冷冰冰的語氣，或把拒絕、延期、確認需求講得更清楚。</p>
+          </article>
+          <article class="usecase-card bark">
+            <span class="label">Boundary</span>
+            <h3>最後仍由人發送</h3>
+            <p>目前課堂先把它定位成理解與擬稿助理；能不能直接代寄，依帳號、地區與 Workspace 功能開放狀態而定。</p>
+          </article>
+        </div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">GEMINI PRACTICE</div>
+      <div class="num">21</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>第二個練習：極速做一個可以上線的小工具</h2>
+      <p class="lead">這一段示範用 Gemini Canvas 做一個「品牌口吻文案產生器」。重點不是做出成熟產品，而是把想法快速變成可以打開、可以測、可以分享的東西。</p>
+      <div class="canvas-layout">
+        <article class="canvas-hero">
+          <span class="label">Canvas Mode</span>
+          <h3>用聊天把工具做出來，再用聊天把工具修到能用。</h3>
+          <p>如果臨時需要一個小工具，例如品牌口吻產生器、活動文案表單、資料整理器、簡單計算器，可以先用 Canvas 模式做出第一版。它不是正式系統，但很適合拿來驗證想法、溝通需求。</p>
+        </article>
+        <div class="canvas-flow">
+          <article class="canvas-flow-card">
+            <span class="label">01</span>
+            <h3>說出工具需求</h3>
+            <p>例如：幫我做一個可以設定品牌口吻，並依產品、受眾、CTA 產生文案的小工具。</p>
+          </article>
+          <article class="canvas-flow-card accent">
+            <span class="label">02</span>
+            <h3>用 Canvas 生成小軟體</h3>
+            <p>記得要進入 Google 的 Canvas 模式，才會有程式碼、預覽與後續分享的工作區。</p>
+          </article>
+          <article class="canvas-flow-card bark">
+            <span class="label">03</span>
+            <h3>取得公開分享連結</h3>
+            <p>按分享後，Google 會幫你準備一個線上連結，可以先給別人試用或討論。</p>
+          </article>
+          <article class="canvas-flow-card dark">
+            <span class="label">04</span>
+            <h3>測試，再用聊天修改</h3>
+            <p>打開連結實際輸入內容，確認它能不能產出東西；不順就回頭繼續跟 Gemini 調整。</p>
+          </article>
+        </div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">CANVAS DEMO</div>
+      <div class="num">22</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>第一步：在 Canvas 裡生成品牌口吻文案工具</h2>
+      <p class="lead">這裡的任務不是「寫一篇文案」，而是做出一個可以重複產生文案的小工具。</p>
+      <div class="canvas-demo">
+        <div class="canvas-screen">
+          <img src="gemini-canvas-copy-generator-build.png" alt="Gemini Canvas 生成品牌風格文案產生器">
+        </div>
+        <div class="canvas-demo-note">
+          <article class="usecase-card">
+            <span class="label">Prompt</span>
+            <h3>先描述工具，不只描述結果</h3>
+            <p>輸入需求：我要一個能套用品牌口吻、依受眾與 CTA 產生文案的工具。</p>
+          </article>
+          <article class="usecase-card accent">
+            <span class="label">Canvas</span>
+            <h3>切到 Canvas 模式</h3>
+            <p>Canvas 會出現程式碼與預覽，適合做互動頁、小表單、原型工具。</p>
+          </article>
+          <article class="usecase-card bark">
+            <span class="label">Iteration</span>
+            <h3>不滿意就繼續聊</h3>
+            <p>可以要求它新增欄位、改介面、換語氣、修按鈕、補說明，直到第一版能拿去測。</p>
+          </article>
+        </div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">CANVAS DEMO</div>
+      <div class="num">23</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>第二步：用分享功能，產生可以直接打開的連結</h2>
+      <p class="lead">Canvas 的好用點，是它不只停在你的畫面裡，而是可以快速變成一個可分享的線上頁面。</p>
+      <div class="canvas-demo reverse">
+        <div class="canvas-demo-note">
+          <article class="usecase-card">
+            <span class="label">Share</span>
+            <h3>點擊分享，取得公開連結</h3>
+            <p>Google 會準備一個線上網址，你可以先貼給同事、客戶、學員或朋友測試。</p>
+          </article>
+          <article class="usecase-card accent">
+            <span class="label">Use Case</span>
+            <h3>最快用來溝通想法</h3>
+            <p>不需要先架站、不需要先做完整產品；先讓對方打開看懂，討論會快很多。</p>
+          </article>
+          <article class="usecase-card bark">
+            <span class="label">Boundary</span>
+            <h3>先當原型，不當正式產品</h3>
+            <p>公開連結要注意資料、權限與穩定性。這一版適合驗證想法，不適合直接當商業系統。</p>
+          </article>
+        </div>
+        <div class="canvas-screen">
+          <img src="gemini-canvas-share-link.png" alt="Gemini Canvas 產生公開分享連結">
+        </div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">CANVAS DEMO</div>
+      <div class="num">24</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>第三步：打開公開連結，實際測一次</h2>
+      <p class="lead">這一步很重要。不是看到畫面就算完成，而是要真的輸入內容，看它能不能產生可用結果。</p>
+      <div class="canvas-demo">
+        <div class="canvas-screen light">
+          <img src="gemini-canvas-live-test.png" alt="公開連結中的品牌口吻文案產生器測試畫面">
+        </div>
+        <div class="canvas-demo-note">
+          <article class="usecase-card">
+            <span class="label">Test</span>
+            <h3>用真實案例測</h3>
+            <p>輸入產品、受眾、CTA 與品牌語氣，確認工具真的能在公開頁面產出文案。</p>
+          </article>
+          <article class="usecase-card accent">
+            <span class="label">Feedback</span>
+            <h3>拿結果回去修</h3>
+            <p>如果產出的文字太普通、欄位不夠、流程不順，就回到 Gemini 繼續要求修改。</p>
+          </article>
+          <article class="usecase-card bark">
+            <span class="label">Mindset</span>
+            <h3>先驗證，再精修</h3>
+            <p>這種做法最快的價值，是讓想法不要只停在腦中。先做出來，再看哪裡壞。</p>
+          </article>
+        </div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">GEMINI PRACTICE</div>
+      <div class="num">25</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>再深入一點：AI Studio Build 適合更複雜的小程式</h2>
+      <p class="lead">Canvas 很快，但如果你想做稍微複雜一點的 App，Gemini 裡面那個模式就會開始不夠用。這時可以到 Google AI Studio 的 Build 功能。</p>
+      <div class="canvas-layout">
+        <article class="canvas-hero">
+          <span class="label">Next Level</span>
+          <h3>Canvas 是快速草稿，AI Studio Build 是下一層原型。</h3>
+          <p>AI Studio Build 可以做出比較完整的前端、服務檔案、程式碼結構，也比較適合測試真正的小工具。但它開始接近開發環境，所以部署、金鑰、用量和費用就不能亂按。</p>
+        </article>
+        <div class="canvas-flow">
+          <article class="canvas-flow-card">
+            <span class="label">01</span>
+            <h3>功能可以更深入</h3>
+            <p>不只是單頁互動，可以產出比較完整的 App 架構、檔案、服務邏輯與 UI。</p>
+          </article>
+          <article class="canvas-flow-card accent">
+            <span class="label">02</span>
+            <h3>程式碼可以下載</h3>
+            <p>生成後可以切到 Code，看檔案結構，右上角也能下載程式碼。</p>
+          </article>
+          <article class="canvas-flow-card bark">
+            <span class="label">03</span>
+            <h3>不建議直接在這裡部署</h3>
+            <p>部署前要先確認帳務、API key、用量限制與公開權限，不要一個手滑讓帳單自己長大。</p>
+          </article>
+          <article class="canvas-flow-card dark">
+            <span class="label">04</span>
+            <h3>後面再接 Codex / Claude Code</h3>
+            <p>我個人會把程式碼交給 Codex 或 Claude Code 檢查，再用比較可控的流程放到 Vercel。</p>
+          </article>
+        </div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">AI STUDIO BUILD</div>
+      <div class="num">26</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>AI Studio Build：從需求開始生成 App</h2>
+      <p class="lead">這裡可以輸入比較完整的產品需求，例如做一個符合品牌口吻、能產生社群貼文、並能依平台調整格式的文案 App。</p>
+      <div class="canvas-demo">
+        <div class="canvas-screen">
+          <img src="ai-studio-build-start.png" alt="Google AI Studio Build 輸入 App 需求">
+        </div>
+        <div class="canvas-demo-note">
+          <article class="usecase-card">
+            <span class="label">Input</span>
+            <h3>把需求講得像產品規格</h3>
+            <p>不要只說「幫我寫文案」，而是說清楚用途、平台、輸入欄位、輸出格式與限制。</p>
+          </article>
+          <article class="usecase-card accent">
+            <span class="label">Build</span>
+            <h3>讓它產生完整 App</h3>
+            <p>AI Studio 會嘗試建立前端、服務邏輯與可預覽的介面，適合比 Canvas 更複雜的原型。</p>
+          </article>
+          <article class="usecase-card bark">
+            <span class="label">Scope</span>
+            <h3>先做小工具，不要一開始做大系統</h3>
+            <p>先用單一清楚任務練習，例如品牌文案、格式轉換、資料整理、內部表單。</p>
+          </article>
+        </div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">AI STUDIO BUILD</div>
+      <div class="num">27</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>Build 完之後：先預覽、測功能、再決定要不要往下做</h2>
+      <p class="lead">AI Studio 會把它做成一個可以預覽的 App。這時先測流程，不要急著把它當正式產品。</p>
+      <div class="canvas-demo reverse">
+        <div class="canvas-demo-note">
+          <article class="usecase-card">
+            <span class="label">Preview</span>
+            <h3>先用預覽檢查體驗</h3>
+            <p>確認欄位是否合理、按鈕是否清楚、輸出結果是否符合任務。</p>
+          </article>
+          <article class="usecase-card accent">
+            <span class="label">Remix</span>
+            <h3>不順就繼續改</h3>
+            <p>可以要求它新增語言支援、優化平台格式、補範例、調整 UI 或修正生成邏輯。</p>
+          </article>
+          <article class="usecase-card bark">
+            <span class="label">Checkpoint</span>
+            <h3>把它當原型驗收</h3>
+            <p>先回答一件事：這個工具有沒有把需求講清楚，並產出能拿來討論的結果？</p>
+          </article>
+        </div>
+        <div class="canvas-screen light">
+          <img src="ai-studio-build-preview.png" alt="AI Studio Build 產生 BrandPulse App 預覽畫面">
+        </div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">AI STUDIO BUILD</div>
+      <div class="num">28</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>程式碼可以下載；部署流程先留到後面</h2>
+      <p class="lead">AI Studio 的好處是看得到程式碼，也可以下載下來。真正要上線時，我會把它交給 Codex 或 Claude Code 再整理、檢查、部署。</p>
+      <div class="canvas-demo">
+        <div class="canvas-screen">
+          <img src="ai-studio-code-download.png" alt="AI Studio Build Code 畫面與右上角下載按鈕">
+        </div>
+        <div class="canvas-demo-note">
+          <article class="usecase-card">
+            <span class="label">Code</span>
+            <h3>切到 Code 看結構</h3>
+            <p>可以看到檔案、元件、服務檔、設定檔，這比 Canvas 更接近真的開發專案。</p>
+          </article>
+          <article class="usecase-card accent">
+            <span class="label">Download</span>
+            <h3>右上角可以下載</h3>
+            <p>先把程式碼下載下來，再進入熟悉的開發流程，會比直接在頁面裡亂發布更可控。</p>
+          </article>
+          <article class="usecase-card bark">
+            <span class="label">Deploy Later</span>
+            <h3>不要急著 Publish</h3>
+            <p>部署前先處理環境變數、API key、計費、權限與錯誤處理。這段之後再用 Vercel 流程細講。</p>
+          </article>
+        </div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">GEM PRACTICE</div>
+      <div class="num">29</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>第三個練習：Gem，把常用指令存成專屬助理</h2>
+      <p class="lead">Canvas 和 AI Studio 是把想法做成工具；Gem 則是把你常用的角色、規則、資料背景與輸出格式，存成可以反覆使用的 AI 助理。</p>
+      <div class="infographic-layout gem-layout">
+        <div class="infographic-frame gem-frame">
+          <img src="gem-card-what-is.png" alt="Gemini 的 Gem 是什麼快速理解圖">
+        </div>
+        <div class="capability-notes gem-notes">
+          <article class="note-card">
+            <span class="label">Definition</span>
+            <h3>Gem = 預先設定好的 AI 幫手</h3>
+            <p>你先把角色、語氣、任務、規則與資料背景設好，以後打開它就照同一套方式工作。</p>
+          </article>
+          <article class="note-card accent">
+            <span class="label">Best For</span>
+            <h3>適合重複任務</h3>
+            <p>固定風格寫作、固定客服回覆、固定課程設計、固定資料整理，都很適合做成 Gem。</p>
+          </article>
+          <article class="note-card bark">
+            <span class="label">Mindset</span>
+            <h3>不是換一個聊天入口</h3>
+            <p>真正的價值不是多一個按鈕，而是把「每次都要重講」的工作方法固定下來。</p>
+          </article>
+          <article class="note-card dark">
+            <span class="label">One Line</span>
+            <h3>把提示詞變成工具</h3>
+            <p>這就是從「我問 AI」走向「我有一組專屬 AI 工作台」的第一步。</p>
+          </article>
+        </div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">GEM PRACTICE</div>
+      <div class="num">30</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>Gem 可以做什麼：把常見工作變成可重複使用的助理</h2>
+      <p class="lead">Gem 最適合拿來處理「你會一直重複做，而且希望品質穩定」的事情。</p>
+      <div class="infographic-layout gem-layout">
+        <div class="infographic-frame gem-frame">
+          <img src="gem-card-usecases.png" alt="Gem 可以做什麼用途示意圖">
+        </div>
+        <div class="capability-notes gem-notes">
+          <article class="note-card">
+            <span class="label">Writing</span>
+            <h3>寫作型 Gem</h3>
+            <p>例如 IG 貼文教練、短影音腳本助理、標題產生器。先設定品牌語氣和輸出格式。</p>
+          </article>
+          <article class="note-card accent">
+            <span class="label">Work</span>
+            <h3>工作助理 Gem</h3>
+            <p>例如禮貌回信助理、會議紀錄整理、客戶 follow-up。重點是穩定，不是每次重新試手氣。</p>
+          </article>
+          <article class="note-card bark">
+            <span class="label">Learning</span>
+            <h3>學習教練 Gem</h3>
+            <p>例如英文教練、概念解釋、出題練習。可以要求它不要只給答案，而是一步步帶你理解。</p>
+          </article>
+          <article class="note-card dark">
+            <span class="label">SOP</span>
+            <h3>品牌與 SOP Gem</h3>
+            <p>例如品牌守門人、客服規範助理、課程設計助理。讓 AI 依照你的資料和規則工作。</p>
+          </article>
+        </div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">GEM PRACTICE</div>
+      <div class="num">31</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>Gem 跟一般聊天差在哪：差在能不能穩定重複使用</h2>
+      <p class="lead">一般聊天很適合臨時問問題；Gem 比較像你先訓練好一位固定員工，以後直接交辦。</p>
+      <div class="infographic-layout gem-layout">
+        <div class="infographic-frame gem-frame">
+          <img src="gem-card-difference.png" alt="Gem 和一般 Gemini 聊天差異比較圖">
+        </div>
+        <div class="capability-notes gem-notes">
+          <article class="note-card">
+            <span class="label">Normal Chat</span>
+            <h3>一般聊天：每次重新講需求</h3>
+            <p>適合一次性問題、臨時發想、快速問答。但如果每次都要重講語氣、格式、背景，很快就累。</p>
+          </article>
+          <article class="note-card accent">
+            <span class="label">Gem</span>
+            <h3>Gem：角色與規則先固定</h3>
+            <p>把常用 prompt、品牌語氣、工作流程、輸出格式先存起來，之後只要丟任務。</p>
+          </article>
+          <article class="note-card bark">
+            <span class="label">Example</span>
+            <h3>從「幫我寫文案」變成「丟主題就產出」</h3>
+            <p>例如先建立 IG 文案教練，之後只要輸入主題，它就會照固定語氣產出多個版本。</p>
+          </article>
+          <article class="note-card dark">
+            <span class="label">Core</span>
+            <h3>Gem 是把工作方法模組化</h3>
+            <p>真正會用 AI 的人，不只問更多問題，而是把常用任務變成可重複使用的工作模組。</p>
+          </article>
+        </div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">GEM PRACTICE</div>
+      <div class="num">32</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>建立一個好 Gem：角色、任務、格式、資料</h2>
+      <p class="lead">Gem 不需要神秘公式。你只要把它當成在訓練一位新同事：他是誰、要做什麼、怎麼交付、參考哪些資料。</p>
+      <div class="infographic-layout gem-layout">
+        <div class="infographic-frame gem-frame">
+          <img src="gem-card-build-good.png" alt="怎麼建立一個好 Gem 方法圖">
+        </div>
+        <div class="capability-notes gem-notes">
+          <article class="note-card">
+            <span class="label">01</span>
+            <h3>設定角色</h3>
+            <p>它是品牌顧問、回信助理、英文老師、課程設計師，還是客服 SOP 守門人？</p>
+          </article>
+          <article class="note-card accent">
+            <span class="label">02</span>
+            <h3>講清楚任務</h3>
+            <p>要它幫你改文案、整理資料、回答問題、設計課程，還是檢查內容是否符合規範？</p>
+          </article>
+          <article class="note-card bark">
+            <span class="label">03</span>
+            <h3>指定輸出格式</h3>
+            <p>請它用條列、表格、短文、步驟、三個版本或固定欄位輸出，結果才比較好接著用。</p>
+          </article>
+          <article class="note-card dark">
+            <span class="label">04</span>
+            <h3>加入參考資料</h3>
+            <p>品牌語氣、FAQ、SOP、產品介紹、過去好文章，都能讓 Gem 比較像你的專屬助理。</p>
+          </article>
+        </div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">GEM DEMO</div>
+      <div class="num">33</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>實際示範：建立一個 birth 接待人員 Gem</h2>
+      <p class="lead">這個例子不是請 AI 隨便回覆客人，而是先把接待角色、餐廳語氣、回答邊界和常見規則寫進 Gem。</p>
+      <div class="canvas-demo gem-demo">
+        <div class="canvas-screen">
+          <img src="gem-demo-editor.png" alt="在 Gemini 中建立 birth 接待人員 Gem 的設定畫面">
+        </div>
+        <div class="canvas-demo-note">
+          <article class="usecase-card">
+            <span class="label">Role</span>
+            <h3>它是誰？</h3>
+            <p>不是一般聊天機器人，而是「專門回覆顧客關於餐廳大小事的線上接待人員」。</p>
+          </article>
+          <article class="usecase-card accent">
+            <span class="label">Boundary</span>
+            <h3>它不能裝懂</h3>
+            <p>如果問題超出資料範圍，就回答不知道。這比硬編一個漂亮答案更重要。</p>
+          </article>
+          <article class="usecase-card bark">
+            <span class="label">Reference</span>
+            <h3>把資料塞進工作規則</h3>
+            <p>例如用餐指南、訂位規範、品牌語氣、FAQ。Gem 才會像被訓練過，而不是臨時猜。</p>
+          </article>
+        </div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">GEM DEMO</div>
+      <div class="num">34</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>實際示範：打開 Gem，直接用固定語氣回答問題</h2>
+      <p class="lead">建立好之後，使用者不需要每次重講規範。直接問「怎麼預約」，它就會依照預設資料與語氣回答。</p>
+      <div class="canvas-demo reverse gem-demo">
+        <div class="canvas-demo-note">
+          <article class="usecase-card">
+            <span class="label">Input</span>
+            <h3>只問真正的問題</h3>
+            <p>例如：怎麼預約？不用再補一長串品牌語氣、訂位規則、回答格式。</p>
+          </article>
+          <article class="usecase-card accent">
+            <span class="label">Output</span>
+            <h3>輸出會比較穩定</h3>
+            <p>它會用同一套角色與資料回覆，適合給團隊、客服、助理或自己反覆使用。</p>
+          </article>
+          <article class="usecase-card bark">
+            <span class="label">Teaching Point</span>
+            <h3>這就是 AI 版 SOP</h3>
+            <p>把常做的工作變成固定工具，才是 Gemini 生態系裡很值得練的能力。</p>
+          </article>
+        </div>
+        <div class="canvas-screen">
+          <img src="gem-demo-response.png" alt="使用 birth 接待人員 Gem 回答怎麼預約的示範畫面">
+        </div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">GEMINI PRACTICE</div>
+      <div class="num">35</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>案例一：文案 Gem，把你的口吻先放進去</h2>
+      <p class="lead">文案 Gem 的重點不是叫它「幫我寫得像我」，而是把你的個性、受眾、語氣邊界和過去範例放進設定裡。</p>
+      <div class="canvas-demo gem-demo">
+        <div class="canvas-screen">
+          <img src="gem-copywriting-setup.png" alt="建立 chill 先生專屬文案人員 Gem 的設定畫面">
+        </div>
+        <div class="canvas-demo-note">
+          <article class="usecase-card">
+            <span class="label">Personality</span>
+            <h3>先寫你的個性</h3>
+            <p>例如：白話、調皮、聰明、有一點吐槽感，但不要把自己講成權威專家。</p>
+          </article>
+          <article class="usecase-card accent">
+            <span class="label">Audience</span>
+            <h3>再寫你的受眾</h3>
+            <p>它要知道你不是寫給所有人，而是寫給正在學 AI、想動手但會卡住的人。</p>
+          </article>
+          <article class="usecase-card bark">
+            <span class="label">Examples</span>
+            <h3>放過去的好文案</h3>
+            <p>範例比形容詞更有用。你給它看真正寫過的內容，它才比較抓得到你的節奏。</p>
+          </article>
+        </div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">GEM DEMO</div>
+      <div class="num">36</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>文案 Gem 實際產出：之後只要丟主題</h2>
+      <p class="lead">設定完成後，你不需要每次重新描述自己的口吻。只要給主題，它就會用同一套個性、受眾與風格產出初稿。</p>
+      <div class="canvas-demo reverse gem-demo">
+        <div class="canvas-demo-note">
+          <article class="usecase-card">
+            <span class="label">Input</span>
+            <h3>輸入變簡單</h3>
+            <p>例如：幫我發一篇 IG 文案，教大家使用 Gem 製作 AI 分身。</p>
+          </article>
+          <article class="usecase-card accent">
+            <span class="label">Output</span>
+            <h3>輸出比較像你</h3>
+            <p>因為它已經知道你的口吻、受眾、常用句型和不要踩的風格線。</p>
+          </article>
+          <article class="usecase-card bark">
+            <span class="label">Teaching Point</span>
+            <h3>Gem 是固定口吻的工作台</h3>
+            <p>不是每次靠運氣抽文案，而是讓常用內容任務有固定起手式。</p>
+          </article>
+        </div>
+        <div class="canvas-screen">
+          <img src="gem-copywriting-output.png" alt="chill 先生文案 Gem 依照固定口吻產出 IG 文案">
+        </div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">GEM DEMO</div>
+      <div class="num">37</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>案例二：把很亂的 Google Sheet 變成乾淨表格</h2>
+      <p class="lead">這個案例先從一份髒資料開始：日期格式混亂、分類不一致、備註欄有空白和雜訊。這種任務很適合做成專用 Gem。</p>
+      <div class="canvas-demo tall-demo">
+        <div class="canvas-screen light">
+          <img src="gem-sheet-messy.png" alt="待整理的亂七八糟帳單資料 Google Sheet">
+        </div>
+        <div class="canvas-demo-note">
+          <article class="usecase-card">
+            <span class="label">Problem</span>
+            <h3>資料不是不能用，是太髒</h3>
+            <p>欄位看起來有架構，但日期、金額、分類、備註格式都不穩。</p>
+          </article>
+          <article class="usecase-card accent">
+            <span class="label">Goal</span>
+            <h3>目標不是摘要，是整理成表格</h3>
+            <p>要讓它每次都能把類似的髒資料整理成乾淨、可匯出、可後續分析的版本。</p>
+          </article>
+          <article class="usecase-card bark">
+            <span class="label">Why Gem</span>
+            <h3>重複任務值得固定</h3>
+            <p>如果未來常常會拿到類似表格，就不要每次重寫指令，直接做成表格整理 Gem。</p>
+          </article>
+        </div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">GEM DEMO</div>
+      <div class="num">38</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>第一步：先用一般 Gemini 幫你寫 Gem 指令</h2>
+      <p class="lead">如果你還不知道 Gem 的設定要怎麼寫，可以先把髒表格連結貼給一般聊天，請 Gemini 反過來幫你產生一段可複製的 Gem 指令。</p>
+      <div class="canvas-demo wide-demo">
+        <div class="canvas-screen">
+          <img src="gem-sheet-prompt-request.png" alt="請 Gemini 依照髒表格需求產生 Gem 指令">
+        </div>
+        <div class="canvas-demo-note">
+          <article class="usecase-card">
+            <span class="label">Meta Prompt</span>
+            <h3>先請 AI 幫你設計 AI</h3>
+            <p>不是直接做結果，而是請它幫你寫一個以後可以反覆使用的 Gem 設定。</p>
+          </article>
+          <article class="usecase-card accent">
+            <span class="label">Input</span>
+            <h3>把真實表格丟給它看</h3>
+            <p>用真實髒資料當參考，它才知道這個 Gem 要處理哪些混亂狀況。</p>
+          </article>
+          <article class="usecase-card bark">
+            <span class="label">Output</span>
+            <h3>目標是一段可複製指令</h3>
+            <p>把它給你的系統指令複製到 Gem 設定裡，讓整理流程固定下來。</p>
+          </article>
+        </div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">GEM DEMO</div>
+      <div class="num">39</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>第二步：把指令貼進 Gem，變成表格整理大師</h2>
+      <p class="lead">Gemini 回傳的不是一次性的答案，而是一份可以放進 Gem 的工作規則。這一步就是把規則變成固定工具。</p>
+      <div class="canvas-demo reverse gem-demo">
+        <div class="canvas-demo-note">
+          <article class="usecase-card">
+            <span class="label">Role</span>
+            <h3>角色要明確</h3>
+            <p>例如：你是專業的資料清理與標準化專家，負責整理混亂表格。</p>
+          </article>
+          <article class="usecase-card accent">
+            <span class="label">Process</span>
+            <h3>流程要固定</h3>
+            <p>分析結構、統一格式、補齊缺失、歸類分類、輸出乾淨表格。</p>
+          </article>
+          <article class="usecase-card bark">
+            <span class="label">Format</span>
+            <h3>輸出要可接著用</h3>
+            <p>請它以表格輸出，並說明修正了哪些問題，方便你檢查。</p>
+          </article>
+        </div>
+        <div class="canvas-screen">
+          <img src="gem-sheet-prompt-result.png" alt="Gemini 產生萬用表格整理大師 Gem 指令">
+        </div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">GEM DEMO</div>
+      <div class="num">40</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>第三步：回到新 Gem，貼上髒表格連結</h2>
+      <p class="lead">建立好表格整理 Gem 之後，之後遇到類似資料，就不用重講一整套清理規則。貼上連結，讓它照固定流程處理。</p>
+      <div class="canvas-demo gem-demo">
+        <div class="canvas-screen">
+          <img src="gem-sheet-clean-preview.png" alt="表格整理大師 Gem 將髒表格整理成乾淨版本">
+        </div>
+        <div class="canvas-demo-note">
+          <article class="usecase-card">
+            <span class="label">Repeat</span>
+            <h3>新資料進來，流程照跑</h3>
+            <p>這就是 Gem 的價值：不是這次整理完而已，而是下次可以更快再做一次。</p>
+          </article>
+          <article class="usecase-card accent">
+            <span class="label">Result</span>
+            <h3>輸出乾淨欄位</h3>
+            <p>日期、項目名稱、金額、分類、備註被整理成更一致的表格。</p>
+          </article>
+          <article class="usecase-card bark">
+            <span class="label">Check</span>
+            <h3>人還是要看一眼</h3>
+            <p>資料整理可以很快，但重要金額、分類和日期仍要人工抽查，別讓錯誤安靜長大。</p>
+          </article>
+        </div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">GEM DEMO</div>
+      <div class="num">41</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>第四步：匯出成乾淨 Google Sheet</h2>
+      <p class="lead">整理完後，可以把結果匯出成試算表。這樣就不是聊天紀錄裡的一段表格，而是可以繼續編輯、分析、分享的工作檔。</p>
+      <div class="canvas-demo reverse tall-demo">
+        <div class="canvas-demo-note">
+          <article class="usecase-card">
+            <span class="label">Export</span>
+            <h3>從回答變成檔案</h3>
+            <p>點擊匯出試算表，把整理結果變成真正可以用的 Google Sheet。</p>
+          </article>
+          <article class="usecase-card accent">
+            <span class="label">Workflow</span>
+            <h3>以後流程更短</h3>
+            <p>髒表格進來，丟給 Gem，產出乾淨表格，再匯出。這就是一個小型工作流。</p>
+          </article>
+          <article class="usecase-card bark">
+            <span class="label">Use Case</span>
+            <h3>適合日常行政與營運</h3>
+            <p>帳單、名單、活動資料、客戶紀錄，只要欄位規則相近，都可以做成專用 Gem。</p>
+          </article>
+        </div>
+        <div class="canvas-screen light">
+          <img src="gem-sheet-exported.png" alt="匯出後的乾淨 Google Sheet 表格">
+        </div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">GEM OPERATING NOTES</div>
+      <div class="num">42</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>Gem 使用小技巧：不要做萬能助理，先做專用工具</h2>
+      <p class="lead">Gem 很適合固定任務，但不適合一口氣塞成「什麼都會」的複雜 Agent。先專事專辦，之後再談工作流和自動化。</p>
+      <div class="tip-grid">
+        <article class="card">
+          <span class="label">Tip 01</span>
+          <h3>給它正確答案做參考</h3>
+          <p>建立 Gem 時，不只寫規則，也放幾個你認為好的範例。它比較容易知道什麼叫「像你要的」。</p>
+        </article>
+        <article class="card accent">
+          <span class="label">Tip 02</span>
+          <h3>邊用邊補進設定</h3>
+          <p>如果使用時發現哪裡不夠好，把新的規則補回 Gem 的使用說明。它是一個需要維護的工具。</p>
+        </article>
+        <article class="card bark">
+          <span class="label">Tip 03</span>
+          <h3>讓它先問後做</h3>
+          <p>加一句：如果我的需求不夠具體，或你判斷不了，請先問我確認，不要急著產出。</p>
+        </article>
+        <article class="card ink">
+          <span class="label">Tip 04</span>
+          <h3>專事專辦</h3>
+          <p>一個 Gem 解一種常見任務。複雜工作流或多步驟 Agent，後面再用更適合的方式處理。</p>
+        </article>
+      </div>
+      <div class="map-line">好 Gem 不是比較會講話，而是每次都能用同一套標準，把同一類工作處理得更穩。</div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">NOTEBOOKLM / LEARNING DESK</div>
+      <div class="num">44</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>下一站：NotebookLM，學習任何東西的資料工作台</h2>
+      <p class="lead">如果 Gemini 是日常助理，NotebookLM 比較像「把資料放進去之後，可以一直追問、整理、輸出」的學習神器。</p>
+      <div class="story-layout compact">
+        <article class="story-panel moss">
+          <span class="label">Core Idea</span>
+          <h3>不是再問網路，而是先問你放進去的資料。</h3>
+          <p>PDF、網頁、文件、簡報、筆記、YouTube 影片都可以變成來源。它會根據你的資料回答、摘要、做學習指南，並讓你回頭確認來源。</p>
+        </article>
+        <div class="tight-stack">
+          <article class="card">
+            <span class="label">For Learning</span>
+            <h3>把陌生主題變成可學習路線</h3>
+            <p>先問全貌，再問細節，最後生成摘要、心智圖、FAQ、測驗或簡報素材。</p>
+          </article>
+          <article class="card accent">
+            <span class="label">For Work</span>
+            <h3>把大量資料變成可交付內容</h3>
+            <p>讀報告、整理會議紀錄、做研究比較、產出不同格式，少一點來回搬石頭。</p>
+          </article>
+        </div>
+      </div>
+      <div class="statement">NotebookLM 的重點不是「它知道多少」，而是「它能不能把你的資料整理到你看得懂」。</div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">NOTEBOOKLM / MAP</div>
+      <div class="num">45</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>先看全圖：NotebookLM 是以資料為中心的 AI 筆記本</h2>
+      <p class="lead">這張總整理可以當學員的地圖：先放來源，再問問題，最後生成摘要、學習材料與可交付內容。</p>
+      <div class="notebook-map">
+        <div class="infographic-frame">
+          <img src="notebooklm-overview-map.png" alt="NotebookLM 是什麼、流程、案例與限制的總整理圖">
+        </div>
+        <div class="capability-notes gem-notes">
+          <article class="note-card">
+            <span class="label">Source First</span>
+            <h3>核心是來源</h3>
+            <p>ChatGPT、Gemini、Claude 常從模型知識與工具延伸；NotebookLM 的起點是你上傳或連結的資料。</p>
+          </article>
+          <article class="note-card accent">
+            <span class="label">Output</span>
+            <h3>不只摘要</h3>
+            <p>可以做問答、心智圖、音訊概覽、影片概覽、學習指南、測驗、FAQ、簡報大綱。</p>
+          </article>
+          <article class="note-card dark wide">
+            <span class="label">Teaching Line</span>
+            <h3>把「閱讀」變成「互動學習」</h3>
+            <p>以前是人讀資料再整理筆記；現在可以先讓資料變成可以對話的工作台，再由人判斷重點。</p>
+          </article>
+        </div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">NOTEBOOKLM / STANDARD FLOW</div>
+      <div class="num">46</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>標準使用流程：先建立資料場，再開始追問</h2>
+      <p class="lead">NotebookLM 最適合照流程用。先不要急著要答案，先把資料放好，讓它知道這次學習或研究的範圍。</p>
+      <div class="notebook-flow">
+        <article><span class="label">01</span><h3>建立 Notebook</h3><p>一個主題一個筆記本，避免資料混在一起。</p></article>
+        <article><span class="label">02</span><h3>加入 Sources</h3><p>放 PDF、網頁、文件、YouTube 或筆記。</p></article>
+        <article><span class="label">03</span><h3>問全貌問題</h3><p>先問這份資料在講什麼、核心結論是什麼。</p></article>
+        <article><span class="label">04</span><h3>問細節問題</h3><p>再深入追問數字、概念、例子、矛盾與關係。</p></article>
+        <article><span class="label">05</span><h3>生成各種輸出</h3><p>摘要、FAQ、測驗、簡報、表格、學習指南。</p></article>
+        <article><span class="label">06</span><h3>回來源確認</h3><p>重要資訊回到原始資料核對，不直接盲信。</p></article>
+      </div>
+      <div class="map-line">NotebookLM 的回答依賴你的來源；來源品質，會直接決定輸出品質。</div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">NOTEBOOKLM / USE CASES</div>
+      <div class="num">47</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>它能做什麼？把資料變成不同學習入口</h2>
+      <p class="lead">NotebookLM 不是只會摘要。它比較像把一堆資料整理成不同入口，讓你用最省力的方式靠近主題。</p>
+      <div class="grid-4">
+        <article class="level-card"><span class="label">PDF Report</span><h3>讀 PDF 報告</h3><p>上傳長報告，請它整理重點、產生表格、抓風險、回到來源頁確認。</p></article>
+        <article class="level-card"><span class="label">YouTube</span><h3>影片學習</h3><p>貼 YouTube 連結，整理重點、產生觀念清單、測驗題與延伸問題。</p></article>
+        <article class="level-card dark"><span class="label">Meeting</span><h3>會議紀錄</h3><p>把會議逐字稿變成決議、負責人、截止日、follow-up Email。</p></article>
+        <article class="level-card"><span class="label">Exam</span><h3>考試與複習</h3><p>把教材變成學習指南、測驗題、概念圖與複習路線。</p></article>
+      </div>
+      <div class="map-line">你丟進去的是資料，拿出來的是學習路線、交付材料和下一步問題。</div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">NOTEBOOKLM / BOUNDARY</div>
+      <div class="num">48</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>使用提醒：它很強，但不是最後判斷者</h2>
+      <p class="lead">NotebookLM 很適合研究、整理和學習，但它不是萬能搜尋引擎，也不是替你做專業判斷的人。</p>
+      <div class="grid-2">
+        <article class="card">
+          <span class="label">可以這樣用</span>
+          <h3>整理與理解你自己的資料</h3>
+          <ul class="clean">
+            <li>學習新知、閱讀大量內容。</li>
+            <li>製作簡報、報告前的資料整理。</li>
+            <li>比較多份文件、找共同觀點與差異。</li>
+            <li>產生學習工具，提高效率。</li>
+          </ul>
+        </article>
+        <article class="card accent">
+          <span class="label">不要這樣用</span>
+          <h3>不要把它當成最終權威</h3>
+          <ul class="clean">
+            <li>即時搜尋與最新消息，仍需另外查證。</li>
+            <li>法律、醫療、投資、稅務不要直接採信。</li>
+            <li>來源不完整時，它也可能整理得很像真的。</li>
+            <li>重要對外內容，最後仍要人工確認。</li>
+          </ul>
+        </article>
+      </div>
+      <div class="map-line">NotebookLM 是強大的 AI 助理，但你才是最後的判斷者。</div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">NOTEBOOKLM + GEMINI</div>
+      <div class="num">49</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>小技巧：在 Gemini 裡把 NotebookLM 變成理解網頁</h2>
+      <p class="lead">如果你想把一份資料講得更好懂，可以直接在 Gemini 裡連到 NotebookLM，再請 Canvas 做一個幫助理解的互動網頁。</p>
+      <div class="canvas-demo">
+        <div class="canvas-screen">
+          <img src="notebooklm-gemini-canvas-webpage.png" alt="Gemini 連結 NotebookLM 並用 Canvas 產生理解網頁">
+        </div>
+        <div class="canvas-demo-note">
+          <article class="usecase-card">
+            <span class="label">Workflow</span>
+            <h3>資料在 NotebookLM，呈現在 Canvas</h3>
+            <p>先讓 NotebookLM 讀資料、抓重點，再請 Gemini 用 Canvas 把內容做成視覺化網頁。</p>
+          </article>
+          <article class="usecase-card accent">
+            <span class="label">Why Useful</span>
+            <h3>理解方式可以被你指定</h3>
+            <p>你可以要求它做成時間線、互動卡片、比較表、圖解頁或教學頁，形式不只一種。</p>
+          </article>
+          <article class="usecase-card bark">
+            <span class="label">提醒</span>
+            <h3>先看懂，再美化</h3>
+            <p>不要一開始就追求漂亮。先確認概念對、邏輯順，再調整版面和視覺。</p>
+          </article>
+        </div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">NOTEBOOKLM + GEMINI</div>
+      <div class="num">50</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>現在也能在 Gemini 裡直接看到 NotebookLM</h2>
+      <p class="lead">NotebookLM 不一定要孤立使用。當它出現在 Gemini 工作環境裡，資料庫、聊天、輸出和後續加工就更容易串起來。</p>
+      <div class="canvas-demo reverse">
+        <div class="canvas-demo-note">
+          <article class="usecase-card">
+            <span class="label">Convenience</span>
+            <h3>少切換工具</h3>
+            <p>從 Gemini 裡看到 NotebookLM，代表你可以更自然地從資料筆記本切到聊天、整理和產出。</p>
+          </article>
+          <article class="usecase-card accent">
+            <span class="label">Learning Flow</span>
+            <h3>學習流程更短</h3>
+            <p>看到主題、來源與問答入口後，就能直接針對資料追問，而不是重新複製貼上。</p>
+          </article>
+          <article class="usecase-card bark">
+            <span class="label">Course Note</span>
+            <h3>這是 Google 生態的優勢</h3>
+            <p>Gmail、Docs、Sheets、Drive、NotebookLM、Canvas 串在一起時，才會慢慢變成工作流。</p>
+          </article>
+        </div>
+        <div class="canvas-screen">
+          <img src="notebooklm-in-gemini.png" alt="Gemini 介面中直接看到 NotebookLM 筆記本">
+        </div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">NOTEBOOKLM / EDITABLE OUTPUT</div>
+      <div class="num">51</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>重點功能：輸出後還能進一步編輯</h2>
+      <p class="lead">學習不是只拿到一段摘要。你可以請它把內容整理成不同格式，開成文件後再線上修改、調語氣、補段落。</p>
+      <div class="output-grid">
+        <div class="canvas-screen">
+          <img src="notebooklm-doc-edit-output.png" alt="NotebookLM 內容整理成 Google Doc 後可線上編輯">
+        </div>
+        <div class="canvas-demo-note">
+          <article class="usecase-card">
+            <span class="label">Editable Doc</span>
+            <h3>文件可以直接改</h3>
+            <p>輸出成 Google Doc 後，不是死掉的答案，而是可以繼續修的學習筆記或講義。</p>
+          </article>
+          <article class="usecase-card accent">
+            <span class="label">Slide Ready</span>
+            <h3>也能整理成投影片材料</h3>
+            <p>先讓它產出章節、標題、重點句和圖表方向，再拿去做投影片編輯。</p>
+          </article>
+          <article class="usecase-card bark">
+            <span class="label">Format</span>
+            <h3>不同格式對應不同目的</h3>
+            <p>報告適合 Doc，數字比較適合 Sheet，概念理解適合圖表或網頁，教學適合投影片。</p>
+          </article>
+        </div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">NOTEBOOKLM / OUTPUT STACK</div>
+      <div class="num">52</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>一次產出多種格式：學習速度會差很多</h2>
+      <p class="lead">同一份資料，可以同時變成文件、表格、圖解和 PDF/白皮書。這就是 NotebookLM 在學習與研究上的速度感。</p>
+      <div class="output-grid portrait">
+        <div class="canvas-screen">
+          <img src="notebooklm-multi-format-output.png" alt="NotebookLM 一次產出多種格式的檔案清單">
+        </div>
+        <div class="canvas-demo-note">
+          <article class="usecase-card">
+            <span class="label">4 Outputs</span>
+            <h3>同一份資料，拆成四種用途</h3>
+            <p>Google Doc 做深入閱讀，Google Sheet 做比較表，圖摘做快速理解，PDF/白皮書做正式交付。</p>
+          </article>
+          <article class="usecase-card accent">
+            <span class="label">Teaching Use</span>
+            <h3>很適合課程與自學</h3>
+            <p>你可以把同一個主題拆成講義、簡報素材、測驗題、圖卡，學習和教學都加速。</p>
+          </article>
+          <article class="usecase-card bark">
+            <span class="label">Punchline</span>
+            <h3>資料不要只存著，要變成能用的形狀</h3>
+            <p>NotebookLM 最有用的地方，是把「我有很多資料」變成「我知道下一步要怎麼學、怎麼講、怎麼交付」。</p>
+          </article>
+        </div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">IMAGE GENERATION / FIELD NOTES</div>
+      <div class="num">53</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>接下來講生圖：這一段先改用 GPT Images 2.0</h2>
+      <p class="lead">Gemini 曾經是很多人生圖的主力選項，但工具會輪流變強。這一段我會用 GPT Images 2.0 示範，重點不是追排行榜，而是學會怎麼把畫面需求講清楚。</p>
+      <div class="story-layout compact">
+        <article class="story-panel">
+          <span class="label">Why This Matters</span>
+          <h3>生圖不是只看模型強不強，而是看你能不能說出畫面要什麼。</h3>
+          <p>現在的強模型已經不太需要咒語式 prompt。真正要練的是：用途、主體、風格、文字、比例、要保留什麼、要修改什麼。</p>
+        </article>
+        <div class="tight-stack">
+          <article class="card">
+            <span class="label">Course Angle</span>
+            <h3>先用最簡單的做法上手</h3>
+            <p>一句話先生成，再用多輪修改把畫面靠近需求。不要一開始就寫成法術大全。</p>
+          </article>
+          <article class="card accent">
+            <span class="label">Case 01</span>
+            <h3>先看角色 IP 漫畫</h3>
+            <p>用一句話把 chill 先生變成十張連續漫畫，看看一致性、中文文字與故事感可以做到什麼程度。</p>
+          </article>
+        </div>
+      </div>
+      <div class="statement">會生圖的人，不是形容詞比較多，而是知道畫面要解決什麼問題。</div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">GPT IMAGE CASE 01 / CHARACTER IP</div>
+      <div class="num">54</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>案例 1：一句話，把角色 IP 變成連續漫畫</h2>
+      <p class="lead">這次不是只生成一張漂亮圖，而是把「chill 先生」這個角色，延展成 10 張有連續性、場景感和台詞的森林生活漫畫。</p>
+      <div class="comic-case-layout">
+        <div class="comic-prompt-frame">
+          <img src="gpt-comic-prompt.png" alt="GPT Images comic prompt screenshot">
+        </div>
+        <div class="comic-note-grid">
+          <article class="card">
+            <span class="label">Prompt</span>
+            <h3>先用自然語言說清楚系列目標</h3>
+            <p>把人物 IP 做成關於森林生活的十張連續漫畫，要求故事有連續性、有趣味，也保留角色風格。</p>
+          </article>
+          <article class="card accent">
+            <span class="label">Watch</span>
+            <h3>看它能不能維持角色與世界觀</h3>
+            <p>臉、服裝、森林場景、中文標題、分鏡節奏和故事 continuity，是這個案例最值得觀察的地方。</p>
+          </article>
+          <article class="card bark">
+            <span class="label">Creator Value</span>
+            <h3>品牌角色不再只是頭像</h3>
+            <p>一個 logo 或角色設定，可以快速長出欄目、故事線、梗圖、短影音腳本和社群連載素材。</p>
+          </article>
+          <article class="card ink">
+            <span class="label">Reality Check</span>
+            <h3>有趣，但仍需要人來挑選與修稿</h3>
+            <p>AI 可以很快生出方向，但哪一張符合品牌、哪一句台詞能發，最後還是要靠人的品味與判斷。</p>
+          </article>
+        </div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">COMIC OUTPUT 01 / FOREST LIFE</div>
+      <div class="num">55</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>漫畫展示 1：從搬進森林到森林開鐘</h2>
+      <p class="lead">第一組先看故事開場：角色從城市搬到森林，接著進入森林日常。它不是單張美圖，而是開始有「系列感」。</p>
+      <div class="comic-duo">
+        <figure class="comic-panel"><img src="gpt-comic-01.png" alt="Chill先生森林生活漫畫 01"></figure>
+        <figure class="comic-panel"><img src="gpt-comic-02.png" alt="Chill先生森林生活漫畫 02"></figure>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">COMIC OUTPUT 02 / DAILY CONFLICT</div>
+      <div class="num">56</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>漫畫展示 2：早餐、辦公、翻車日常</h2>
+      <p class="lead">自媒體內容要能連載，關鍵不是每張都完美，而是角色在不同情境裡都能自然延伸出小衝突與小笑點。</p>
+      <div class="comic-duo">
+        <figure class="comic-panel"><img src="gpt-comic-03.png" alt="Chill先生森林生活漫畫 03"></figure>
+        <figure class="comic-panel"><img src="gpt-comic-04.png" alt="Chill先生森林生活漫畫 04"></figure>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">COMIC OUTPUT 03 / MOOD SHIFT</div>
+      <div class="num">57</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>漫畫展示 3：天氣、夜晚與黑白氛圍</h2>
+      <p class="lead">同一個角色可以切換成不同情緒與畫面語氣：午後雷雨、夜晚怪聲、黑白漫畫，這些都能變成系列裡的節奏變化。</p>
+      <div class="comic-duo">
+        <figure class="comic-panel"><img src="gpt-comic-05.png" alt="Chill先生森林生活漫畫 05"></figure>
+        <figure class="comic-panel"><img src="gpt-comic-06.png" alt="Chill先生森林生活漫畫 06"></figure>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">COMIC OUTPUT 04 / SERIES WORLD</div>
+      <div class="num">58</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>漫畫展示 4：從營火晚餐到新鄰居</h2>
+      <p class="lead">當角色旁邊開始有動物、場景、固定物件與口頭禪，內容就不只是單篇貼文，而是慢慢長出自己的小宇宙。</p>
+      <div class="comic-duo">
+        <figure class="comic-panel"><img src="gpt-comic-07.png" alt="Chill先生森林生活漫畫 07"></figure>
+        <figure class="comic-panel"><img src="gpt-comic-08.png" alt="Chill先生森林生活漫畫 08"></figure>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">COMIC OUTPUT 05 / SEASON ENDING</div>
+      <div class="num">59</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>漫畫展示 5：森林電影院與真正的 Chill</h2>
+      <p class="lead">最後兩張把世界觀收束成一個結尾：從「找放鬆」到「住進放鬆」。這種一句金句收尾，很適合社群連載。</p>
+      <div class="comic-duo">
+        <figure class="comic-panel"><img src="gpt-comic-09.png" alt="Chill先生森林生活漫畫 09"></figure>
+        <figure class="comic-panel"><img src="gpt-comic-10.png" alt="Chill先生森林生活漫畫 10"></figure>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">CREATOR STRATEGY / WHY IT MATTERS</div>
+      <div class="num">60</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>這對自媒體的意義：角色可以變成內容引擎</h2>
+      <p class="lead">以前一個 IP 常常停在頭像、logo 或單張圖；現在可以先用 AI 快速測試一整套世界觀、故事線和系列欄目。</p>
+      <div class="creator-meaning">
+        <article class="card"><span class="label">Series</span><h3>單張圖變成連載欄目</h3><p>同一個角色可以延伸出日常、工作、教學、旅行、心情等系列。</p></article>
+        <article class="card accent"><span class="label">Consistency</span><h3>測試角色能不能站得住</h3><p>看臉、語氣、場景與台詞能不能穩定，先找出品牌的視覺規則。</p></article>
+        <article class="card bark"><span class="label">Speed</span><h3>快速做內容原型</h3><p>先把想法做成可看的版本，再決定要不要投入設計、拍攝或外包。</p></article>
+        <article class="card"><span class="label">Feedback</span><h3>讓觀眾先反應</h3><p>用小規模發布測試哪種角色、故事和梗比較有共鳴。</p></article>
+        <article class="card ink"><span class="label">Brand</span><h3>把品牌做成世界觀</h3><p>自媒體最難的是持續有內容；AI 生圖能把角色、場景、故事變成可反覆生產的素材系統。</p></article>
+      </div>
+      <div class="statement">自媒體不是只缺圖，而是缺能一直長出內容的角色與世界觀。</div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">GPT IMAGE CASE 02 / LIVE STREAM REALISM</div>
+      <div class="num">61</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>案例 2：直播截圖已經接近以假亂真</h2>
+      <p class="lead">這張不是單純「生成一個人」，而是生成一個完整的直播介面：人物、燈光、禮物特效、粉絲留言、觀看人數、中文 UI 全部一起成立。</p>
+      <div class="realism-layout">
+        <figure class="prompt-shot"><img src="gpt-live-prompt-detail.png" alt="GPT Images live stream detailed prompt"></figure>
+        <figure class="live-frame"><img src="gpt-live-output-detail.png" alt="GPT Images realistic live stream output"></figure>
+        <div class="realism-notes">
+          <article class="card"><span class="label">Realism</span><h3>手機直播截圖感很完整</h3><p>人物姿勢、室內光線、景深、鏡頭比例與互動特效，都已經像真實平台畫面。</p></article>
+          <article class="card accent"><span class="label">Chinese Text</span><h3>中文介面能力很強</h3><p>它不只會畫人，也能處理帳號名稱、按鈕、留言、禮物文字與觀看數。</p></article>
+          <article class="card bark"><span class="label">Thinking</span><h3>模型會補你沒想到的細節</h3><p>例如排名、禮物動畫、粉絲頭像、直播間任務、輸入框，都是它自己補出的情境邏輯。</p></article>
+        </div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">GPT IMAGE CASE 02 / SHORT PROMPT TEST</div>
+      <div class="num">62</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>再試一次：提示詞很短，效果仍然很好</h2>
+      <p class="lead">第二次只用很簡潔的描述：抖音直播截圖、小鮮肉男網紅、跳舞、10 萬+ 在線、粉絲刷禮物。結果仍然自動補出完整場景。</p>
+      <div class="realism-layout reverse">
+        <div class="realism-notes">
+          <article class="card"><span class="label">Prompt</span><h3>不用把每個細節都寫死</h3><p>當任務類型夠清楚，模型會知道「直播截圖」應該包含哪些介面元素。</p></article>
+          <article class="card accent"><span class="label">Inference</span><h3>它會主動補場景語法</h3><p>例如關注按鈕、排行榜、禮物數字、聊天室、底部輸入列，這些都是直播畫面的常識。</p></article>
+          <article class="card ink"><span class="label">Lesson</span><h3>先短提示測方向，再逐步修</h3><p>不要一開始就寫成超長 prompt。先看模型怎麼理解，再針對不對的地方補充。</p></article>
+        </div>
+        <figure class="live-frame"><img src="gpt-live-output-simple.png" alt="GPT Images short prompt live stream output"></figure>
+        <figure class="prompt-shot"><img src="gpt-live-prompt-simple.png" alt="GPT Images short live stream prompt"></figure>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">GPT IMAGES 2.0 / SIX ADVANTAGES</div>
+      <div class="num">54</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>GPT Images 2.0 的六個值得示範的能力</h2>
+      <p class="lead">這裡先給學員一張地圖：它強的不是某一張圖剛好漂亮，而是提示更短、文字更準、真實感更高，後續修改也更像在跟設計助理合作。</p>
+      <div class="advantage-grid">
+        <article class="card"><span class="label">01</span><h3>提示詞極簡化</h3><p>不需要一長串攝影術語，一句清楚需求就能開始。</p></article>
+        <article class="card accent"><span class="label">02</span><h3>美感大幅提升</h3><p>比前代更容易出現可用構圖、光線與整體質感。</p></article>
+        <article class="card bark"><span class="label">03</span><h3>多國語言文字</h3><p>同一張圖裡的中文、英文與標題文字更容易正確。</p></article>
+        <article class="card"><span class="label">04</span><h3>畫面更真實</h3><p>皮膚、材質、光影、背景細節更接近真實拍攝。</p></article>
+        <article class="card accent"><span class="label">05</span><h3>一致性更強</h3><p>人物、品牌風格、視覺語氣更適合多張圖連續使用。</p></article>
+        <article class="card ink"><span class="label">06</span><h3>進階改圖能力</h3><p>不是重抽一張，而是針對局部、風格、構圖做修改。</p></article>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">IMAGE PROMPT / SIMPLE FIRST</div>
+      <div class="num">55</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>生圖的第一步：先不要把 Prompt 寫成咒語</h2>
+      <p class="lead">GPT Images 2.0 的一個重點，是讓一般人可以用自然語言開始。先用一句話定義畫面，再用第二輪、第三輪慢慢修。</p>
+      <div class="quote-panel">幫我做一張給 AI 實戰課使用的封面圖：森林裡的工作桌，上面有筆電、筆記本和一杯咖啡，風格溫暖、真實、適合課程簡報。<small>先求清楚，不要先求華麗。第一張圖是工作材料，不是最後成品。</small></div>
+      <div class="prompt-strip">
+        <div><b>Use</b>這張圖要用在哪裡？簡報、社群、廣告、封面、網站。</div>
+        <div><b>Subject</b>畫面主體是什麼？人物、物件、場景、產品、品牌角色。</div>
+        <div><b>Style</b>要真實、插畫、棚拍、復古、森林感、乾淨商務感。</div>
+        <div><b>Constraint</b>比例、文字、不要出現什麼、要保留什麼。</div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">IMAGE GENERATION / TEXT AND REALISM</div>
+      <div class="num">56</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>兩個最有感的進步：文字更準，畫面更真</h2>
+      <p class="lead">以前 AI 圖最常翻車的是文字和手感：字會亂、臉會假、材質會糊。這一段可以用實測圖讓學員看到差異。</p>
+      <div class="image-lab">
+        <div class="canvas-demo-note">
+          <article class="usecase-card">
+            <span class="label">Text</span>
+            <h3>多國語言文字更能直接放進圖裡</h3>
+            <p>例如同一張課程海報中同時有中文主標、英文小標、日期與短句，不需要一直修亂碼。</p>
+          </article>
+          <article class="usecase-card accent">
+            <span class="label">Realism</span>
+            <h3>真實感更接近攝影</h3>
+            <p>皮膚紋理、材質反光、背景景深、自然光線都更容易像真實拍攝。</p>
+          </article>
+          <article class="usecase-card bark">
+            <span class="label">Use Case</span>
+            <h3>很適合先做視覺草案</h3>
+            <p>封面、課程宣傳、活動主視覺、商品情境圖、社群圖卡，都可以先用它快速打樣。</p>
+          </article>
+        </div>
+        <div class="image-placeholder">案例圖待補<br>文字生成 / 真實感 / 商品情境</div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">IMAGE EDITING / ITERATION</div>
+      <div class="num">57</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>更重要的是改圖：不要重抽，開始像設計協作</h2>
+      <p class="lead">真正實用的生圖，不是抽到一張漂亮圖就結束，而是能保留你要的部分，針對不對的地方繼續修。</p>
+      <div class="process">
+        <article class="step">
+          <span class="idx">01</span>
+          <h3>先選方向</h3>
+          <p>從幾張圖裡挑一張最接近需求的，不要每次都從零開始。</p>
+        </article>
+        <article class="step">
+          <span class="idx">02</span>
+          <h3>保留關鍵</h3>
+          <p>指定保留人物、構圖、品牌色、背景或文字位置。</p>
+        </article>
+        <article class="step">
+          <span class="idx">03</span>
+          <h3>局部修改</h3>
+          <p>只改服裝、表情、手勢、物件、字句、光線或比例。</p>
+        </article>
+        <article class="step dark">
+          <span class="idx">04</span>
+          <h3>檢查可用性</h3>
+          <p>確認文字、人物、品牌調性與使用場景，不是漂亮就直接發。</p>
+        </article>
+      </div>
+      <div class="map-line">進階改圖的核心：保留對的，修掉不對的。這比一直重抽更像真的工作流程。</div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">IMAGE GENERATION / PRACTICE FLOW</div>
+      <div class="num">58</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>課堂練習流程：一張圖從需求到可用</h2>
+      <p class="lead">這段不用先講太多模型史。讓學員真的做一張圖，才會知道生圖不是許願，而是一個很快的視覺協作流程。</p>
+      <div class="workflow-band">
+        <div><b>01</b>定義用途與尺寸</div>
+        <div><b>02</b>一句話產生第一版</div>
+        <div><b>03</b>挑最接近的方向</div>
+        <div><b>04</b>進行局部修改</div>
+        <div><b>05</b>檢查文字與細節</div>
+      </div>
+      <div class="grid-3" style="margin-top:2.2%;">
+        <article class="card"><span class="label">Practice 01</span><h3>課程封面</h3><p>做一張 AI 實戰課封面，要求清楚標題、森林工作桌、溫暖但不雞湯。</p></article>
+        <article class="card accent"><span class="label">Practice 02</span><h3>社群圖卡</h3><p>同一主題產出 IG 尺寸與限動尺寸，測試文字排版與品牌語氣。</p></article>
+        <article class="card bark"><span class="label">Practice 03</span><h3>商品情境</h3><p>用同一個角色或風格生成多張情境圖，測試一致性。</p></article>
+      </div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide">
+      <div class="meta">FINAL PRACTICE</div>
+      <div class="num">59</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>最後練習：辦公室與自媒體都能用</h2>
+      <div class="exercise-lanes">
+        <article class="exercise-lane">
+          <span class="label">Office Flow</span>
+          <h3>辦公室任務：從信件到追蹤表</h3>
+          <ol>
+            <li>用 Gmail 摘要一串客戶或同事訊息。</li>
+            <li>把重點整理成 Google Docs 會議紀錄或回覆草稿。</li>
+            <li>把待辦、負責人、期限放進 Google Sheets。</li>
+            <li>用 Gemini 檢查遺漏事項，補成下一步行動。</li>
+          </ol>
+        </article>
+        <article class="exercise-lane dark">
+          <span class="label">Creator Flow</span>
+          <h3>自媒體任務：從素材到內容排程</h3>
+          <ol>
+            <li>用 YouTube / 網頁 / 文件整理主題素材。</li>
+            <li>用 NotebookLM 建立素材庫，整理觀點與常見問題。</li>
+            <li>用 Docs 寫貼文、腳本或簡報大綱。</li>
+            <li>用 Sheets 做內容排程、標題版本與發布追蹤。</li>
+          </ol>
+        </article>
+      </div>
+      <div class="map-line">先讓 AI 幫你處理單點任務，再把這些任務串起來，工作流才會真的長出來。</div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide backup">
+      <div class="meta">BACKUP / WORKFLOW</div>
+      <div class="num">B1</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>AI 實戰不是問一句，而是一個流程</h2>
+      <p class="lead">不要只問「幫我做一份簡報」，而是把任務拆成一連串可以推進的步驟。</p>
+      <div class="workflow-band">
+        <div><b>01</b>釐清目的與聽眾</div>
+        <div><b>02</b>整理核心訊息</div>
+        <div><b>03</b>設計頁面架構</div>
+        <div><b>04</b>寫文案與標題</div>
+        <div><b>05</b>檢查邏輯與講稿</div>
+      </div>
+      <div class="map-line">例：做簡報時，先請 AI 釐清目的與聽眾，再整理核心訊息、設計頁面架構、產出每頁文案，最後檢查邏輯並改成口語講稿。</div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+
+    <section class="slide backup">
+      <div class="meta">BACKUP / RISK LEVEL</div>
+      <div class="num">B2</div>
+      <img class="brand" src="logo-mr-chill-circle.png" alt="">
+      <h2>越重要的任務，越不能只問一次</h2>
+      <div class="grid-3">
+        <article class="card">
+          <span class="label">Low Risk</span>
+          <h3>低風險：可以一次問</h3>
+          <p>翻譯、摘要、改語氣、普通信件、整理清單。</p>
+        </article>
+        <article class="card accent">
+          <span class="label">Medium Risk</span>
+          <h3>中風險：要多輪修改</h3>
+          <p>對外文案、提案、簡報、客戶回覆、企劃書、履歷。</p>
+        </article>
+        <article class="card bark">
+          <span class="label">High Risk</span>
+          <h3>高風險：要查證與人工判斷</h3>
+          <p>法律、醫療、投資、稅務、合約、公司重大決策、對外承諾。</p>
+        </article>
+      </div>
+      <div class="map-line">任務越重要，AI 越不能只給答案；它應該成為你的討論對象。</div>
+      <div class="footer">竹山chill先生｜AI 實戰課前導</div>
+    </section>
+  </main>
+
+  <nav class="controls" aria-label="投影片控制">
+    <button type="button" id="prev" aria-label="上一頁">‹</button>
+    <span id="counter">1 / 67</span>
+    <button type="button" id="next" aria-label="下一頁">›</button>
+  </nav>
+
+  <script>
+    const slides = Array.from(document.querySelectorAll(".slide:not(.backup)"));
+    const counter = document.getElementById("counter");
+    let index = 0;
+
+    slides.forEach((slide, i) => {
+      const marker = slide.querySelector(".num");
+      if (marker) marker.textContent = `${i + 1}`;
+    });
+
+    function show(nextIndex) {
+      index = Math.max(0, Math.min(slides.length - 1, nextIndex));
+      slides.forEach((slide, i) => slide.classList.toggle("active", i === index));
+      counter.textContent = `${index + 1} / ${slides.length}`;
+      history.replaceState(null, "", `#${index + 1}`);
+    }
+
+    document.getElementById("prev").addEventListener("click", () => show(index - 1));
+    document.getElementById("next").addEventListener("click", () => show(index + 1));
+
+    window.addEventListener("keydown", (event) => {
+      if (["ArrowRight", "PageDown", " "].includes(event.key)) {
+        event.preventDefault();
+        show(index + 1);
+      }
+      if (["ArrowLeft", "PageUp"].includes(event.key)) {
+        event.preventDefault();
+        show(index - 1);
+      }
+      if (event.key === "Home") show(0);
+      if (event.key === "End") show(slides.length - 1);
+    });
+
+    const initial = Number.parseInt(location.hash.replace("#", ""), 10);
+    if (Number.isFinite(initial)) show(initial - 1);
+    else show(0);
+  </script>
+</body>
+</html>
