@@ -1627,6 +1627,44 @@
       border-radius: 8px;
     }
 
+    .prompt-text-box {
+      border: 1.3px solid var(--ink);
+      background: var(--ink);
+      color: var(--bone);
+      padding: 5% 6%;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .prompt-text-box .prompt-text-label {
+      font-family: var(--mono);
+      font-size: clamp(9px, .8vw, 12px);
+      color: var(--lichen);
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: .12em;
+    }
+
+    .prompt-text-box p {
+      font-size: clamp(12px, 1vw, 15px);
+      line-height: 1.65;
+      color: var(--bone);
+      font-weight: 500;
+      margin: 0;
+    }
+
+    .prompt-text-box.short {
+      padding: 4% 6%;
+    }
+
+    .prompt-text-box.short p {
+      font-size: clamp(14px, 1.2vw, 18px);
+      font-weight: 650;
+    }
+
     .realism-notes {
       display: grid;
       grid-template-columns: 1fr;
@@ -2401,28 +2439,28 @@
       <div class="meta">REALITY CHECK</div>
       <div class="num">02</div>
       <img class="brand" src="logo-mr-chill-circle.png" alt="">
-      <h2>AI 很多、很強，但我到底要怎麼用？</h2>
+      <h2>你有沒有這種感覺？</h2>
       <div class="story-layout compact">
         <article class="story-panel">
-          <span class="label">Opening Scene</span>
-          <h3>聽起來都很厲害，自己打開卻有點卡。</h3>
-          <p>看別人用 AI 做簡報、寫程式、做圖、整理資料，好像每個人都突然多了一個外掛。輪到自己時，第一個問題通常不是技術，而是：我現在到底該用哪個？要怎麼問？</p>
+          <span class="label">看別人用都好厲害</span>
+          <h3>別人好像什麼都能做，自己打開卻不知道要問什麼。</h3>
+          <p>看朋友用 AI 做簡報、寫文案、生圖、整理資料，好像開了外掛。但輪到自己打開 ChatGPT，通常第一個卡住的不是技術——而是：「我到底要從哪裡開始？」</p>
         </article>
         <div class="tight-stack">
           <article class="card">
-            <span class="label">01</span>
-            <h3>工具百百種</h3>
-            <p>ChatGPT、Claude、Gemini、Canva、Figma、自動化工具，每個都說自己很強。</p>
+            <span class="label">😵‍💫</span>
+            <h3>工具太多了</h3>
+            <p>ChatGPT、Gemini、Claude、Canva⋯⋯每個都說很厲害，選擇困難直接放棄。</p>
           </article>
           <article class="card accent">
-            <span class="label">02</span>
-            <h3>案例都很神</h3>
-            <p>你看到的通常是別人已經調過很多輪、整理過脈絡後的結果。</p>
+            <span class="label">✨</span>
+            <h3>案例看起來都超神</h3>
+            <p>但那都是別人調了好幾輪之後的成果，中間過程通常不會告訴你。</p>
           </article>
           <article class="card bark">
-            <span class="label">03</span>
-            <h3>自己用很普通</h3>
-            <p>不是工具突然變弱，而是任務還沒說清楚、標準還沒建立。</p>
+            <span class="label">😐</span>
+            <h3>自己用就很普通</h3>
+            <p>不是 AI 變弱了，是我們還不太會「交代任務」給它。</p>
           </article>
         </div>
       </div>
@@ -2430,56 +2468,30 @@
     </section>
 
     <section class="slide">
-      <div class="meta">LONG GAME</div>
+      <div class="meta">MINDSET SHIFT</div>
       <div class="num">03</div>
       <img class="brand" src="logo-mr-chill-circle.png" alt="">
-      <h2>工具會一直變，真正要學的是底層能力</h2>
-      <p class="lead">這個時代追工具很容易累。今天某個模型最強，明天介面又換一版；但有些能力不太會過時。</p>
-      <div class="grid-3" style="margin-top: 2.2%;">
-        <article class="card">
-          <span class="label">Keep Changing</span>
-          <h3>會變的是工具</h3>
-          <p>模型名稱、功能入口、訂閱方案、熱門平台都會變，甚至變得很快。</p>
-        </article>
-        <article class="card accent">
-          <span class="label">Stay Useful</span>
-          <h3>不變的是能力</h3>
-          <p>定義問題、拆解任務、給背景、設定標準、判斷輸出，會一直有用。</p>
-        </article>
-        <article class="card bark">
-          <span class="label">Course Focus</span>
-          <h3>先學可遷移的東西</h3>
-          <p>工具比較會放進來，但不是為了追流行，而是看懂不同 AI 在工作裡的位置。</p>
-        </article>
-      </div>
-      <div class="statement">先學會怎麼想、怎麼拆、怎麼判斷，再來學怎麼操作工具。</div>
-      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
-    </section>
-
-    <section class="slide">
-      <div class="meta">MINDSET</div>
-      <div class="num">04</div>
-      <img class="brand" src="logo-mr-chill-circle.png" alt="">
-      <h2>不是你不會 AI，是你還沒習慣當指揮的人</h2>
+      <h2>其實不是你不會 AI——你只是還沒切換角色</h2>
+      <p class="lead">大部分人打開 AI 的第一個動作是「問問題」，但真正好用的方式其實是「交代任務」。差別在哪？</p>
       <div class="quote-panel">
-        AI 不會自動讓事情變清楚。它會放大你的清晰度、判斷力與執行方式。
-        <small>任務不清楚、標準不清楚、素材不完整，AI 只會產出看似完整但難以使用的內容。</small>
+        想像你突然變成老闆，桌上坐了三個超強的員工，隨時等你分配工作。
+        <small>問題不是他們不夠強，是你還不太習慣「指揮」這件事。今天就來練這個。</small>
       </div>
       <div class="grid-3" style="margin-top: 2.2%;">
         <article class="card">
-          <span class="label">Problem 01</span>
-          <h3>任務不清楚</h3>
-          <p>只說「幫我做」時，AI 只能猜測你的真正目的。</p>
+          <span class="label">❌ 常見的用法</span>
+          <h3>「幫我做一份簡報」</h3>
+          <p>AI 只能亂猜你要什麼主題、什麼風格、給誰看、要幾頁。結果通常很泛。</p>
         </article>
         <article class="card accent">
-          <span class="label">Problem 02</span>
-          <h3>標準不清楚</h3>
-          <p>如果你說不出什麼叫好，AI 也不知道要往哪裡修。</p>
+          <span class="label">✅ 老闆的用法</span>
+          <h3>「幫我做 AI 課的簡報大綱⋯」</h3>
+          <p>受眾是中小企業主、重點放在實際操作、風格輕鬆但專業、控制在 20 頁內。</p>
         </article>
         <article class="card bark">
-          <span class="label">Problem 03</span>
-          <h3>資料不完整</h3>
-          <p>缺少背景、素材與限制，輸出就容易變得普通或不準。</p>
+          <span class="label">💡 差別在哪</span>
+          <h3>你有沒有說清楚三件事</h3>
+          <p>我要什麼（目標）、根據什麼（素材）、怎樣算好（標準）。講清楚，AI 就強。</p>
         </article>
       </div>
       <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
@@ -2487,143 +2499,85 @@
 
     <section class="slide">
       <div class="meta">BOSS MODE</div>
-      <div class="num">05</div>
+      <div class="num">04</div>
       <img class="brand" src="logo-mr-chill-circle.png" alt="">
-      <h2>你不是在用工具，你是在管理一群天才員工</h2>
-      <p class="lead">AI 工具越來越像不同部門的高手。問題不是誰最強，而是你要知道誰該接哪一種任務。</p>
+      <h2>你的新團隊：三個超強員工，等你分配</h2>
+      <p class="lead">每個 AI 工具有不同的強項，就像公司裡不同部門的人。今天帶你認識這三位，之後每個都會實際操作。</p>
       <div class="boss-grid">
         <article class="boss-card lead-card">
-          <span class="label">Your Role</span>
-          <h3>你變成一間公司的老闆</h3>
-          <p>老闆不一定每件事都自己做，但要負責方向、優先順序、品質標準和最後決策。</p>
+          <span class="label">你的角色</span>
+          <h3>你是老闆</h3>
+          <p>不用每件事自己做，但要決定方向、優先順序、品質標準。AI 再強，最後拍板的是你。</p>
         </article>
         <article class="boss-card">
           <span class="label">ChatGPT</span>
-          <h3>總工作台</h3>
-          <p>負責統籌、策略拆解、內容系統、商業分析與多輪協作。</p>
+          <h3>萬用總管</h3>
+          <p>什麼都能聊、策略拆解、寫文案、做分析、生圖。不知道找誰時，先找它。</p>
         </article>
         <article class="boss-card">
           <span class="label">Gemini</span>
-          <h3>資料整合員</h3>
-          <p>負責 Google 生態、搜尋、YouTube、文件、圖片與多模態資料。</p>
+          <h3>Google 小幫手</h3>
+          <p>信箱、文件、日曆、YouTube 全部打通。你的資料在 Google 裡，它最方便。</p>
         </article>
         <article class="boss-card">
           <span class="label">Claude</span>
-          <h3>深度整理師</h3>
-          <p>負責長文件、長任務、程式開發、語氣穩定與複雜內容重構。</p>
+          <h3>深度研究員</h3>
+          <p>長文件、複雜分析、程式開發、語氣穩定的長篇寫作。需要深度時找它。</p>
         </article>
       </div>
       <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
-      <div class="meta">TASTE AND JUDGMENT</div>
-      <div class="num">06</div>
+      <div class="meta">THE FORMULA</div>
+      <div class="num">05</div>
       <img class="brand" src="logo-mr-chill-circle.png" alt="">
-      <h2>老闆的高度，決定這群天才員工的高度</h2>
-      <div class="story-layout compact">
-        <article class="story-panel moss">
-          <span class="label">Core Idea</span>
-          <h3>AI 可以很會做，但你要知道什麼叫做好。</h3>
-          <p>你給它方向，它會跑；你給它標準，它會修；你有品味和判斷，它才比較有機會接近你真正想要的結果。</p>
-        </article>
-        <div class="tight-stack">
-          <article class="card">
-            <span class="label">Direction</span>
-            <h3>方向</h3>
-            <p>我要解決什麼問題？這份內容要讓誰採取什麼行動？</p>
-          </article>
-          <article class="card accent">
-            <span class="label">Taste</span>
-            <h3>品味</h3>
-            <p>什麼語氣適合？什麼版本太普通？什麼地方一看就不像我？</p>
-          </article>
-          <article class="card bark">
-            <span class="label">Decision</span>
-            <h3>決策</h3>
-            <p>哪些建議能用？哪些要查證？最後要選哪個方向往前走？</p>
-          </article>
-        </div>
-      </div>
-      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
-    </section>
-
-    <section class="slide">
-      <div class="meta">PROMPT INPUT</div>
-      <div class="num">07</div>
-      <img class="brand" src="logo-mr-chill-circle.png" alt="">
-      <h2>先把任務交代清楚，再談 Prompt 技巧</h2>
-      <p class="lead">如果你是老闆，Prompt 就不是許願，而是交代任務。每次先問自己三件事：我要它做什麼？它要根據什麼？什麼叫做做得好？</p>
+      <h2>跟 AI 講話的萬用公式：目標 + 素材 + 標準</h2>
+      <p class="lead">不用背什麼 prompt 技巧，記住這三件事就好。每次跟 AI 對話前花 10 秒想一下，結果會差很多。</p>
       <div class="grid-3" style="margin-top: 2.4%;">
         <article class="card">
-          <span class="label">01 / Instruction</span>
-          <h3>指令：目標與動作</h3>
-          <p>先說清楚要完成什麼，例如整理成表格、改成更口語、提出三個方案、列出優缺點。</p>
+          <span class="label">① 目標</span>
+          <h3>你要它做什麼？</h3>
+          <p>整理成表格、改成更口語、提出三個方案、幫我寫一封回覆信⋯⋯動作要明確。</p>
         </article>
         <article class="card accent">
-          <span class="label">02 / Material</span>
-          <h3>素材：背景與依據</h3>
-          <p>再給它可以依據的東西，例如文章、客戶訊息、會議紀錄、目前想法、資料表、截圖。</p>
+          <span class="label">② 素材</span>
+          <h3>它能根據什麼？</h3>
+          <p>貼上文章、客戶訊息、會議紀錄、資料表、截圖⋯⋯給越多背景，結果越準。</p>
         </article>
         <article class="card bark">
-          <span class="label">03 / Standard</span>
-          <h3>標準：限制與品質</h3>
-          <p>最後定義怎樣才算好，例如受眾、語氣、字數、格式、比較維度、限制條件。</p>
+          <span class="label">③ 標準</span>
+          <h3>怎樣算做得好？</h3>
+          <p>語氣要輕鬆、字數 300 以內、表格要有日期欄⋯⋯限制越明確，它越不會亂跑。</p>
         </article>
       </div>
-      <div class="map-line">清楚目標、足夠背景、明確限制、輸出格式、評估標準，都可以被收進這三個欄位裡。</div>
+      <div class="statement">記住這個公式，今天的每個練習都會用到。</div>
       <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
     <section class="slide">
-      <div class="meta">AI LEVELS</div>
-      <div class="num">08</div>
+      <div class="meta">LEVEL UP</div>
+      <div class="num">06</div>
       <img class="brand" src="logo-mr-chill-circle.png" alt="">
-      <h2>會交代單一任務後，再把 AI 放進工作層級</h2>
+      <h2>今天的路線圖：從問一句話到串成工作流</h2>
       <div class="grid-3">
         <article class="level-card">
-          <span class="label">Level 1</span>
-          <h3>問答工具</h3>
-          <p>處理單點問題，例如解釋概念、整理文章、翻譯句子。這是入門，但容易停在「問一句、拿一個答案」。</p>
+          <span class="label">現在大部分人在這</span>
+          <h3>問一句、拿一個答案</h3>
+          <p>「幫我翻譯這段」「這是什麼意思」——可以用，但只用到 AI 10% 的能力。</p>
         </article>
         <article class="level-card accent">
-          <span class="label">Level 2</span>
-          <h3>工作助理</h3>
-          <p>處理一個明確任務，例如寫信、整理會議紀錄、做簡報大綱、分析資料。這是大部分人最先需要練熟的階段。</p>
+          <span class="label">今天要練到這</span>
+          <h3>交代一個完整任務</h3>
+          <p>寫信、做大綱、整理資料、生圖——給目標 + 素材 + 標準，讓它一次做到位。</p>
         </article>
         <article class="level-card dark">
-          <span class="label">Level 3</span>
-          <h3>工作系統</h3>
-          <p>把多個任務串成流程，例如每週內容生產、客服 SOP、AI 輔助決策。這才是生產力真正拉開差距的地方。</p>
+          <span class="label">之後可以到這</span>
+          <h3>把 AI 串進工作流</h3>
+          <p>每週內容生產、客戶回覆 SOP、品牌素材系統——這才是真正省時間的用法。</p>
         </article>
       </div>
-      <div class="map-line">先會交代一個任務，再把多個任務串成流程；這堂課不是只教你問 AI，而是教你把 AI 放進工作流。</div>
-      <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
-    </section>
-
-    <section class="slide">
-      <div class="meta">REAL CAPABILITY</div>
-      <div class="num">09</div>
-      <img class="brand" src="logo-mr-chill-circle.png" alt="">
-      <h2>所以真正要練的，是三種長久能力</h2>
-      <div class="grid-3">
-        <article class="level-card">
-          <span class="label">Define</span>
-          <h3>定義任務</h3>
-          <p>把問題、目標、受眾、限制與判斷標準先說清楚，讓 AI 知道要往哪裡走。</p>
-        </article>
-        <article class="level-card">
-          <span class="label">Direct</span>
-          <h3>指揮協作</h3>
-          <p>選對工具、給對素材、拆成步驟、要求輸出，並透過多輪修改把結果推近。</p>
-        </article>
-        <article class="level-card dark">
-          <span class="label">Judge</span>
-          <h3>判斷品質</h3>
-          <p>查證事實、評估風險、選擇版本、決定是否能對外使用。最後負責的人還是你。</p>
-        </article>
-      </div>
-      <div class="map-line">工具會換，但定義任務、指揮協作、判斷品質，會一直留下來。</div>
+      <div class="map-line">今天先把第二層練熟，帶你實際操作每個工具。準備好了嗎？</div>
       <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
 
@@ -4146,14 +4100,17 @@
       <div class="num">61</div>
       <img class="brand" src="logo-mr-chill-circle.png" alt="">
       <h2>案例 2：直播截圖已經接近以假亂真</h2>
-      <p class="lead">這張不是單純「生成一個人」，而是生成一個完整的直播介面：人物、燈光、禮物特效、粉絲留言、觀看人數、中文 UI 全部一起成立。</p>
+      <p class="lead">不只生成人物，而是整個直播介面——燈光、禮物特效、粉絲留言、觀看人數、中文 UI 全部一起成立。</p>
       <div class="realism-layout">
-        <figure class="prompt-shot"><img src="gpt-live-prompt-detail.png" alt="GPT Images live stream detailed prompt"></figure>
+        <div class="prompt-text-box">
+          <span class="prompt-text-label">Prompt</span>
+          <p>生成一張熱門短影音直播間截圖風格的畫面，一位外型陽光帥氣的年輕男網紅正在鏡頭前跳舞，動作有節奏感、充滿活力，穿著時尚潮流，整體呈現高人氣直播氛圍。畫面中可見直播介面元素，例如右側不斷跳出的禮物特效、愛心、留言彈幕，下方有熱烈互動的粉絲留言，線上觀看人數顯示 10萬+，整體氣氛瘋狂、熱鬧、帶有強烈流量感。畫面要像真實手機直播截圖，風格偏寫實，燈光明亮，帶有網紅直播間的潮流感與娛樂感。</p>
+        </div>
         <figure class="live-frame"><img src="gpt-live-output-detail.png" alt="GPT Images realistic live stream output"></figure>
         <div class="realism-notes">
-          <article class="card"><span class="label">Realism</span><h3>手機直播截圖感很完整</h3><p>人物姿勢、室內光線、景深、鏡頭比例與互動特效，都已經像真實平台畫面。</p></article>
-          <article class="card accent"><span class="label">Chinese Text</span><h3>中文介面能力很強</h3><p>它不只會畫人，也能處理帳號名稱、按鈕、留言、禮物文字與觀看數。</p></article>
-          <article class="card bark"><span class="label">Thinking</span><h3>模型會補你沒想到的細節</h3><p>例如排名、禮物動畫、粉絲頭像、直播間任務、輸入框，都是它自己補出的情境邏輯。</p></article>
+          <article class="card"><span class="label">Realism</span><h3>直播截圖感很完整</h3><p>人物、光線、景深、互動特效，像真實平台畫面。</p></article>
+          <article class="card accent"><span class="label">Chinese UI</span><h3>中文介面都正確</h3><p>帳號名稱、按鈕、留言、禮物文字與觀看數都有。</p></article>
+          <article class="card bark"><span class="label">Auto-fill</span><h3>它會自己補細節</h3><p>排名、禮物動畫、粉絲頭像、輸入框，都是模型自己補的。</p></article>
         </div>
       </div>
       <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
@@ -4164,14 +4121,17 @@
       <div class="num">62</div>
       <img class="brand" src="logo-mr-chill-circle.png" alt="">
       <h2>再試一次：提示詞很短，效果仍然很好</h2>
-      <p class="lead">第二次只用很簡潔的描述：抖音直播截圖、小鮮肉男網紅、跳舞、10 萬+ 在線、粉絲刷禮物。結果仍然自動補出完整場景。</p>
+      <p class="lead">這次只用一句話。結果仍然自動補出完整的直播場景，代表模型已經懂「直播截圖」該長什麼樣。</p>
       <div class="realism-layout reverse">
         <div class="realism-notes">
-          <article class="card"><span class="label">Prompt</span><h3>不用把每個細節都寫死</h3><p>當任務類型夠清楚，模型會知道「直播截圖」應該包含哪些介面元素。</p></article>
-          <article class="card accent"><span class="label">Inference</span><h3>它會主動補場景語法</h3><p>例如關注按鈕、排行榜、禮物數字、聊天室、底部輸入列，這些都是直播畫面的常識。</p></article>
+          <article class="card"><span class="label">重點</span><h3>不用把每個細節都寫死</h3><p>任務類型夠清楚，模型就知道該補什麼介面元素。</p></article>
+          <article class="card accent"><span class="label">對比</span><h3>長 prompt vs 短 prompt</h3><p>上一張寫了 100+ 字，這張只用一句話，結果品質差異不大。</p></article>
         </div>
         <figure class="live-frame"><img src="gpt-live-output-simple.png" alt="GPT Images short prompt live stream output"></figure>
-        <figure class="prompt-shot"><img src="gpt-live-prompt-simple.png" alt="GPT Images short live stream prompt"></figure>
+        <div class="prompt-text-box short">
+          <span class="prompt-text-label">Prompt</span>
+          <p>產生一個抖音直播的截圖 一位【小鮮肉男網紅】在跳舞，直播在線人數是10萬+，粉絲瘋狂刷禮物</p>
+        </div>
       </div>
       <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
