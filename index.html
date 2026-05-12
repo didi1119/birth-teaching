@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI 實戰課：從工具到工作流</title>
+  <title>AI 實戰課：完整版（前導 + 主課）</title>
   <style>
     :root {
       --ink: #0e0e0d;
@@ -32,25 +32,39 @@
     html,
     body {
       margin: 0;
-      min-height: 100%;
+      height: 100%;
+      overflow: hidden;
       background: #171512;
       color: var(--ink);
       font-family: var(--sans);
     }
 
     body {
-      display: grid;
-      place-items: center;
-      padding: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+
+    /* Fixed-size design canvas; JS scales it to fit any window */
+    .stage {
+      width: 1440px;
+      height: 810px;
+      flex: none;
+      transform-origin: center center;
+      position: relative;
+      will-change: transform;
     }
 
     .deck {
-      width: min(100vw - 36px, 1440px);
-      aspect-ratio: 16 / 9;
+      width: 100%;
+      height: 100%;
       position: relative;
       overflow: hidden;
       box-shadow: 0 24px 70px rgba(0, 0, 0, 0.36);
       background: var(--bone);
+      container-type: size;
+      container-name: deck;
     }
 
     .slide {
@@ -100,7 +114,7 @@
       top: 2.35%;
       left: 5%;
       font-family: var(--mono);
-      font-size: clamp(8px, 0.74vw, 11px);
+      font-size: clamp(8px, 0.74cqi, 11px);
       color: var(--ink-mute);
       text-transform: uppercase;
     }
@@ -110,7 +124,7 @@
       top: 2.35%;
       right: 5%;
       font-family: var(--mono);
-      font-size: clamp(8px, 0.74vw, 11px);
+      font-size: clamp(8px, 0.74cqi, 11px);
       color: var(--ink-mute);
     }
 
@@ -137,14 +151,14 @@
     }
 
     h1 {
-      font-size: clamp(42px, 6.2vw, 84px);
+      font-size: clamp(42px, 6.2cqi, 84px);
       line-height: 1.05;
       font-weight: 800;
     }
 
     h2 {
       max-width: 78%;
-      font-size: clamp(25px, 3vw, 42px);
+      font-size: clamp(25px, 3cqi, 42px);
       line-height: 1.18;
       font-weight: 800;
       margin-top: 3.1%;
@@ -152,13 +166,13 @@
     }
 
     h3 {
-      font-size: clamp(17px, 1.6vw, 24px);
+      font-size: clamp(17px, 1.6cqi, 24px);
       line-height: 1.2;
       font-weight: 800;
     }
 
     .lead {
-      font-size: clamp(16px, 1.45vw, 22px);
+      font-size: clamp(16px, 1.45cqi, 22px);
       line-height: 1.55;
       color: var(--ink-soft);
       max-width: 62%;
@@ -166,7 +180,7 @@
     }
 
     .small {
-      font-size: clamp(11px, 0.95vw, 14px);
+      font-size: clamp(11px, 0.95cqi, 14px);
       line-height: 1.48;
       color: var(--ink-mute);
     }
@@ -193,7 +207,7 @@
 
     .title-left .kicker {
       font-family: var(--mono);
-      font-size: clamp(9px, 0.9vw, 13px);
+      font-size: clamp(9px, 0.9cqi, 13px);
       color: var(--lichen);
       text-transform: uppercase;
       font-weight: 700;
@@ -201,7 +215,7 @@
 
     .title-left p {
       max-width: 84%;
-      font-size: clamp(16px, 1.55vw, 22px);
+      font-size: clamp(16px, 1.55cqi, 22px);
       line-height: 1.55;
       color: var(--bone);
       font-weight: 600;
@@ -227,7 +241,7 @@
     .title-right h2 {
       max-width: 100%;
       margin: 0;
-      font-size: clamp(24px, 2.4vw, 38px);
+      font-size: clamp(24px, 2.4cqi, 38px);
     }
 
     .tag-row {
@@ -245,7 +259,7 @@
       border: 1px solid var(--ink);
       background: var(--paper);
       font-family: var(--mono);
-      font-size: clamp(9px, 0.85vw, 12px);
+      font-size: clamp(9px, 0.85cqi, 12px);
       font-weight: 800;
       color: var(--ink);
       text-transform: uppercase;
@@ -285,7 +299,7 @@
       color: var(--paper);
       padding: 3.2% 4%;
       font-family: var(--serif);
-      font-size: clamp(22px, 2.6vw, 36px);
+      font-size: clamp(22px, 2.6cqi, 36px);
       line-height: 1.25;
       font-weight: 800;
     }
@@ -295,7 +309,7 @@
       margin-top: 1.4%;
       color: var(--lichen);
       font-family: var(--sans);
-      font-size: clamp(12px, 1vw, 16px);
+      font-size: clamp(12px, 1cqi, 16px);
       line-height: 1.5;
       font-weight: 650;
     }
@@ -314,7 +328,7 @@
       padding: 12% 10%;
       text-align: center;
       font-family: var(--serif);
-      font-size: clamp(15px, 1.25vw, 20px);
+      font-size: clamp(15px, 1.25cqi, 20px);
       font-weight: 850;
       line-height: 1.32;
     }
@@ -322,7 +336,7 @@
     .formula-title {
       margin-top: 1.4%;
       font-family: var(--serif);
-      font-size: clamp(15px, 1.35vw, 21px);
+      font-size: clamp(15px, 1.35cqi, 21px);
       line-height: 1.35;
       font-weight: 850;
       color: var(--ink);
@@ -365,13 +379,13 @@
 
     .story-panel h3 {
       color: var(--paper);
-      font-size: clamp(27px, 2.6vw, 40px);
+      font-size: clamp(27px, 2.6cqi, 40px);
       line-height: 1.18;
     }
 
     .story-panel p {
       color: var(--bone);
-      font-size: clamp(14px, 1.15vw, 18px);
+      font-size: clamp(14px, 1.15cqi, 18px);
       line-height: 1.62;
       font-weight: 650;
     }
@@ -382,7 +396,7 @@
       border-bottom: 2px solid var(--ink);
       padding: 2.4% 0;
       font-family: var(--serif);
-      font-size: clamp(22px, 2.2vw, 34px);
+      font-size: clamp(22px, 2.2cqi, 34px);
       line-height: 1.28;
       font-weight: 850;
       text-align: center;
@@ -391,7 +405,7 @@
     .statement.compact {
       margin-top: .85%;
       padding: .85% 0;
-      font-size: clamp(16px, 1.42vw, 22px);
+      font-size: clamp(16px, 1.42cqi, 22px);
       line-height: 1.18;
     }
 
@@ -422,12 +436,12 @@
 
     .boss-card h3 {
       margin-top: 20px;
-      font-size: clamp(20px, 1.75vw, 28px);
+      font-size: clamp(20px, 1.75cqi, 28px);
     }
 
     .boss-card p {
       margin-top: 14px;
-      font-size: clamp(12px, 1vw, 16px);
+      font-size: clamp(12px, 1cqi, 16px);
       line-height: 1.55;
       font-weight: 650;
       color: inherit;
@@ -451,7 +465,7 @@
 
     .tight-stack .card p {
       margin-top: 6px;
-      font-size: clamp(11px, .9vw, 14px);
+      font-size: clamp(11px, .9cqi, 14px);
       line-height: 1.42;
     }
 
@@ -465,14 +479,14 @@
     .ability-card strong {
       display: block;
       font-family: var(--serif);
-      font-size: clamp(26px, 2.4vw, 38px);
+      font-size: clamp(26px, 2.4cqi, 38px);
       line-height: 1;
       margin-bottom: 18px;
     }
 
     .ability-card span {
       display: block;
-      font-size: clamp(11px, .95vw, 15px);
+      font-size: clamp(11px, .95cqi, 15px);
       line-height: 1.45;
       color: var(--ink-soft);
       font-weight: 650;
@@ -496,7 +510,7 @@
 
     .level-card p {
       margin-top: 18px;
-      font-size: clamp(12px, 1vw, 16px);
+      font-size: clamp(12px, 1cqi, 16px);
       line-height: 1.55;
       font-weight: 600;
       color: inherit;
@@ -513,7 +527,7 @@
       border: 1px solid var(--ink);
       background: var(--paper);
       padding: 13px 14px;
-      font-size: clamp(11px, .9vw, 14px);
+      font-size: clamp(11px, .9cqi, 14px);
       line-height: 1.34;
       font-weight: 680;
       min-height: 0;
@@ -522,7 +536,7 @@
     .workflow-band b {
       display: block;
       font-family: var(--mono);
-      font-size: clamp(8px, .72vw, 11px);
+      font-size: clamp(8px, .72cqi, 11px);
       color: var(--moss);
       margin-bottom: 9px;
     }
@@ -572,13 +586,13 @@
 
     .tool-hero h3 {
       color: var(--paper);
-      font-size: clamp(24px, 2.25vw, 34px);
+      font-size: clamp(24px, 2.25cqi, 34px);
       line-height: 1.18;
     }
 
     .tool-hero p {
       color: var(--bone);
-      font-size: clamp(14px, 1.1vw, 18px);
+      font-size: clamp(14px, 1.1cqi, 18px);
       line-height: 1.62;
       font-weight: 650;
     }
@@ -589,7 +603,7 @@
       table-layout: fixed;
       background: rgba(255,255,255,.86);
       border: 1.3px solid var(--ink);
-      font-size: clamp(11px, .94vw, 15px);
+      font-size: clamp(11px, .94cqi, 15px);
     }
 
     .feature-table th,
@@ -604,7 +618,7 @@
       background: var(--ink);
       color: var(--paper);
       font-family: var(--mono);
-      font-size: clamp(8px, .72vw, 11px);
+      font-size: clamp(8px, .72cqi, 11px);
       text-transform: uppercase;
       text-align: left;
     }
@@ -640,13 +654,13 @@
 
     .demo-input h3 {
       color: var(--paper);
-      font-size: clamp(24px, 2.15vw, 33px);
+      font-size: clamp(24px, 2.15cqi, 33px);
       line-height: 1.24;
     }
 
     .demo-input p {
       color: var(--bone);
-      font-size: clamp(13px, 1.05vw, 17px);
+      font-size: clamp(13px, 1.05cqi, 17px);
       line-height: 1.62;
       font-weight: 650;
     }
@@ -669,7 +683,7 @@
 
     .demo-card li {
       margin: 10px 0;
-      font-size: clamp(12px, 1vw, 16px);
+      font-size: clamp(12px, 1cqi, 16px);
       line-height: 1.45;
       font-weight: 650;
       color: var(--ink-soft);
@@ -718,7 +732,7 @@
       display: block;
       margin-bottom: 16px;
       font-family: var(--mono);
-      font-size: clamp(8px, 0.72vw, 11px);
+      font-size: clamp(8px, 0.72cqi, 11px);
       font-weight: 800;
       color: var(--ink-mute);
       text-transform: uppercase;
@@ -727,7 +741,7 @@
     .card p,
     .card li {
       margin-top: 12px;
-      font-size: clamp(13px, 1.05vw, 17px);
+      font-size: clamp(13px, 1.05cqi, 17px);
       line-height: 1.55;
       color: var(--ink-soft);
       font-weight: 560;
@@ -751,7 +765,7 @@
       border-top: 2px solid var(--ink);
       text-align: center;
       font-family: var(--serif);
-      font-size: clamp(17px, 1.55vw, 23px);
+      font-size: clamp(17px, 1.55cqi, 23px);
       font-weight: 800;
     }
 
@@ -781,19 +795,19 @@
       font-family: var(--mono);
       color: var(--moss);
       font-weight: 900;
-      font-size: clamp(13px, 1vw, 16px);
+      font-size: clamp(13px, 1cqi, 16px);
     }
 
     .step.dark .idx { color: var(--lichen); }
 
     .step h3 {
       margin-top: 26%;
-      font-size: clamp(18px, 1.55vw, 24px);
+      font-size: clamp(18px, 1.55cqi, 24px);
     }
 
     .step p {
       margin-top: 18px;
-      font-size: clamp(12px, 1vw, 16px);
+      font-size: clamp(12px, 1cqi, 16px);
       line-height: 1.5;
       color: inherit;
     }
@@ -805,7 +819,7 @@
       margin-top: 2.2%;
       background: var(--paper);
       border: 1.3px solid var(--ink);
-      font-size: clamp(11px, 0.93vw, 15px);
+      font-size: clamp(11px, 0.93cqi, 15px);
     }
 
     .matrix th,
@@ -821,7 +835,7 @@
       background: var(--ink);
       color: var(--paper);
       font-family: var(--mono);
-      font-size: clamp(9px, 0.76vw, 12px);
+      font-size: clamp(9px, 0.76cqi, 12px);
       text-transform: uppercase;
     }
 
@@ -861,12 +875,12 @@
     }
 
     .choice-card h3 {
-      font-size: clamp(22px, 2vw, 31px);
+      font-size: clamp(22px, 2cqi, 31px);
     }
 
     .choice-card p,
     .choice-card li {
-      font-size: clamp(11px, .9vw, 14px);
+      font-size: clamp(11px, .9cqi, 14px);
       line-height: 1.46;
       font-weight: 640;
       color: inherit;
@@ -925,7 +939,7 @@
     .path-step p,
     .path-step li {
       margin-top: 12px;
-      font-size: clamp(12px, .98vw, 16px);
+      font-size: clamp(12px, .98cqi, 16px);
       line-height: 1.52;
       font-weight: 640;
       color: inherit;
@@ -947,13 +961,13 @@
     }
 
     .eco-card h3 {
-      font-size: clamp(18px, 1.55vw, 24px);
+      font-size: clamp(18px, 1.55cqi, 24px);
       margin-top: 10px;
     }
 
     .eco-card p {
       margin-top: 8px;
-      font-size: clamp(11px, .9vw, 14px);
+      font-size: clamp(11px, .9cqi, 14px);
       line-height: 1.42;
       font-weight: 640;
       color: var(--ink-soft);
@@ -987,7 +1001,7 @@
 
     .exercise-lane li {
       margin: 11px 0;
-      font-size: clamp(12px, .98vw, 16px);
+      font-size: clamp(12px, .98cqi, 16px);
       line-height: 1.48;
       font-weight: 640;
       color: inherit;
@@ -1018,13 +1032,13 @@
 
     .gmail-panel h3 {
       color: var(--paper);
-      font-size: clamp(25px, 2.28vw, 36px);
+      font-size: clamp(25px, 2.28cqi, 36px);
       line-height: 1.18;
     }
 
     .gmail-panel p {
       color: var(--bone);
-      font-size: clamp(13px, 1.05vw, 17px);
+      font-size: clamp(13px, 1.05cqi, 17px);
       line-height: 1.58;
       font-weight: 650;
     }
@@ -1051,12 +1065,12 @@
     }
 
     .method-card h3 {
-      font-size: clamp(20px, 1.72vw, 27px);
+      font-size: clamp(20px, 1.72cqi, 27px);
     }
 
     .method-card p,
     .method-card li {
-      font-size: clamp(11px, .92vw, 14px);
+      font-size: clamp(11px, .92cqi, 14px);
       line-height: 1.48;
       font-weight: 640;
       color: inherit;
@@ -1140,12 +1154,12 @@
     .usecase-card.bark::before { background: var(--bark); }
 
     .usecase-card h3 {
-      font-size: clamp(17px, 1.45vw, 23px);
+      font-size: clamp(17px, 1.45cqi, 23px);
     }
 
     .usecase-card p {
       margin-top: 8px;
-      font-size: clamp(11px, .92vw, 14px);
+      font-size: clamp(11px, .92cqi, 14px);
       line-height: 1.45;
       font-weight: 640;
       color: var(--ink-soft);
@@ -1213,7 +1227,7 @@
       color: var(--bone);
       padding: 5.8%;
       font-family: var(--mono);
-      font-size: clamp(10px, .86vw, 13px);
+      font-size: clamp(10px, .86cqi, 13px);
       line-height: 1.58;
       white-space: pre-wrap;
     }
@@ -1256,12 +1270,12 @@
     .note-card.dark::before { background: var(--lichen); }
 
     .note-card h3 {
-      font-size: clamp(17px, 1.48vw, 23px);
+      font-size: clamp(17px, 1.48cqi, 23px);
     }
 
     .note-card p {
       margin-top: 10px;
-      font-size: clamp(11px, .92vw, 14px);
+      font-size: clamp(11px, .92cqi, 14px);
       line-height: 1.45;
       font-weight: 640;
       color: inherit;
@@ -1292,13 +1306,13 @@
 
     .canvas-hero h3 {
       color: var(--paper);
-      font-size: clamp(26px, 2.38vw, 38px);
+      font-size: clamp(26px, 2.38cqi, 38px);
       line-height: 1.16;
     }
 
     .canvas-hero p {
       color: var(--bone);
-      font-size: clamp(13px, 1.05vw, 17px);
+      font-size: clamp(13px, 1.05cqi, 17px);
       line-height: 1.58;
       font-weight: 650;
     }
@@ -1335,12 +1349,12 @@
     .canvas-flow-card.dark::before { background: var(--lichen); }
 
     .canvas-flow-card h3 {
-      font-size: clamp(17px, 1.44vw, 23px);
+      font-size: clamp(17px, 1.44cqi, 23px);
     }
 
     .canvas-flow-card p {
       margin-top: 10px;
-      font-size: clamp(11px, .92vw, 14px);
+      font-size: clamp(11px, .92cqi, 14px);
       line-height: 1.45;
       font-weight: 640;
       color: inherit;
@@ -1432,13 +1446,13 @@
     }
 
     .notebook-flow h3 {
-      font-size: clamp(15px, 1.22vw, 19px);
+      font-size: clamp(15px, 1.22cqi, 19px);
       line-height: 1.25;
     }
 
     .notebook-flow p {
       margin-top: 10px;
-      font-size: clamp(10px, .84vw, 13px);
+      font-size: clamp(10px, .84cqi, 13px);
       line-height: 1.42;
       font-weight: 640;
       color: var(--ink-soft);
@@ -1477,7 +1491,7 @@
     }
 
     .advantage-grid h3 {
-      font-size: clamp(16px, 1.36vw, 22px);
+      font-size: clamp(16px, 1.36cqi, 22px);
     }
 
     .image-lab {
@@ -1503,7 +1517,7 @@
       text-align: center;
       padding: 7%;
       font-family: var(--serif);
-      font-size: clamp(24px, 2.2vw, 36px);
+      font-size: clamp(24px, 2.2cqi, 36px);
       line-height: 1.25;
       font-weight: 850;
       color: var(--ink-soft);
@@ -1594,7 +1608,7 @@
     }
 
     .creator-meaning h3 {
-      font-size: clamp(15px, 1.25vw, 20px);
+      font-size: clamp(15px, 1.25cqi, 20px);
     }
 
     .realism-layout {
@@ -1661,7 +1675,7 @@
 
     .prompt-text-box .prompt-text-label {
       font-family: var(--mono);
-      font-size: clamp(9px, .8vw, 12px);
+      font-size: clamp(9px, .8cqi, 12px);
       color: var(--lichen);
       text-transform: uppercase;
       font-weight: 700;
@@ -1669,7 +1683,7 @@
     }
 
     .prompt-text-box p {
-      font-size: clamp(12px, 1vw, 15px);
+      font-size: clamp(12px, 1cqi, 15px);
       line-height: 1.65;
       color: var(--bone);
       font-weight: 500;
@@ -1681,7 +1695,7 @@
     }
 
     .prompt-text-box.short p {
-      font-size: clamp(14px, 1.2vw, 18px);
+      font-size: clamp(14px, 1.2cqi, 18px);
       font-weight: 650;
     }
 
@@ -1698,7 +1712,7 @@
     }
 
     .realism-notes p {
-      font-size: clamp(10px, .86vw, 13px);
+      font-size: clamp(10px, .86cqi, 13px);
       line-height: 1.42;
     }
 
@@ -1838,7 +1852,7 @@
     }
 
     .slide.chapter-slide .chapter-num {
-      font: 800 clamp(11px, 1vw, 14px) var(--mono);
+      font: 800 clamp(11px, 1cqi, 14px) var(--mono);
       letter-spacing: .18em;
       text-transform: uppercase;
       color: var(--lichen);
@@ -1847,7 +1861,7 @@
 
     .slide.chapter-slide h2 {
       font-family: var(--serif);
-      font-size: clamp(28px, 3.6vw, 56px);
+      font-size: clamp(28px, 3.6cqi, 56px);
       font-weight: 700;
       line-height: 1.28;
       color: var(--bone);
@@ -1856,7 +1870,7 @@
     }
 
     .slide.chapter-slide .chapter-sub {
-      font-size: clamp(13px, 1.1vw, 17px);
+      font-size: clamp(13px, 1.1cqi, 17px);
       line-height: 1.7;
       color: var(--lichen);
       max-width: 60%;
@@ -1925,7 +1939,7 @@
 
     .canva-cards .card h3 {
       margin-top: 4px;
-      font-size: clamp(13px, 1.05vw, 17px);
+      font-size: clamp(13px, 1.05cqi, 17px);
     }
 
     .visual-priority h2 {
@@ -1934,7 +1948,7 @@
 
     .visual-priority .lead {
       max-width: 76%;
-      font-size: clamp(14px, 1.12vw, 17px);
+      font-size: clamp(14px, 1.12cqi, 17px);
       line-height: 1.42;
     }
 
@@ -2005,7 +2019,7 @@
 
     .multiref-cards .card h3 {
       margin-top: 4px;
-      font-size: clamp(13px, 1.05vw, 17px);
+      font-size: clamp(13px, 1.05cqi, 17px);
     }
 
     /* ── 局部修改案例 (inpaint edit) ── */
@@ -2036,7 +2050,7 @@
     }
 
     .edit-label {
-      font-size: clamp(10px, .78vw, 11px);
+      font-size: clamp(10px, .78cqi, 11px);
       text-transform: uppercase;
       letter-spacing: .08em;
       color: var(--text-muted, #888);
@@ -2075,7 +2089,7 @@
 
     .edit-priority .lead {
       max-width: 72%;
-      font-size: clamp(14px, 1.12vw, 17px);
+      font-size: clamp(14px, 1.12cqi, 17px);
       line-height: 1.42;
     }
 
@@ -2112,7 +2126,7 @@
       display: grid;
       place-items: center;
       align-self: stretch;
-      font-size: clamp(26px, 2.2vw, 34px);
+      font-size: clamp(26px, 2.2cqi, 34px);
       color: var(--accent);
       font-weight: 700;
       flex-shrink: 0;
@@ -2139,7 +2153,7 @@
 
     .finale-slide .brand {
       position: static;
-      width: clamp(78px, 8vw, 118px);
+      width: clamp(78px, 8cqi, 118px);
       margin-bottom: 4%;
       border-radius: 50%;
       background: var(--paper);
@@ -2149,7 +2163,7 @@
 
     .finale-slide .finale-kicker {
       font-family: var(--mono);
-      font-size: clamp(10px, 0.86vw, 13px);
+      font-size: clamp(10px, 0.86cqi, 13px);
       font-weight: 800;
       color: rgba(245, 241, 232, 0.56);
       text-transform: uppercase;
@@ -2159,7 +2173,7 @@
     .finale-slide h2 {
       max-width: 100%;
       margin: 0;
-      font-size: clamp(38px, 5vw, 78px);
+      font-size: clamp(38px, 5cqi, 78px);
       line-height: 1.14;
       color: var(--bone);
     }
@@ -2181,7 +2195,7 @@
     }
 
     .edit-cards p {
-      font-size: clamp(10px, .82vw, 12px);
+      font-size: clamp(10px, .82cqi, 12px);
       line-height: 1.42;
     }
 
@@ -2232,7 +2246,7 @@
 
     .gift-panel .url {
       font-family: var(--mono);
-      font-size: clamp(13px, 1.05vw, 17px);
+      font-size: clamp(13px, 1.05cqi, 17px);
       color: var(--lichen);
       word-break: break-all;
       margin-top: 22px;
@@ -2240,13 +2254,13 @@
 
     .gift-panel h3 {
       color: var(--bone);
-      font-size: clamp(26px, 2.4vw, 40px);
+      font-size: clamp(26px, 2.4cqi, 40px);
       line-height: 1.18;
     }
 
     .gift-panel p {
       color: rgba(245,241,232,.86);
-      font-size: clamp(13px, 1.02vw, 16px);
+      font-size: clamp(13px, 1.02cqi, 16px);
       line-height: 1.55;
       font-weight: 650;
     }
@@ -2276,7 +2290,7 @@
       border: 1.2px solid var(--ink);
       background: var(--paper);
       padding: 14px;
-      font-size: clamp(11px, .92vw, 14px);
+      font-size: clamp(11px, .92cqi, 14px);
       line-height: 1.42;
       font-weight: 680;
       min-height: 0;
@@ -2286,7 +2300,7 @@
       display: block;
       margin-bottom: 9px;
       font-family: var(--mono);
-      font-size: clamp(8px, .72vw, 11px);
+      font-size: clamp(8px, .72cqi, 11px);
       color: var(--moss);
       text-transform: uppercase;
     }
@@ -2332,7 +2346,7 @@
       color: var(--paper);
       font-family: var(--mono);
       font-weight: 900;
-      font-size: clamp(10px, 0.8vw, 13px);
+      font-size: clamp(10px, 0.8cqi, 13px);
     }
 
     .practice-row:nth-child(even) .time {
@@ -2345,7 +2359,7 @@
       align-items: center;
       padding: 0 18px;
       font-family: var(--serif);
-      font-size: clamp(15px, 1.25vw, 20px);
+      font-size: clamp(15px, 1.25cqi, 20px);
       font-weight: 800;
       border-right: 1px solid rgba(14, 14, 13, 0.4);
     }
@@ -2354,7 +2368,7 @@
       display: flex;
       align-items: center;
       padding: 0 20px;
-      font-size: clamp(12px, 1vw, 16px);
+      font-size: clamp(12px, 1cqi, 16px);
       line-height: 1.45;
       color: var(--ink-soft);
       font-weight: 560;
@@ -2367,7 +2381,7 @@
       padding: 2.8%;
       margin-top: 2.2%;
       font-family: var(--mono);
-      font-size: clamp(12px, 0.98vw, 16px);
+      font-size: clamp(12px, 0.98cqi, 16px);
       line-height: 1.55;
       white-space: pre-wrap;
     }
@@ -2377,7 +2391,7 @@
       left: 5%;
       bottom: 2.25%;
       font-family: var(--mono);
-      font-size: clamp(8px, 0.68vw, 10px);
+      font-size: clamp(8px, 0.68cqi, 10px);
       color: var(--ink-mute);
     }
 
@@ -2412,11 +2426,12 @@
       text-align: center;
     }
 
-    @media (max-width: 900px) {
+    /* Mobile-reflow disabled — scale-to-fit handles small windows now. */
+    @media (max-width: 0px) {
       body { padding: 0; }
       .deck {
-        width: 100vw;
-        height: 100vh;
+        width: 100cqi;
+        height: 100cqb;
         aspect-ratio: auto;
       }
       .slide {
@@ -2431,7 +2446,7 @@
       .title-right {
         margin: 0;
         border: 0;
-        min-height: 50vh;
+        min-height: 50cqb;
       }
       .brand { width: 54px; top: 58px; }
       h2 { max-width: calc(100% - 78px); }
@@ -2506,7 +2521,7 @@
         background: white;
       }
       .deck {
-        width: 100vw;
+        width: 100cqi;
         height: auto;
         aspect-ratio: auto;
         box-shadow: none;
@@ -2515,8 +2530,8 @@
         position: relative;
         display: flex !important;
         flex-direction: column;
-        width: 100vw;
-        height: 56.25vw;
+        width: 100cqi;
+        height: 56.25cqi;
         page-break-after: always;
         overflow: hidden;
       }
@@ -2532,11 +2547,1460 @@
       .controls { display: none; }
       @page { size: 16in 9in; margin: 0; }
     }
+  
+/* ═══════════════════════════════════════════════════════════════
+   LEAD-IN DECK STYLES (scoped to .lead-slide)
+   ═══════════════════════════════════════════════════════════════ */
+
+    :root{
+      --ink: #0e0e0d;
+      --ink-2: #282722;
+      --muted: #676157;
+      --bone: #f5f1e8;
+      --paper: #fffaf0;
+      --line: #cfc6b8;
+      --moss: #2f472b;
+      --fern: #70805f;
+      --lichen: #d8dcc4;
+      --bark: #5c4a3a;
+      --clay: #c26a4a;
+      --clay-deep: #9c4d32;
+      --gold: #b89968;
+      --sans: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
+      --serif: "Noto Serif TC", "Songti TC", "PMingLiU", Georgia, serif;
+      --mono: "JetBrains Mono", "SFMono-Regular", Consolas, ui-monospace, monospace;
+    }
+
+    *{ box-sizing: border-box; }
+
+    html, body{
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+      background: #14130f;
+      color: var(--ink);
+      font-family: var(--sans);
+    }
+
+    body{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+
+    .lead-slide /* Fixed-size design canvas; JS scales it to fit window */
+    .stage{
+      width: 1440px;
+      height: 810px;
+      flex: none;
+      transform-origin: center center;
+      position: relative;
+      will-change: transform;
+    }
+
+    .deck{
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      background: var(--bone);
+      box-shadow: 0 28px 90px rgba(0, 0, 0, 0.42);
+      container-type: size;
+      container-name: deck;
+    }
+
+    .lead-slide.slide{
+      position: absolute;
+      inset: 0;
+      display: none;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+      padding: 6.2% 6.7% 6.4%;
+      background:
+        linear-gradient(90deg, rgba(14, 14, 13, 0.045) 1px, transparent 1px),
+        linear-gradient(rgba(14, 14, 13, 0.025) 1px, transparent 1px),
+        radial-gradient(circle at 9% 12%, rgba(194, 106, 74, 0.13), transparent 32%),
+        var(--bone);
+      background-size: 72px 100%, 100% 36px, 100% 100%, 100% 100%;
+    }
+
+    .lead-slide.slide.active{ display: block; }
+
+    .lead-slide.slide::before{
+      content: "";
+      position: absolute;
+      inset: 4.8% 4.9%;
+      border: 1px solid rgba(14, 14, 13, 0.18);
+      pointer-events: none;
+    }
+
+    .lead-slide.slide::after{ content: none; }
+
+    .lead-slide .meta, .lead-slide .num, .lead-slide .footer{
+      position: absolute;
+      z-index: 5;
+      font-family: var(--mono);
+      color: var(--muted);
+      font-size: clamp(8px, 0.68cqi, 10px);
+      line-height: 1.25;
+      text-transform: uppercase;
+    }
+
+    .lead-slide .meta{ top: 3.2%; left: 6.7%; }
+    .lead-slide .num{ top: 3.2%; right: 6.7%; }
+    .lead-slide .footer{ bottom: 2.9%; left: 6.7%; }
+
+    .lead-slide .logo{
+      position: absolute;
+      right: 6.65%;
+      top: 7.3%;
+      z-index: 4;
+      width: 76px;
+      aspect-ratio: 1;
+      object-fit: contain;
+      transform: rotate(-2deg);
+      filter: drop-shadow(0 1px 0 rgba(14, 14, 13, 0.18));
+    }
+
+    .lead-slide h1, .lead-slide h2, .lead-slide h3, .lead-slide p{
+      margin: 0;
+      letter-spacing: 0;
+    }
+
+    .lead-slide h1, .lead-slide h2, .lead-slide .hero-word, .lead-slide .quote{
+      font-family: var(--serif);
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    .lead-slide h1{
+      font-size: clamp(70px, 8.6cqi, 132px);
+      line-height: 0.98;
+    }
+
+    .lead-slide h2{
+      font-size: clamp(46px, 5.4cqi, 82px);
+      line-height: 1.02;
+      max-width: 980px;
+    }
+
+    .lead-slide h3{
+      font-family: var(--serif);
+      font-size: clamp(26px, 2.8cqi, 44px);
+      line-height: 1.14;
+      font-weight: 850;
+    }
+
+    .lead-slide .kicker{
+      display: inline-block;
+      width: fit-content;
+      padding: 6px 11px 5px;
+      border: 1px solid var(--line);
+      background: rgba(255, 250, 240, 0.72);
+      color: var(--moss);
+      font-family: var(--mono);
+      font-size: clamp(9px, 0.75cqi, 11px);
+      font-weight: 850;
+      text-transform: uppercase;
+    }
+
+    .lead-slide .lead{
+      max-width: 580px;
+      color: var(--ink-2);
+      font-size: clamp(20px, 1.65cqi, 26px);
+      line-height: 1.48;
+      font-weight: 650;
+    }
+
+    .lead-slide .small{
+      color: var(--muted);
+      font-size: clamp(14px, 1.05cqi, 17px);
+      line-height: 1.45;
+      font-weight: 600;
+    }
+
+    .lead-slide .strip{
+      position: absolute;
+      left: 6.7%;
+      right: 6.7%;
+      bottom: 9.8%;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 28px;
+      border-top: 2px solid var(--ink);
+      padding-top: 14px;
+      z-index: 3;
+      background: linear-gradient(180deg, rgba(245, 241, 232, 0), rgba(245, 241, 232, 0.92) 42%);
+    }
+
+    .lead-slide .quote{
+      max-width: 780px;
+      font-size: clamp(25px, 2.45cqi, 38px);
+      line-height: 1.18;
+    }
+
+    .lead-slide .quote strong, .lead-slide .clay{ color: var(--clay-deep); }
+
+    .lead-slide .ghost-num{
+      position: absolute;
+      right: 7.2%;
+      bottom: 4.8%;
+      z-index: 0;
+      font-family: var(--serif);
+      font-size: clamp(170px, 18cqi, 270px);
+      line-height: 0.82;
+      color: rgba(47, 71, 43, 0.09);
+      font-weight: 900;
+      display: none;
+    }
+
+    .lead-slide .concept-image{
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      border: 1px solid rgba(14, 14, 13, 0.16);
+      background: var(--paper);
+      box-shadow: 0 16px 42px rgba(14, 14, 13, 0.08);
+    }
+
+    .lead-slide .visual-panel{
+      position: relative;
+    }
+
+    .lead-slide .visual-panel::after{
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border: 1px solid rgba(245, 241, 232, 0.28);
+      pointer-events: none;
+    }
+
+    .lead-slide .vertical-note{
+      position: absolute;
+      left: 2.1%;
+      bottom: 10%;
+      writing-mode: vertical-rl;
+      font-family: var(--mono);
+      font-size: clamp(9px, 0.72cqi, 11px);
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .lead-slide.cover{
+      display: none;
+      padding: 0;
+      background: var(--ink);
+      color: var(--bone);
+    }
+
+    .lead-slide.cover.active{
+      display: grid;
+      grid-template-columns: 1.16fr 0.84fr;
+    }
+
+    .lead-slide.cover::before, .lead-slide.cover::after{ display: none; }
+
+    .lead-slide .cover-main{
+      padding: 9.5% 8.4% 8%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-width: 0;
+    }
+
+    .lead-slide .cover-main .kicker{
+      border-color: rgba(245, 241, 232, 0.22);
+      background: transparent;
+      color: var(--lichen);
+    }
+
+    .lead-slide .cover-main h1{
+      color: var(--bone);
+      max-width: 790px;
+    }
+
+    .lead-slide .cover-sub{
+      color: var(--bone);
+      font-size: clamp(22px, 1.9cqi, 30px);
+      line-height: 1.38;
+      font-weight: 750;
+    }
+
+    .lead-slide .cover-side{
+      position: relative;
+      margin: 4.8% 4.8% 4.8% 0;
+      padding: 8% 8%;
+      background: var(--bone);
+      color: var(--ink);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-left: 1px solid rgba(245, 241, 232, 0.26);
+    }
+
+    .lead-slide .cover-logo{
+      width: 148px;
+      align-self: flex-end;
+      transform: rotate(-4deg);
+    }
+
+    .lead-slide .cover-side h2{
+      max-width: 95%;
+      font-size: clamp(31px, 2.7cqi, 44px);
+      line-height: 1.12;
+    }
+
+    .lead-slide .cover-side .small{
+      color: var(--moss);
+      font-family: var(--mono);
+      font-weight: 850;
+    }
+
+    .lead-slide .rule-layout{
+      display: grid;
+      grid-template-columns: 0.92fr 1.08fr;
+      gap: 6.2%;
+      height: calc(100% - 125px);
+      align-items: center;
+    }
+
+    .lead-slide .rule-line{
+      margin-top: 22px;
+      width: min(100%, 520px);
+      border-top: 3px solid var(--ink);
+      padding-top: 22px;
+      font-family: var(--serif);
+      font-size: clamp(24px, 2.25cqi, 35px);
+      line-height: 1.12;
+      font-weight: 900;
+      color: var(--moss);
+    }
+
+    .lead-slide .change-list{
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      margin-top: 20px;
+    }
+
+    .lead-slide .change-list span{
+      width: fit-content;
+      padding: 4px 0;
+      border-bottom: 1px solid rgba(14, 14, 13, 0.3);
+      font-family: var(--serif);
+      font-size: clamp(23px, 2.1cqi, 34px);
+      font-weight: 900;
+      line-height: 1.1;
+    }
+
+    .lead-slide .company-layout{
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 5.5%;
+      height: calc(100% - 125px);
+      align-items: center;
+    }
+
+    .lead-slide .dark-slab{
+      position: relative;
+      z-index: 1;
+      min-height: 50cqb;
+      padding: 8%;
+      background: var(--ink);
+      color: var(--bone);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .lead-slide .dark-slab .kicker{
+      border-color: rgba(245, 241, 232, 0.22);
+      background: transparent;
+      color: var(--lichen);
+    }
+
+    .lead-slide .dark-slab h2{
+      color: var(--bone);
+      font-size: clamp(48px, 5.35cqi, 82px);
+      max-width: 100%;
+    }
+
+    .lead-slide .role-rail{
+      display: grid;
+      gap: 12px;
+      align-content: center;
+    }
+
+    .lead-slide .role-rail span{
+      position: relative;
+      display: block;
+      padding-left: 34px;
+      font-family: var(--serif);
+      font-size: clamp(32px, 3cqi, 48px);
+      line-height: 1.08;
+      font-weight: 900;
+    }
+
+    .lead-slide .role-rail span::before{
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 18px;
+      height: 2px;
+      background: var(--clay);
+    }
+
+    .lead-slide .compare-layout{
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 22px;
+      margin-top: 3.4%;
+    }
+
+    .lead-slide .plain-column{
+      min-height: 30cqb;
+      padding: 4.2%;
+      border-top: 2px solid var(--ink);
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 250, 240, 0.45);
+    }
+
+    .lead-slide .plain-column.dark{
+      background: var(--moss);
+      color: var(--bone);
+      border: 0;
+    }
+
+    .lead-slide .plain-column h3{
+      margin-bottom: 16px;
+    }
+
+    .lead-slide .plain-column p{
+      font-size: clamp(17px, 1.35cqi, 22px);
+      line-height: 1.38;
+      font-weight: 720;
+    }
+
+    .lead-slide .result{
+      margin-top: 18px;
+      padding-top: 12px;
+      border-top: 1px solid currentColor;
+      font-family: var(--serif);
+      font-size: clamp(26px, 2.7cqi, 42px);
+      line-height: 1.05;
+      font-weight: 900;
+    }
+
+    .lead-slide .human-layout{
+      display: grid;
+      grid-template-columns: 0.92fr 1.08fr;
+      gap: 4%;
+      height: calc(100% - 125px);
+      align-items: center;
+    }
+
+    .lead-slide .verb-stack{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 22px;
+      max-width: 500px;
+    }
+
+    .lead-slide .verb-stack span{
+      font-family: var(--serif);
+      font-size: clamp(22px, 1.95cqi, 30px);
+      line-height: 1.1;
+      font-weight: 900;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      background: rgba(255, 250, 240, 0.68);
+    }
+
+    .lead-slide .question-field{
+      padding: 7.5%;
+      background: var(--ink);
+      color: var(--bone);
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .lead-slide .question-field p{
+      font-family: var(--serif);
+      font-size: clamp(28px, 2.85cqi, 44px);
+      line-height: 1.05;
+      font-weight: 900;
+    }
+
+    .lead-slide .amplifier-layout{
+      height: calc(100% - 175px);
+      display: grid;
+      grid-template-columns: 0.92fr 1.08fr;
+      gap: 5%;
+      align-items: center;
+    }
+
+    .lead-slide .amplifier-layout .visual-panel{
+      align-self: center;
+      position: relative;
+    }
+    .lead-slide .amplifier-layout .visual-panel::after{ display: none; }
+    .lead-slide .amplifier-layout .visual-panel .concept-image{
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 10;
+      object-fit: contain;
+      background: var(--paper);
+      border: 1px solid rgba(14, 14, 13, 0.14);
+      box-shadow: 0 14px 36px rgba(14, 14, 13, 0.08);
+      padding: 18px;
+    }
+
+    .lead-slide .amp-words{
+      display: grid;
+      grid-template-columns: repeat(3, max-content);
+      gap: 10px 14px;
+      margin-top: 26px;
+    }
+
+    .lead-slide .amp-words span{
+      display: inline-flex;
+      align-items: baseline;
+      gap: 8px;
+      font-size: clamp(20px, 1.7cqi, 28px);
+      font-weight: 850;
+      font-family: var(--serif);
+      padding: 5px 12px 7px;
+      background: rgba(255, 250, 240, 0.78);
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--clay);
+      color: var(--ink);
+    }
+
+    .lead-slide .amp-words span::before{
+      content: "×";
+      font-family: var(--mono);
+      font-weight: 700;
+      font-size: clamp(14px, 1.15cqi, 18px);
+      color: var(--clay-deep);
+      opacity: 0.72;
+      letter-spacing: -0.02em;
+    }
+
+    .lead-slide .equation{
+      padding: 8%;
+      background: var(--moss);
+      color: var(--bone);
+      font-family: var(--serif);
+      font-size: clamp(52px, 5.4cqi, 84px);
+      line-height: 1.04;
+      font-weight: 900;
+    }
+
+    .lead-slide .gap-pair{
+      display: grid;
+      grid-template-columns: 0.82fr 1.18fr;
+      gap: 26px;
+      margin-top: 3.6%;
+      align-items: stretch;
+    }
+
+    .lead-slide .belief{
+      min-height: 32cqb;
+      padding: 6%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-top: 2px solid var(--ink);
+      background: rgba(255, 250, 240, 0.55);
+    }
+
+    .lead-slide .belief.dark{
+      background: var(--ink);
+      color: var(--bone);
+      border: 0;
+    }
+
+    .lead-slide .belief strong{
+      display: block;
+      margin-top: 18px;
+      font-family: var(--serif);
+      font-size: clamp(34px, 3.7cqi, 56px);
+      line-height: 0.98;
+    }
+
+    .lead-slide .belief .small-list{
+      display: grid;
+      gap: 10px;
+      font-family: var(--serif);
+      font-size: clamp(24px, 2.2cqi, 34px);
+      line-height: 1.12;
+      font-weight: 900;
+    }
+
+    .lead-slide.thinking.active{
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      column-gap: 4.5%;
+      align-items: center;
+    }
+
+    .lead-slide .thinking-content{
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      align-self: center;
+      grid-column: 1;
+    }
+
+    .lead-slide.thinking .hero-word{
+      margin: 22px 0 22px;
+      width: fit-content;
+      padding: 10px 22px 16px;
+      background: var(--moss);
+      color: var(--bone);
+      font-size: clamp(52px, 5.8cqi, 88px);
+      line-height: 0.96;
+    }
+
+    .lead-slide.thinking .lead{
+      margin-bottom: 18px;
+    }
+
+    .lead-slide .question-row{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      max-width: 100%;
+    }
+
+    .lead-slide .question-row span{
+      padding: 8px 12px;
+      background: rgba(255, 250, 240, 0.74);
+      border: 1px solid var(--line);
+      font-size: clamp(16px, 1.14cqi, 18px);
+      font-weight: 760;
+    }
+
+    .lead-slide .brain-layout{
+      height: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4.5%;
+      align-items: center;
+    }
+
+    .lead-slide .timeline{
+      display: grid;
+      gap: 18px;
+    }
+
+    .lead-slide .time{
+      padding: 5.5%;
+      border-left: 5px solid var(--clay);
+      background: rgba(255, 250, 240, 0.58);
+      /* explicit overrides to neutralize toolbox .time { display:grid; color:var(--paper); font-family:mono; font-size:tiny } */
+      display: block;
+      place-items: initial;
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 600;
+      font-size: clamp(15px, 1.2cqi, 19px);
+      text-align: left;
+    }
+
+    .lead-slide .time.dark{
+      background: var(--ink);
+      color: var(--bone);
+      border-left-color: var(--lichen);
+    }
+    .lead-slide .time h3{
+      font-family: var(--serif);
+      font-size: clamp(22px, 2.1cqi, 32px);
+      color: inherit;
+      margin: 0;
+    }
+
+    .lead-slide .time p{
+      margin-top: 12px;
+      font-size: clamp(20px, 1.7cqi, 27px);
+      line-height: 1.42;
+      font-weight: 720;
+    }
+
+    .lead-slide .brain-note{
+      padding: 8%;
+      background: var(--moss);
+      color: var(--bone);
+      font-family: var(--serif);
+      font-size: clamp(36px, 3.9cqi, 60px);
+      line-height: 1.05;
+      font-weight: 900;
+    }
+
+    .lead-slide.finale.active{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .lead-slide .concept{
+      position: relative;
+      min-height: 330px;
+      border: 1px solid rgba(14, 14, 13, 0.16);
+      background:
+        linear-gradient(135deg, rgba(255, 250, 240, 0.74), rgba(216, 220, 196, 0.32)),
+        repeating-linear-gradient(90deg, transparent 0 34px, rgba(14, 14, 13, 0.045) 34px 35px);
+      overflow: hidden;
+    }
+
+    .lead-slide .concept::before{
+      content: "";
+      position: absolute;
+      inset: 11%;
+      border: 1px solid rgba(47, 71, 43, 0.24);
+      transform: rotate(-6deg);
+    }
+
+    .lead-slide .concept .node{
+      position: absolute;
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      min-width: 92px;
+      min-height: 42px;
+      padding: 8px 12px;
+      background: var(--bone);
+      border: 1px solid var(--line);
+      font-weight: 850;
+      font-size: clamp(14px, 1cqi, 17px);
+    }
+
+    .lead-slide .concept .core{
+      position: absolute;
+      z-index: 2;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 160px;
+      height: 160px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--ink);
+      color: var(--bone);
+      font-family: var(--serif);
+      font-size: clamp(28px, 2.5cqi, 40px);
+      font-weight: 900;
+      line-height: 1.05;
+      text-align: center;
+    }
+
+    .lead-slide .concept .line{
+      position: absolute;
+      z-index: 0;
+      height: 2px;
+      background: rgba(194, 106, 74, 0.6);
+      transform-origin: left center;
+    }
+
+    .lead-slide .network .node:nth-child(1){ left: 9%; top: 11%; }
+    .lead-slide .network .node:nth-child(2){ right: 10%; top: 13%; }
+    .lead-slide .network .node:nth-child(3){ left: 7%; top: 45%; }
+    .lead-slide .network .node:nth-child(4){ right: 8%; top: 45%; }
+    .lead-slide .network .node:nth-child(5){ left: 17%; bottom: 10%; }
+    .lead-slide .network .node:nth-child(6){ right: 16%; bottom: 10%; }
+    .lead-slide .network .line:nth-of-type(1){ left: 26%; top: 26%; width: 48%; transform: rotate(18deg); }
+    .lead-slide .network .line:nth-of-type(2){ left: 23%; top: 53%; width: 54%; transform: rotate(-9deg); }
+    .lead-slide .network .line:nth-of-type(3){ left: 29%; bottom: 25%; width: 42%; transform: rotate(-23deg); }
+
+    .lead-slide .flow-diagram{
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: 1fr 38px 1fr 38px 1fr;
+      gap: 0;
+      align-items: center;
+      max-width: 820px;
+    }
+
+    .lead-slide .flow-step{
+      min-height: 66px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      background: rgba(255, 250, 240, 0.7);
+      border: 1px solid var(--line);
+      font-family: var(--serif);
+      font-size: clamp(18px, 1.55cqi, 25px);
+      line-height: 1.12;
+      font-weight: 900;
+    }
+
+    .lead-slide .flow-arrow{
+      height: 2px;
+      background: var(--clay);
+      position: relative;
+    }
+
+    .lead-slide .flow-arrow::after{
+      content: "";
+      position: absolute;
+      right: -1px;
+      top: 50%;
+      width: 10px;
+      height: 10px;
+      border-top: 2px solid var(--clay);
+      border-right: 2px solid var(--clay);
+      transform: translateY(-50%) rotate(45deg);
+    }
+
+    .lead-slide .amplifier-visual{
+      position: relative;
+      height: 360px;
+      background: var(--moss);
+      color: var(--bone);
+      overflow: hidden;
+      padding: 8%;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .lead-slide .amplifier-visual::before{
+      content: "";
+      position: absolute;
+      left: 12%;
+      right: 12%;
+      bottom: 18%;
+      height: 3px;
+      background: rgba(245, 241, 232, 0.38);
+      transform: rotate(-16deg);
+      transform-origin: left center;
+    }
+
+    .lead-slide .bar{
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      margin-right: 18px;
+      background: var(--bone);
+      color: var(--ink);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 16px 8px;
+      font-family: var(--mono);
+      font-weight: 850;
+    }
+
+    .lead-slide .bar:nth-child(1){ height: 28%; opacity: 0.75; }
+    .lead-slide .bar:nth-child(2){ height: 48%; opacity: 0.85; }
+    .lead-slide .bar:nth-child(3){ height: 72%; background: var(--lichen); }
+    .lead-slide .bar:nth-child(4){ height: 96%; margin-right: 0; background: var(--clay); color: var(--bone); }
+
+    .lead-slide .compass{
+      position: absolute;
+      right: 7.8%;
+      top: 20%;
+      width: 330px;
+      height: 330px;
+      border: 1px solid rgba(14, 14, 13, 0.2);
+      border-radius: 50%;
+      background: rgba(255, 250, 240, 0.5);
+    }
+
+    .lead-slide .compass::before, .lead-slide .compass::after{
+      content: "";
+      position: absolute;
+      background: rgba(194, 106, 74, 0.56);
+    }
+
+    .lead-slide .compass::before{
+      left: 50%;
+      top: 9%;
+      bottom: 9%;
+      width: 2px;
+    }
+
+    .lead-slide .compass::after{
+      top: 50%;
+      left: 9%;
+      right: 9%;
+      height: 2px;
+    }
+
+    .lead-slide .compass span{
+      position: absolute;
+      transform: translate(-50%, -50%);
+      font-family: var(--serif);
+      font-size: clamp(18px, 1.5cqi, 24px);
+      font-weight: 900;
+      color: var(--moss);
+    }
+
+    .lead-slide .compass span:nth-child(1){ left: 50%; top: 17%; }
+    .lead-slide .compass span:nth-child(2){ left: 84%; top: 50%; }
+    .lead-slide .compass span:nth-child(3){ left: 50%; top: 83%; }
+    .lead-slide .compass span:nth-child(4){ left: 16%; top: 50%; }
+
+    .lead-slide .thinking-visual{
+      position: relative;
+      grid-column: 2;
+      align-self: center;
+      justify-self: end;
+      width: 100%;
+      max-width: 520px;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      z-index: 1;
+    }
+
+    .lead-slide .brain-visual{
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+    }
+
+    .lead-slide .brain-visual .concept-image{
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+    }
+
+    .lead-slide .brain-visual .brain-note{
+      position: static;
+      padding: 22px 26px;
+      background: var(--moss);
+      color: var(--bone);
+      font-family: var(--serif);
+      font-weight: 900;
+      font-size: clamp(22px, 2.05cqi, 30px);
+      line-height: 1.22;
+    }
+
+    .lead-slide .era-tags{
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 28px 0 34px;
+    }
+
+    .lead-slide .era-tags span{
+      padding: 7px 12px;
+      border: 1px solid var(--line);
+      background: rgba(255, 250, 240, 0.76);
+      font-family: var(--mono);
+      font-size: clamp(10px, 0.85cqi, 13px);
+      font-weight: 850;
+      text-transform: uppercase;
+    }
+
+    .lead-slide .final-line{
+      max-width: 980px;
+      font-family: var(--serif);
+      font-size: clamp(34px, 3.5cqi, 56px);
+      line-height: 1.18;
+      font-weight: 900;
+    }
+
+    .lead-slide .final-line strong{
+      display: block;
+      margin-top: 18px;
+      color: var(--clay-deep);
+      font-size: 1.16em;
+    }
+
+    .lead-slide .controls{
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      z-index: 99;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      background: rgba(14, 14, 13, 0.8);
+      color: var(--bone);
+      font-family: var(--mono);
+      font-size: 12px;
+    }
+
+    .lead-slide .controls button{
+      width: 32px;
+      height: 28px;
+      border: 1px solid rgba(245, 241, 232, 0.26);
+      background: transparent;
+      color: var(--bone);
+      font-size: 20px;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .lead-slide /* ── Self-Intro slide (L2) ── */
+    .intro-layout{
+      display: grid;
+      grid-template-columns: 0.92fr 1.08fr;
+      gap: 4.6cqi;
+      margin-top: 2.6cqb;
+      align-items: start;
+    }
+    .lead-slide .intro-left h2{
+      font-size: clamp(58px, 6.8cqi, 102px);
+      line-height: 0.95;
+      margin: 1cqb 0 1.8cqb;
+      max-width: none;
+    }
+    .lead-slide .intro-left .intro-brand{
+      font-family: var(--mono);
+      font-size: clamp(11px, 0.92cqi, 14px);
+      letter-spacing: 0.08em;
+      color: var(--clay-deep);
+      font-weight: 700;
+      margin: -0.6cqb 0 1.3cqb;
+      padding: 4px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      display: inline-block;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+    .lead-slide .intro-left .lead{
+      max-width: 92%;
+      margin-bottom: 1.5cqb;
+    }
+    .lead-slide .intro-left .lead u{
+      text-decoration-color: var(--clay);
+      text-underline-offset: 4px;
+      text-decoration-thickness: 2px;
+    }
+    .lead-slide .intro-left .intro-aside{
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: clamp(12px, 0.95cqi, 15px);
+      color: var(--bark);
+      border-left: 2px solid var(--clay);
+      padding: 4px 0 4px 12px;
+      line-height: 1.4;
+    }
+    .lead-slide .intro-right{ display: flex; flex-direction: column; gap: 16px; }
+    .lead-slide .intro-card{
+      position: relative;
+      padding: 22px 26px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+    }
+    .lead-slide .intro-card .kicker-mini{
+      font-family: var(--mono);
+      font-size: clamp(9px, 0.72cqi, 11px);
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      text-transform: uppercase;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .lead-slide .intro-card h3{
+      font-family: var(--serif);
+      font-weight: 900;
+      font-size: clamp(28px, 3cqi, 46px);
+      line-height: 1;
+      margin-bottom: 10px;
+      color: var(--moss);
+    }
+    .lead-slide .intro-card.dark{
+      background: var(--ink);
+      color: var(--bone);
+      border-color: var(--ink);
+    }
+    .lead-slide .intro-card.dark .kicker-mini{ color: var(--lichen); }
+    .lead-slide .intro-card.dark h3{ color: var(--lichen); }
+    .lead-slide .intro-card.dark p{ color: rgba(245, 241, 232, 0.92); }
+    .lead-slide .intro-card p{
+      font-family: var(--sans);
+      font-size: clamp(14px, 1.2cqi, 18px);
+      line-height: 1.55;
+      margin: 0;
+      font-weight: 600;
+    }
+    .lead-slide .intro-card p b{ color: var(--clay-deep); }
+    .lead-slide .intro-card.dark p b{ color: var(--lichen); }
+
+    .lead-slide .intro-stats{
+      position: absolute;
+      left: 6.7%;
+      right: 6.7%;
+      bottom: 9.4%;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      padding-top: 14px;
+      border-top: 2px solid var(--ink);
+      z-index: 3;
+    }
+    .lead-slide .intro-stats > div{ display: flex; flex-direction: column; gap: 2px; }
+    .lead-slide .intro-stats b{
+      font-family: var(--serif);
+      font-weight: 900;
+      font-size: clamp(34px, 3.6cqi, 56px);
+      line-height: 1;
+      color: var(--ink);
+    }
+    .lead-slide .intro-stats span{
+      font-family: var(--mono);
+      font-size: clamp(10px, 0.82cqi, 13px);
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      font-weight: 700;
+    }
+
+    .lead-slide /* Small-window adjustments handled by scale-to-fit JS — no manual breakpoints needed. */
+
+    @page{
+      size: 16in 9in;
+      margin: 0;
+    }
+
+    @media print {
+      html, body{
+        width: 16in;
+        min-height: 9in;
+        padding: 0;
+        display: block;
+        background: var(--bone);
+      }
+
+      .deck{
+        width: 16in;
+        height: auto;
+        aspect-ratio: auto;
+        overflow: visible;
+        box-shadow: none;
+      }
+
+      .lead-slide.slide, .lead-slide.slide.active, .lead-slide.cover, .lead-slide.cover.active{
+        position: relative;
+        display: block !important;
+        width: 16in;
+        height: 9in;
+        page-break-after: always;
+        break-after: page;
+      }
+
+      .lead-slide.cover, .lead-slide.cover.active{
+        display: grid !important;
+      }
+
+      .lead-slide.slide:last-child{
+        page-break-after: auto;
+        break-after: auto;
+      }
+
+      .lead-slide .controls{ display: none; }
+    }
+  
   </style>
 </head>
 <body>
+  <div class="stage">
   <main class="deck" id="deck">
-    <section class="slide title-slide active">
+    <!-- ══════════════ LEAD-IN DECK (L1–L11) ══════════════ -->
+
+    <section class="slide lead-slide cover active">
+      <div class="cover-main">
+        <span class="kicker">Opening Note · 一個森林居民的觀察</span>
+        <h1>AI 時代<br>我看到的事</h1>
+        <p class="cover-sub">不是教學，<br>只是把這幾年<br>自己摸到的<br>攤開來分享。</p>
+      </div>
+      <aside class="cover-side">
+        <img class="cover-logo" src="logo-mr-chill.png" alt="竹山chill先生 logo">
+        <h2>沒有什麼結論——<br>只是路上的一些觀察。</h2>
+        <p class="small">Mr Chill × Birth 城市聚落｜AI × 工作 × 生活</p>
+      </aside>
+    </section>
+
+    <section class="slide lead-slide intro-slide">
+      <div class="meta">Self-Intro / Mr Chill</div>
+      <div class="num">02</div>
+      <img class="logo" src="logo-mr-chill.png" alt="">
+      <div class="ghost-num">02</div>
+      <span class="kicker">我是誰</span>
+      <div class="intro-layout">
+        <div class="intro-left">
+          <h2>我是<br>Kobee</h2>
+          <p class="intro-brand">竹山 chill 先生｜靜謐森林屋 主理人</p>
+          <p class="lead">
+            一個來自都市、現在住在<u>竹山森林</u>裡的人。<br>
+            一半時間搬石頭、砍樹、蓋二館，<br>
+            另一半在玩 AI——看一個人能放大到什麼程度。
+          </p>
+          <span class="intro-aside">※ 不是專家，比較像愛好者。<br>每週翻車一次。</span>
+        </div>
+        <div class="intro-right">
+          <article class="intro-card">
+            <div class="kicker-mini">01 · IN THE FOREST</div>
+            <h3>在森林</h3>
+            <p>經營一間包棟民宿——<b>靜謐森林屋</b>。蓋二館、搬石頭、整地，<br>很多事自己動手做。</p>
+          </article>
+          <article class="intro-card dark">
+            <div class="kicker-mini">02 · WITH THE MACHINES</div>
+            <h3>在 AI</h3>
+            <p>把無聊的事丟給機器：寫專案、生圖、剪影片、整理筆記，然後省下時間去搬石頭。</p>
+          </article>
+        </div>
+      </div>
+      <div class="intro-stats">
+        <div><b>6</b><span>年沒回都市</span></div>
+        <div><b>10,000+</b><span>位住過的客人</span></div>
+        <div><b>n</b><span>個沒完成的專案</span></div>
+        <div><b>1</b><span>隻狗叫虎鼻</span></div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 時代前導</div>
+    </section>
+
+    <section class="slide lead-slide">
+      <div class="meta">Rule Change / Not Just Efficiency</div>
+      <div class="num">04</div>
+      <img class="logo" src="logo-mr-chill.png" alt="">
+      <div class="ghost-num">02</div>
+      <div class="vertical-note">The world is changing rules</div>
+      <div class="rule-layout">
+        <div>
+          <span class="kicker">世界正在換規則</span>
+          <h2>AI 改變的<br>不只是效率</h2>
+          <div class="rule-line">甚至：<br>人與自己的關係</div>
+        </div>
+        <div>
+          <p class="lead">它正在改變：</p>
+          <div class="change-list">
+            <span>工作方式</span>
+            <span>學習方式</span>
+            <span>創作方式</span>
+            <span>人與資訊的關係</span>
+          </div>
+        </div>
+      </div>
+      <div class="strip">
+        <div class="quote">現在不是學 AI 的時代<br><strong>而是學怎麼跟 AI 共存的時代</strong></div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 時代前導</div>
+    </section>
+
+    <section class="slide lead-slide">
+      <div class="meta">One Person Company / AI Behind The Scene</div>
+      <div class="num">04</div>
+      <img class="logo" src="logo-mr-chill.png" alt="">
+      <div class="ghost-num">04</div>
+      <div class="company-layout">
+        <div class="dark-slab">
+          <span class="kicker">真正可怕的事已經開始了</span>
+          <h2>有些人<br>已經開始<br>像一間公司</h2>
+          <p class="small">因為他背後：有一整群 AI</p>
+        </div>
+        <div class="visual-panel">
+          <img class="concept-image" src="concept-ai-team.png" alt="一個人背後由設計、文案、行銷、網站、品牌等 AI 分工組成的抽象概念圖">
+        </div>
+      </div>
+      <div class="strip">
+        <div class="quote">AI 不只是工具<br><strong>它開始像能力外掛</strong></div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 時代前導</div>
+    </section>
+
+    <section class="slide lead-slide">
+      <div class="meta">Search Engine Mindset / Team Mindset</div>
+      <div class="num">05</div>
+      <img class="logo" src="logo-mr-chill.png" alt="">
+      <div class="ghost-num">05</div>
+      <span class="kicker">很多人其實用錯 AI 了</span>
+      <h2>大部分人<br>還在把 AI 當搜尋引擎</h2>
+      <div class="compare-layout">
+        <article class="plain-column">
+          <h3>一般使用方式</h3>
+          <p>幫我寫文案<br>幫我做簡報<br>幫我整理資料</p>
+          <div class="result">得到普通答案</div>
+        </article>
+        <article class="plain-column dark">
+          <h3>真正強的人</h3>
+          <p>給 AI 角色<br>給 AI 背景<br>給 AI 長期記憶<br>建立 AI 工作流</p>
+          <div class="result">AI 開始變團隊</div>
+        </article>
+      </div>
+      <div class="flow-diagram" aria-label="AI 從普通答案變成工作流的條件">
+        <div class="flow-step">角色</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-step">背景與記憶</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-step">工作流</div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 時代前導</div>
+    </section>
+
+    <section class="slide lead-slide">
+      <div class="meta">Human Value / Soul And Judgment</div>
+      <div class="num">06</div>
+      <img class="logo" src="logo-mr-chill.png" alt="">
+      <div class="ghost-num">06</div>
+      <div class="human-layout">
+        <div>
+          <span class="kicker">未來真正值錢的是什麼？</span>
+          <h2>AI 越強<br>「人」反而越重要</h2>
+          <div class="verb-stack">
+            <span>寫</span>
+            <span>做</span>
+            <span>分析</span>
+            <span>整理</span>
+          </div>
+        </div>
+        <div class="question-field">
+          <p>世界觀誰決定？</p>
+          <p>美感誰決定？</p>
+          <p>情感誰決定？</p>
+          <p>靈魂誰決定？</p>
+        </div>
+      </div>
+      <div class="strip">
+        <div class="quote">未來真正稀缺的，可能不是技術<br><strong>而是「有靈魂的人」</strong></div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 時代前導</div>
+    </section>
+
+    <section class="slide lead-slide">
+      <div class="meta">Amplifier / Not Efficiency Only</div>
+      <div class="num">07</div>
+      <img class="logo" src="logo-mr-chill.png" alt="">
+      <div class="ghost-num">07</div>
+      <div class="amplifier-layout">
+        <div>
+          <span class="kicker">AI 最可怕的不是效率</span>
+          <h2>AI 是<br>能力放大器</h2>
+          <div class="amp-words">
+            <span>創意</span>
+            <span>行動力</span>
+            <span>思考能力</span>
+            <span>學習速度</span>
+            <span>世界觀</span>
+          </div>
+        </div>
+        <div class="visual-panel">
+          <img class="concept-image" src="concept-amplifier.png" alt="AI 將個體能力從 1 倍放大到 10 倍的抽象柱狀概念圖">
+        </div>
+      </div>
+      <div class="strip">
+        <div class="quote">AI + 有想法的人<br><strong>會非常可怕</strong></div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 時代前導</div>
+    </section>
+
+    <section class="slide lead-slide">
+      <div class="meta">Cognition Gap / The Distance Gets Wider</div>
+      <div class="num">08</div>
+      <img class="logo" src="logo-mr-chill.png" alt="">
+      <div class="ghost-num">08</div>
+      <span class="kicker">未來差距會越來越大</span>
+      <h2>未來最大的差距<br>可能是認知差</h2>
+      <div class="gap-pair">
+        <article class="belief">
+          <p class="small">有些人還覺得：</p>
+          <strong>AI =<br>聊天機器人</strong>
+        </article>
+        <article class="belief dark">
+          <p class="small">有些人已經開始：</p>
+          <div class="small-list">
+            <span>建立 AI 團隊</span>
+            <span>建立 AI 工作流</span>
+            <span>用 AI 做品牌</span>
+            <span>用 AI 放大商業</span>
+          </div>
+        </article>
+      </div>
+      <div class="strip">
+        <div class="quote">世界正在變<br><strong>但很多人還沒意識到</strong></div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 時代前導</div>
+    </section>
+
+    <section class="slide lead-slide thinking">
+      <div class="meta">Thinking / Asking Better Questions</div>
+      <div class="num">09</div>
+      <img class="logo" src="logo-mr-chill.png" alt="">
+      <div class="ghost-num">09</div>
+      <div class="thinking-content">
+        <span class="kicker">AI 時代最重要的能力</span>
+        <h2>未來最重要的<br>可能不是知識</h2>
+        <div class="hero-word">而是思考能力</div>
+        <p class="lead">因為 AI 很像超強員工。真正重要的是，你怎麼指揮它。</p>
+        <div class="question-row">
+          <span>你怎麼提問</span>
+          <span>你怎麼定義問題</span>
+          <span>你怎麼思考</span>
+          <span>你想創造什麼</span>
+        </div>
+      </div>
+      <img class="concept-image thinking-visual" src="concept-thinking-compass.png" alt="提問、定義、創造、判斷組成的思考能力羅盤概念圖">
+      <div class="footer">竹山chill先生｜AI 時代前導</div>
+    </section>
+
+    <section class="slide lead-slide">
+      <div class="meta">Second Brain / Collaboration Ability</div>
+      <div class="num">10</div>
+      <img class="logo" src="logo-mr-chill.png" alt="">
+      <div class="ghost-num">10</div>
+      <div class="brain-layout">
+        <div>
+          <span class="kicker">你正在建立第二大腦</span>
+          <h2>AI 開始像<br>第二大腦</h2>
+          <div class="timeline">
+            <div class="time">
+              <h3>以前</h3>
+              <p>自己查、自己想、自己卡住。</p>
+            </div>
+            <div class="time dark">
+              <h3>現在</h3>
+              <p>跟 AI 討論、brainstorm，讓它整理與拆解問題。</p>
+            </div>
+          </div>
+        </div>
+        <div class="brain-visual">
+          <img class="concept-image" src="concept-second-brain.png" alt="AI 第二大腦與知識節點連結的抽象概念圖">
+          <div class="brain-note">未來真正的競爭力<br>可能是你與 AI 協作的能力</div>
+        </div>
+      </div>
+      <div class="footer">竹山chill先生｜AI 時代前導</div>
+    </section>
+
+    <section class="slide lead-slide finale">
+      <div class="meta">New Civilization / Just Starting</div>
+      <div class="num">11</div>
+      <img class="logo" src="logo-mr-chill.png" alt="">
+      <div class="ghost-num">11</div>
+      <span class="kicker">這可能只是剛開始</span>
+      <h2>我們正在進入<br>一個新的文明階段</h2>
+      <div class="era-tags">
+        <span>Internet</span>
+        <span>iPhone</span>
+        <span>Social Media</span>
+        <span>AI</span>
+      </div>
+      <p class="lead">很多人還不知道：世界規則已經開始改變。</p>
+      <div class="final-line">
+        未來真正重要的，不是 AI 能做到什麼。
+        <strong>而是：你想用 AI，成為什麼樣的人。</strong>
+      </div>
+      <div class="footer">竹山chill先生｜AI 時代前導</div>
+    </section>
+  
+    <!-- ══════════════ MAIN DECK (P1–P74) ══════════════ -->
+
+    <section class="slide title-slide">
       <div class="title-left">
         <div class="kicker">MR CHILL / AI WORKSHOP DECK</div>
         <h1>AI 實戰課<br>從工具到工作流</h1>
@@ -4489,10 +5953,11 @@
       <div class="footer">竹山chill先生｜AI 實戰課：從工具到工作流</div>
     </section>
   </main>
+  </div><!-- /.stage -->
 
   <nav class="controls" aria-label="投影片控制">
     <button type="button" id="prev" aria-label="上一頁">‹</button>
-    <span id="counter">1 / 74</span>
+    <span id="counter">1 / 84</span>
     <button type="button" id="next" aria-label="下一頁">›</button>
   </nav>
 
@@ -4532,6 +5997,20 @@
     const initial = Number.parseInt(location.hash.replace("#", ""), 10);
     if (Number.isFinite(initial)) show(initial - 1);
     else show(0);
+
+    /* ── Scale-to-fit: keep design at 1440×810 and shrink to any window ── */
+    (function() {
+      const stage = document.querySelector(".stage");
+      if (!stage) return;
+      const W = 1440, H = 810;
+      function fit() {
+        const scale = Math.min(window.innerWidth / W, window.innerHeight / H);
+        stage.style.transform = `scale(${scale})`;
+      }
+      fit();
+      window.addEventListener("resize", fit);
+      window.addEventListener("orientationchange", fit);
+    })();
   </script>
 </body>
 </html>
