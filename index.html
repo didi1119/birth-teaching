@@ -2514,38 +2514,6 @@
       .controls { bottom: 8px; }
     }
 
-    @media print {
-      body {
-        display: block;
-        padding: 0;
-        background: white;
-      }
-      .deck {
-        width: 100cqi;
-        height: auto;
-        aspect-ratio: auto;
-        box-shadow: none;
-      }
-      .slide {
-        position: relative;
-        display: flex !important;
-        flex-direction: column;
-        width: 100cqi;
-        height: 56.25cqi;
-        page-break-after: always;
-        overflow: hidden;
-      }
-      .title-slide {
-        display: grid !important;
-      }
-      .slide.chapter-slide {
-        display: flex !important;
-      }
-      .slide.backup {
-        display: none !important;
-      }
-      .controls { display: none; }
-      
     /* ── Event Cover (L1) — warm welcome for Birth team ── */
     .lead-slide.event-cover{
       display: none;
@@ -2644,8 +2612,38 @@
       padding: 4px;
     }
 
-
-    @page { size: 16in 9in; margin: 0; }
+    @media print {
+      body {
+        display: block;
+        padding: 0;
+        background: white;
+      }
+      .deck {
+        width: 100cqi;
+        height: auto;
+        aspect-ratio: auto;
+        box-shadow: none;
+      }
+      .slide {
+        position: relative;
+        display: flex !important;
+        flex-direction: column;
+        width: 100cqi;
+        height: 56.25cqi;
+        page-break-after: always;
+        overflow: hidden;
+      }
+      .title-slide {
+        display: grid !important;
+      }
+      .slide.chapter-slide {
+        display: flex !important;
+      }
+      .slide.backup {
+        display: none !important;
+      }
+      .controls { display: none; }
+@page { size: 16in 9in; margin: 0; }
     }
   
 /* ═══════════════════════════════════════════════════════════════
