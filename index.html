@@ -2545,7 +2545,107 @@
         display: none !important;
       }
       .controls { display: none; }
-      @page { size: 16in 9in; margin: 0; }
+      
+    /* ── Event Cover (L1) — warm welcome for Birth team ── */
+    .lead-slide.event-cover{
+      display: none;
+      padding: 0;
+      background: var(--bone);
+      color: var(--ink);
+    }
+    .lead-slide.event-cover.active{
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      padding: 6.5% 7.5% 7%;
+    }
+    .lead-slide .event-stripe-top{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--mono);
+      font-size: clamp(10px, 0.85cqi, 13px);
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--line);
+      font-weight: 700;
+    }
+    .lead-slide .event-hero{
+      align-self: center;
+      padding: 4cqb 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2.6cqb;
+    }
+    .lead-slide .event-eyebrow{
+      display: inline-block;
+      width: fit-content;
+      font-family: var(--mono);
+      font-size: clamp(13px, 1.08cqi, 17px);
+      letter-spacing: 0.1em;
+      color: var(--clay-deep);
+      font-weight: 900;
+      text-transform: uppercase;
+      padding: 5px 10px;
+      border: 1px solid var(--clay);
+      background: rgba(255, 250, 240, 0.5);
+    }
+    .lead-slide .event-hero h1{
+      font-family: var(--serif);
+      font-size: clamp(82px, 9.4cqi, 152px);
+      line-height: 0.92;
+      letter-spacing: -0.01em;
+      font-weight: 900;
+      margin: 0;
+      max-width: none;
+    }
+    .lead-slide .event-blurb{
+      font-family: var(--serif);
+      font-size: clamp(22px, 2.05cqi, 32px);
+      line-height: 1.5;
+      color: var(--ink-2);
+      font-weight: 650;
+      max-width: 28ch;
+    }
+    .lead-slide .event-stripe-bottom{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--line);
+      padding-top: 20px;
+    }
+    .lead-slide .event-host{
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .lead-slide .event-host-label{
+      font-family: var(--mono);
+      font-size: clamp(9px, 0.75cqi, 11px);
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-weight: 700;
+    }
+    .lead-slide .event-host-name{
+      font-family: var(--serif);
+      font-size: clamp(18px, 1.55cqi, 24px);
+      font-weight: 800;
+      color: var(--ink);
+    }
+    .lead-slide .event-mark{
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      object-fit: contain;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      padding: 4px;
+    }
+
+
+    @page { size: 16in 9in; margin: 0; }
     }
   
 /* ═══════════════════════════════════════════════════════════════
@@ -3714,18 +3814,31 @@
   <main class="deck" id="deck">
     <!-- ══════════════ LEAD-IN DECK (L1–L11) ══════════════ -->
 
-    <section class="slide lead-slide cover active">
-      <div class="cover-main">
-        <span class="kicker">Opening Note · 一個森林居民的觀察</span>
-        <h1>AI 時代<br>我看到的事</h1>
-        <p class="cover-sub">不是教學，<br>只是把這幾年<br>自己摸到的<br>攤開來分享。</p>
+        <section class="slide lead-slide event-cover active">
+      <div class="meta">Welcome / Birth x Mr Chill</div>
+
+      <div class="event-stripe-top">
+        <span>Birth City Cluster AI Talk</span>
+        <span>2026 / 05</span>
       </div>
-      <aside class="cover-side">
-        <img class="cover-logo" src="logo-mr-chill.png" alt="竹山chill先生 logo">
-        <h2>沒有什麼結論——<br>只是路上的一些觀察。</h2>
-        <p class="small">Mr Chill × Birth 城市聚落｜AI × 工作 × 生活</p>
-      </aside>
+
+      <div class="event-hero">
+        <span class="event-eyebrow">給 Birth 團隊</span>
+        <h1>一個下午<br>聊聊 AI</h1>
+        <p class="event-blurb">分享一些觀察、一些工具，<br>還有一些可以帶回去用的東西。</p>
+      </div>
+
+      <div class="event-stripe-bottom">
+        <div class="event-host">
+          <span class="event-host-label">Host</span>
+          <span class="event-host-name">Kobee  竹山 chill 先生</span>
+        </div>
+        <img class="event-mark" src="logo-mr-chill.png" alt="">
+      </div>
+
+      <div class="footer">Birth x Mr Chill AI Talk</div>
     </section>
+
 
     <section class="slide lead-slide intro-slide">
       <div class="meta">Self-Intro / Mr Chill</div>
@@ -3764,6 +3877,19 @@
         <div><b>1</b><span>隻狗叫虎鼻</span></div>
       </div>
       <div class="footer">竹山chill先生｜AI 時代前導</div>
+    </section>
+
+<section class="slide lead-slide cover">
+      <div class="cover-main">
+        <span class="kicker">Opening Note · 一個森林居民的觀察</span>
+        <h1>AI 時代<br>我看到的事</h1>
+        <p class="cover-sub">不是教學，<br>只是把這幾年<br>自己摸到的<br>攤開來分享。</p>
+      </div>
+      <aside class="cover-side">
+        <img class="cover-logo" src="logo-mr-chill.png" alt="竹山chill先生 logo">
+        <h2>沒有什麼結論——<br>只是路上的一些觀察。</h2>
+        <p class="small">Mr Chill × Birth 城市聚落｜AI × 工作 × 生活</p>
+      </aside>
     </section>
 
     <section class="slide lead-slide">
@@ -5957,7 +6083,7 @@
 
   <nav class="controls" aria-label="投影片控制">
     <button type="button" id="prev" aria-label="上一頁">‹</button>
-    <span id="counter">1 / 84</span>
+    <span id="counter">1 / 85</span>
     <button type="button" id="next" aria-label="下一頁">›</button>
   </nav>
 
